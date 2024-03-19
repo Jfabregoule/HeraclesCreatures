@@ -1,7 +1,13 @@
-﻿class Program
+﻿using HeraclesCreatures.Source;
+
+class Program
 {
     public static void Main(string[] args)
     {
+        GameManager gameManager = new GameManager();
+
+        gameManager.InitializeGame();
+        gameManager.GameLoop();
         Console.WriteLine();
     }
 }

@@ -1,29 +1,29 @@
-﻿using HeraclesCreatures.Source.Map;
+﻿using HeraclesCreatures.Source.GameObject.Creatures;
+using HeraclesCreatures.Source.GameObject.Items;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HeraclesCreatures.Source
 {
-    internal class GameManager
+    class InputManager
     {
-
         /*------------------------------------------------------------------------------------------*\
-        |                                                                                            |
-        |                                                                                            |
-        |                                          Fields                                            |
-        |                                                                                            |
-        |                                                                                            |
-        \*------------------------------------------------------------------------------------------*/
+         |                                                                                            |
+         |                                                                                            |
+         |                                          Fields                                            |
+         |                                                                                            |
+         |                                                                                            |
+         \*------------------------------------------------------------------------------------------*/
 
         #region Fields
 
-        InputManager    _inputManager;
-        MapClass        _map;
-        bool            _isRunning;
+        Dictionary<string, bool> keyStates = new Dictionary<string, bool>();
+
+        HashSet<ConsoleKey> pressedKeys = new HashSet<ConsoleKey>();
+
 
         #endregion Fields
 
@@ -37,6 +37,7 @@ namespace HeraclesCreatures.Source
 
         #region Properties
 
+
         #endregion Properties
 
         /*------------------------------------------------------------------------------------------*\
@@ -48,6 +49,8 @@ namespace HeraclesCreatures.Source
         \*------------------------------------------------------------------------------------------*/
 
         #region Events
+
+
 
         #endregion Events
 
@@ -61,27 +64,22 @@ namespace HeraclesCreatures.Source
 
         #region Methods
 
-        public GameManager() { }
-
-        public void InitializeGame()
+        public void Update()
         {
-            _isRunning = true;
-            _inputManager = new InputManager();
-        }
-        public void GameLoop()
-        { 
-            while(_isRunning)
+            pressedKeys.Clear();
+
+            while (Console.KeyAvailable)
             {
-                _inputManager.Update();
-                if (_inputManager.GetKeyDown(ConsoleKey.Z))
-                {
-                    Console.WriteLine('z');
-                }
+                ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+                pressedKeys.Add(keyInfo.Key);
             }
-            
+        }
+
+        public bool GetKeyDown(ConsoleKey key)
+        {
+            return pressedKeys.Contains(key);
         }
 
         #endregion Methods
-
     }
 }

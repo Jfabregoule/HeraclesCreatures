@@ -73,7 +73,14 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Methods
 
-        public SpellStats() { }
+        public SpellStats() 
+        {
+            _power = 0;
+            _accuracy = 0;
+            _critRate = 0;
+            _manaCost = 0;
+            _type = string.Empty;
+        }
 
         #endregion Methods
 

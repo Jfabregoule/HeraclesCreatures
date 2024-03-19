@@ -73,7 +73,14 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Methods
 
-        public AttackStats() { }
+        public AttackStats() 
+        {
+            _power = 0;
+            _accuracy = 0;
+            _critRate = 0;
+            _maxPP = 0;
+            _type = string.Empty;
+        }
 
         #endregion Methods
 
