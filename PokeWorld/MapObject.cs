@@ -15,10 +15,15 @@ namespace HeraclesCreatures
 
         //Property
         public int X { get { return _x; } set { _x = value; } }
-        public int Y { get { return _y; } set { _y = value; } }  
+        public int Y { get { return _y; } set { _y = value; } }
 
         //Event
 
         //Methods
+        public MapObject()
+        {
+            _x = 0;
+            _y = 0;
+        }
     }
 }

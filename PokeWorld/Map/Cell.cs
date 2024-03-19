@@ -6,9 +6,18 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures.Map
 {
-    public class Cell
+    internal class Cell
     {
-        int _X;
-        int _Y;
+        int _x;
+        int _y;
+        CellData_ _cellData;
+
+        public Cell(int x, int y, CellData_ cellData)
+        {
+            _x = x;
+            _y = y;
+            _cellData = cellData;
+
+        }
     }
 }
