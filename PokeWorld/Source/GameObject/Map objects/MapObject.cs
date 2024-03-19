@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.GameObject
+namespace HeraclesCreatures.Source.GameObject
 {
     internal class MapObject : GameObject
     {

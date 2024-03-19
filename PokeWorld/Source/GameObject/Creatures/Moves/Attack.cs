@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.Creatures
+namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 {
-
-    #region Creatures Class
-
-    internal class Creatures
+    internal class Attack : Moves
     {
+
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
@@ -21,10 +19,7 @@ namespace HeraclesCreatures.Source.Creatures
 
         #region Fields
 
-        string _creatureName;
-        //List<Moves>   _Moves;
-        //List<Spells>  _Spells;
-        //HeroeStat     _Stats;
+        AttackStats _stats;
 
         #endregion Fields
 
@@ -38,7 +33,7 @@ namespace HeraclesCreatures.Source.Creatures
 
         #region Properties
 
-        public string CreatureName { get => _creatureName; private set => _creatureName = value; }
+        public AttackStats Stats { get => _stats; private set => _stats = value; }
 
         #endregion Properties
 
@@ -65,13 +60,10 @@ namespace HeraclesCreatures.Source.Creatures
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
-        public Creatures() { }
-        public Creatures(string CreatureName) { }
+
+        public Attack() { }
 
         #endregion Methods
 
     }
-
-    #endregion Creatures Class
-
 }

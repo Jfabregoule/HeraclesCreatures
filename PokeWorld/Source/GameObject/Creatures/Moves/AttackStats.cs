@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.Creatures.Moves
+namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 {
     internal struct AttackStats
     {
@@ -19,11 +19,11 @@ namespace HeraclesCreatures.Source.Creatures.Moves
 
         #region Fields
 
-        int     _power;
-        int     _accuracy;
-        int     _critRate;
-        int     _maxPP;
-        string  _type;
+        int _power;
+        int _accuracy;
+        int _critRate;
+        int _maxPP;
+        string _type;
 
         #endregion Fields
 

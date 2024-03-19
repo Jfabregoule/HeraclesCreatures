@@ -1,4 +1,4 @@
-﻿public struct HeroeStats
+﻿public struct CreatureStats
 {
     int _hp;
     int _attack;

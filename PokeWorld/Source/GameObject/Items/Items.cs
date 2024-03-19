@@ -4,20 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.GameObject
+namespace HeraclesCreatures.Source.GameObject.Items
 {
-    internal class Player : MapObject
+    internal class Items : GameObject
     {
         //Fields
-        List<Items> _items;
-        List<Heroes> _heroes;
 
         //Properties
-        
 
         //Events
 
         //Methods
-        public Player() { }
+        public Items() { }
     }
 }

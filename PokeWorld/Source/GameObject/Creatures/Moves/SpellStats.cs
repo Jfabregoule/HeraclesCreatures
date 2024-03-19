@@ -4,22 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.Creatures.Moves
+namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 {
-    internal class Attack : Moves
+    internal class SpellStats
     {
 
         /*------------------------------------------------------------------------------------------*\
-        |                                                                                            |
-        |                                                                                            |
-        |                                          Fields                                            |
-        |                                                                                            |
-        |                                                                                            |
-        \*------------------------------------------------------------------------------------------*/
+      |                                                                                            |
+      |                                                                                            |
+      |                                          Fields                                            |
+      |                                                                                            |
+      |                                                                                            |
+      \*------------------------------------------------------------------------------------------*/
 
         #region Fields
 
-        AttackStats _stats;
+        int _power;
+        int _accuracy;
+        int _critRate;
+        int _manaCost;
+        string _type;
 
         #endregion Fields
 
@@ -33,7 +37,15 @@ namespace HeraclesCreatures.Source.Creatures.Moves
 
         #region Properties
 
-        public AttackStats Stats { get => _stats; private set => _stats = value; }
+        public int Power { get => _power; private set => _power = value; }
+
+        public int Accuracy { get => _accuracy; private set => _accuracy = value; }
+
+        public int CritRate { get => _critRate; private set => _critRate = value; }
+
+        public int ManaCost { get => _manaCost; private set => _manaCost = value; }
+
+        public string Type { get => _type; private set => _type = value; }
 
         #endregion Properties
 
@@ -61,7 +73,7 @@ namespace HeraclesCreatures.Source.Creatures.Moves
 
         #region Methods
 
-        public Attack() { }
+        public SpellStats() { }
 
         #endregion Methods
 
