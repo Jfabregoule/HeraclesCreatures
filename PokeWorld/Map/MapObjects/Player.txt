@@ -1,0 +1,20 @@
+﻿Drawing:
+  0  
+/-|-\
+  |  
+ / \ 
+/   \
+
+FGColor:
+N,N,White,N,N
+White,Red,Yellow,Red,White
+N,N,Yellow,N,N
+N,Red,N,Red,N
+White,N,N,N,White
+
+BGColor:
+N,N,N,N,N
+N,N,N,N,N
+N,N,N,N,N
+N,N,N,N,N
+N,N,N,N,N

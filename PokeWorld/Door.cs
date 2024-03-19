@@ -20,7 +20,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        MapClass _map;
+        Scene _targetScene;
         bool _isLocked;
 
         #endregion Fields
