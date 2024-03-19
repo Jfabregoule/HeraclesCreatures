@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures
+namespace HeraclesCreatures.GameObject
 {
     internal class GameObject
     {
@@ -18,7 +18,7 @@ namespace HeraclesCreatures
         //Event
 
         //Methods
-
+        public GameObject() { }
 
     }
 }

@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures
+namespace HeraclesCreatures.GameObject
 {
     internal class MapObject : GameObject
     {
@@ -15,7 +15,7 @@ namespace HeraclesCreatures
 
         //Property
         public int X { get { return _x; } set { _x = value; } }
-        public int Y { get { return _y; } set { _y = value; } }  
+        public int Y { get { return _y; } set { _y = value; } }
 
         //Event
 
