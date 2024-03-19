@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Map
+namespace HeraclesCreatures.Source.Map
 {
-    public class Cell
+    public class MapClass
     {
-        int _X;
-        int _Y;
+
     }
 }

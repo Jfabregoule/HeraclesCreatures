@@ -19,11 +19,11 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Fields
 
-        int _power;
-        int _accuracy;
-        int _critRate;
-        int _manaCost;
-        string _type;
+        int     _power;
+        int     _accuracy;
+        int     _critRate;
+        int     _manaCost;
+        string  _type;
 
         #endregion Fields
 

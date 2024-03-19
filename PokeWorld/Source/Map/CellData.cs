@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Map
+namespace HeraclesCreatures.Source.Map
 {
     public struct CellData_
     {
