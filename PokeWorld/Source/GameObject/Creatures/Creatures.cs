@@ -91,6 +91,11 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
             }
         }
 
+        public void AddMove(ref Moves.Moves move) 
+        {
+            _moves.Add(move);
+        }
+
         public bool IsDead()
         {
             if(_Stats.health<= 0)

@@ -1,5 +1,8 @@
-﻿using HeraclesCreatures.GameObject;
+﻿using HeraclesCreatures.Source.Combat.Figthers.Enemy;
+using HeraclesCreatures.Source.Combat.Figthers.Player;
+using HeraclesCreatures.Source.Combat;
 using HeraclesCreatures.Source.GameObject.Creatures;
+using HeraclesCreatures.Source.GameObject.Creatures.Moves;
 using HeraclesCreatures.Source.GameObject.Items;
 using HeraclesCreatures.Source.Map;
 using System;
@@ -73,18 +76,18 @@ namespace HeraclesCreatures.Source
             _isRunning = true;
             _inputManager = new InputManager();
 
-            Player Hercule = new Player();
+            Creatures OrangOutant = new Creatures("OrangOutant");
+            List<Creatures> Singe = new List<Creatures>();
+            Attack COUPDECAILLOU = new Attack();
+            OrangOutant.AddMove(ref COUPDECAILLOU);
+            Singe.Add(OrangOutant);
+            Enemy Ougabouga = new Enemy(Singe, 3);
             Creatures Tiger = new Creatures("Tiger");
-            Potion Popo = new Potion();
-
+            Tiger.AddMove(ref COUPDECAILLOU);
+            Player Hercule = new Player();
             Hercule.AddCreature(Tiger);
-            Hercule.AddItems(Popo);
-
-            Console.WriteLine(Hercule.Creatures[0].Stats.health);
-            Hercule.Creatures[0].TakeDamage(30);
-            Console.WriteLine(Hercule.Creatures[0].Stats.health);
-            Hercule.Items[0].Use(ref Tiger);
-            Console.WriteLine(Hercule.Creatures[0].Stats.health);
+            CombatManager test = new CombatManager(Hercule, Ougabouga);
+            test.StartFight();
 
         }
         public void GameLoop()

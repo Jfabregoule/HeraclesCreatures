@@ -1,4 +1,5 @@
-﻿using HeraclesCreatures.GameObject;
+﻿using HeraclesCreatures.Source.Combat.Figthers.Enemy;
+using HeraclesCreatures.Source.Combat.Figthers.Player;
 using HeraclesCreatures.Source.GameObject.Creatures;
 using System;
 using System.Collections.Generic;
@@ -73,13 +74,26 @@ namespace HeraclesCreatures.Source.Combat
             _player = player;
             _enemy = enemy;
             _currentTurn = 0;
-            _isPlayerTurn = true;
+            _isPlayerTurn = false;
             _currentPlayerCreature = player.Creatures[0];
-            _currentEnemyCreature = enemy.Team[0];
+            _currentEnemyCreature = enemy.Creatures[0];
         }
 
         public void StartFight() 
         {
+            if(_currentPlayerCreature.Stats.AttackSpeed > _currentEnemyCreature.Stats.AttackSpeed) 
+            { 
+                _isPlayerTurn |= true;
+            }
+            if(_isPlayerTurn)
+            {
+                for (int i = 0; i < _currentPlayerCreature.Moves.Count(); i++)
+                {
+                    Console.WriteLine(_currentPlayerCreature.Moves[i]);
+                }
+                Console.ReadLine();
+                _isPlayerTurn = false;
+            }
 
         }
 

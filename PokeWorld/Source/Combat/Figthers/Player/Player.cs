@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HeraclesCreatures.Source.GameObject;
 using HeraclesCreatures.Source.GameObject.Creatures;
 using HeraclesCreatures.Source.GameObject.Items;
 
-namespace HeraclesCreatures.GameObject
+namespace HeraclesCreatures.Source.Combat.Figthers.Player
 {
-    internal class Player : MapObject
+    internal class Player : Fighter
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -19,11 +18,10 @@ namespace HeraclesCreatures.GameObject
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
-        
+
         #region Fields
 
         List<Items> _items;
-        List<Creatures> _creatures;
 
         #endregion Fields
 
@@ -38,8 +36,7 @@ namespace HeraclesCreatures.GameObject
         #region Properties
 
         internal List<Items> Items { get => _items; set => _items = value; }
-        internal List<Creatures> Creatures { get => _creatures; set => _creatures = value; }
-
+       
 
         #endregion Properties
 
@@ -67,14 +64,10 @@ namespace HeraclesCreatures.GameObject
 
         #region Methods
 
-        public Player() 
+        public Player()
         {
             _items = new List<Items>();
-            _creatures = new List<Creatures>();
-        }
-        public void AddCreature(Creatures creatures)
-        {
-            _creatures.Add(creatures);
+            Creatures = new List<Creatures>();
         }
 
         public void AddItems(Items items)

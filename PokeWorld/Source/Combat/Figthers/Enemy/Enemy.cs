@@ -1,29 +1,28 @@
-﻿using System;
+﻿using HeraclesCreatures.Source.GameObject;
+using HeraclesCreatures.Source.GameObject.Creatures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
+namespace HeraclesCreatures.Source.Combat.Figthers.Enemy
 {
-    internal struct AttackStats
+    internal class Enemy : Fighter
     {
 
         /*------------------------------------------------------------------------------------------*\
-       |                                                                                            |
-       |                                                                                            |
-       |                                          Fields                                            |
-       |                                                                                            |
-       |                                                                                            |
-       \*------------------------------------------------------------------------------------------*/
+        |                                                                                            |
+        |                                                                                            |
+        |                                          Fields                                            |
+        |                                                                                            |
+        |                                                                                            |
+        \*------------------------------------------------------------------------------------------*/
 
         #region Fields
 
-        int     _power;
-        int     _accuracy;
-        int     _critRate;
-        int     _maxPP;
-        string  _type;
+        int _difficulty;
+
 
         #endregion Fields
 
@@ -37,15 +36,8 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Properties
 
-        public int      Power { get => _power; private set => _power = value; }
+        public int Difficulty { get => _difficulty; set => _difficulty = value; }
 
-        public int      Accuracy { get => _accuracy; private set => _accuracy = value; }
-
-        public int      CritRate { get => _critRate; private set => _critRate = value; }
-
-        public int      MaxPP { get => _maxPP; private set => _maxPP = value; }
-
-        public string   Type { get => _type; private set => _type = value; }
 
         #endregion Properties
 
@@ -66,20 +58,54 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                         Methods                                            |
+        |                                          Methods                                           |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
 
-        public AttackStats() 
+        public Enemy(List<Creatures> team, int difficulty)
         {
-            _power = 10;
-            _accuracy = 10;
-            _critRate = 5;
-            _maxPP = 6;
-            _type = string.Empty;
+            Creatures = team;
+            Difficulty = difficulty;
+        }
+
+        public void Turn(Creatures EnnemyCreature, Creatures AllyCreature)
+        {
+            switch (Difficulty)
+            {
+                case 1:
+                    EasyTurn(EnnemyCreature, AllyCreature);
+                    break;
+                case 2:
+                    MediumTurn();
+                    break;
+                case 3:
+                    HardTurn();
+                    break;
+                default:
+                    MediumTurn();
+                    break;
+            }
+        }
+
+        public void EasyTurn(Creatures EnnemyCreature, Creatures AllyCreature)
+        {
+            Random random = new Random();
+
+            int randomIndex = random.Next(0, EnnemyCreature.Moves.Count);
+            EnnemyCreature.Moves[randomIndex].Use(EnnemyCreature, AllyCreature);
+        }
+
+        public void MediumTurn()
+        {
+
+        }
+
+        public void HardTurn()
+        {
+
         }
 
         #endregion Methods

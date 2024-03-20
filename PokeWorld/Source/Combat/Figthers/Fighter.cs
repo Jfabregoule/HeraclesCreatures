@@ -1,13 +1,13 @@
-﻿using HeraclesCreatures.Source.GameObject.Creatures;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HeraclesCreatures.Source.GameObject.Creatures;
 
-namespace HeraclesCreatures.Source.Combat
+namespace HeraclesCreatures.Source.Combat.Figthers
 {
-    internal class Enemy
+    internal class Fighter : GameObject.GameObject
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -20,9 +20,7 @@ namespace HeraclesCreatures.Source.Combat
 
         #region Fields
 
-        List<Creatures> _team;
-        int             _difficulty;
-
+        List<Creatures> _creatures;
 
         #endregion Fields
 
@@ -36,8 +34,7 @@ namespace HeraclesCreatures.Source.Combat
 
         #region Properties
 
-        internal List<Creatures> Team { get => _team; set => _team = value; }
-
+        internal List<Creatures> Creatures { get => _creatures; set => _creatures = value; }
 
         #endregion Properties
 
@@ -65,47 +62,9 @@ namespace HeraclesCreatures.Source.Combat
 
         #region Methods
 
-        public Enemy(List<Creatures> team, int difficulty) 
+        public void AddCreature(Creatures creatures)
         {
-            Team = team;
-            _difficulty = difficulty;
-        }
-
-        public void Turn (Creatures EnnemyCreature,Creatures AllyCreature)
-        {
-            switch (_difficulty)
-            {
-                case 1:
-                    EasyTurn(EnnemyCreature, AllyCreature);
-                    break;
-                case 2:
-                    MediumTurn();
-                    break;
-                case 3:
-                    HardTurn(); 
-                    break;
-                default:
-                    MediumTurn();
-                    break;
-            }
-        }
-
-        public void EasyTurn(Creatures EnnemyCreature, Creatures AllyCreature)
-        {
-            Random random = new Random();
-
-            int randomIndex = random.Next(0, EnnemyCreature.Moves.Count);
-            EnnemyCreature.Moves[randomIndex].Use(Team[0], AllyCreature);
-        }
-
-        public void MediumTurn()
-        {
-
-        }
-
-        public void HardTurn()
-        {
-
+            _creatures.Add(creatures);
         }
 
         #endregion Methods
