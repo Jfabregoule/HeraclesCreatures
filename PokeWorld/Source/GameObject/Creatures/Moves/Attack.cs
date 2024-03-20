@@ -68,7 +68,7 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         public override void Use(Creatures sender, Creatures receiver)
         {
-            int damage = sender.stats.attack + Stats.Power * 2;
+            int damage = sender.Stats.attack + Stats.Power * 2;
             receiver.TakeDamage(damage);
         }
 

@@ -69,12 +69,12 @@ namespace HeraclesCreatures.Source.Combat
             _difficulty = difficulty;
         }
 
-        public void Turn ()
+        public void Turn (Creatures EnnemyCreature,Creatures AllyCreature)
         {
             switch (_difficulty)
             {
                 case 1:
-                    EasyTurn();
+                    EasyTurn(EnnemyCreature, AllyCreature);
                     break;
                 case 2:
                     MediumTurn();
@@ -88,12 +88,12 @@ namespace HeraclesCreatures.Source.Combat
             }
         }
 
-        public void EasyTurn()
+        public void EasyTurn(Creatures EnnemyCreature, Creatures AllyCreature)
         {
             Random random = new Random();
 
-            int randomIndex = random.Next(0, _team[0].Moves.Count);
-            _team[0].Moves[randomIndex].Use();
+            int randomIndex = random.Next(0, EnnemyCreature.Moves.Count);
+            EnnemyCreature.Moves[randomIndex].Use(_team[0], AllyCreature);
         }
 
         public void MediumTurn()
