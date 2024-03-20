@@ -21,7 +21,7 @@ namespace HeraclesCreatures.Map
 
         int _width;
         int _height;
-        List<Cell> _cells;
+        Cell[,] _cells;
 
         #endregion Fields
 
@@ -63,38 +63,11 @@ namespace HeraclesCreatures.Map
 
         #region Methods
 
-        public Scene(int width, int height)
+        public Scene(int width, int height, Cell[,] cells)
         {
-
-            string solutionDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            string relativePath = @"Map\Scenes\Scene1.txt";
-            string mapFilePath = Path.Combine(solutionDirectory, relativePath);
-            string[] mapLines = File.ReadAllLines(mapFilePath);
-
-
-            _width = mapLines[0].Length;
-            _height = mapLines.Length;
-
-            for (int i = 0; i < height; i++)
-            {
-                for (int j = 0; j < width; j++)
-                {
-                    CellData_ cellData = new CellData_();
-                    /*
-                    switch (mapLines[i][j])
-                    {
-                        case 'P':
-                            cellData.IsWalkable = true;
-                            cellData.CellContent = new MapObject();
-                            cellData.Drawing = playerDrawing;
-                            break;
-                        default:
-                            break;
-                    }
-                     */
-                    _cells.Add(new Cell(i, j, new CellData_()));
-                }
-            }
+            _width = width;
+            _height = height;
+            _cells = cells;
         }
 
         #endregion Methods

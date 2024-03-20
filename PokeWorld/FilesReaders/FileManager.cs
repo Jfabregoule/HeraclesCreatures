@@ -1,13 +1,15 @@
 ﻿using HeraclesCreatures.Map;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HeraclesCreatures.FilesReaders
 {
-    internal class MapObjectReader
+    internal class FileManager
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -20,7 +22,7 @@ namespace HeraclesCreatures.FilesReaders
 
         #region Fields
 
-
+        Dictionary<string, string> _idToFile = new Dictionary<string, string>();
 
         #endregion Fields
 
@@ -34,7 +36,7 @@ namespace HeraclesCreatures.FilesReaders
 
         #region Properties
 
-
+        public Dictionary<string, string> IdToFile { get => _idToFile; set => _idToFile = value; }
 
         #endregion Properties
 
@@ -62,7 +64,7 @@ namespace HeraclesCreatures.FilesReaders
 
         #region Methods
 
-        string[] ReadFile(string filePath)
+        public string[] ReadFile(string filePath)
         {
             try
             {
@@ -87,17 +89,24 @@ namespace HeraclesCreatures.FilesReaders
             }
         }
 
-        /*
-        static object CreateInstanceFromString(string typeName, params object[] args)
+        public void CreateIDToFile()
         {
-            Type type = Type.GetType(typeName);
-            if (type != null)
+            string[] fileIdentifiersLines = ReadFile("FilesReaders/Datas/FileIDs.txt");
+            if (fileIdentifiersLines != null)
             {
-                return Activator.CreateInstance(type, args);
+                for (int i = 0; i < fileIdentifiersLines.Length; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        _idToFile[fileIdentifiersLines[i]] = fileIdentifiersLines[i + 1];
+                    }
+                }
             }
-            return null;
+            else
+            {
+                Console.WriteLine("Error occurred while reading the file.");
+            }
         }
-        */
 
         bool GetWalkable(string[] mapObjectLines, int index)
         {
@@ -145,12 +154,13 @@ namespace HeraclesCreatures.FilesReaders
             return mapObjectColor;
         }
 
-        public CellData_ GetMapObjectCellData(string file)
+        public CellData_ GetMapObjectData(string filePath)
         {
 
             CellData_ cellData = new CellData_();
             cellData.CellContent = new MapObject();
-            string[] mapObjectLines = ReadFile(file);
+
+            string[] mapObjectLines = ReadFile(filePath);
             if (mapObjectLines != null)
             {
                 for (int i = 0; i < mapObjectLines.Length; i++)
@@ -205,6 +215,14 @@ namespace HeraclesCreatures.FilesReaders
                 return new CellData_();
             }
             
+            
+        }
+
+        public Cell[,] GetMapCellArray(string filePath)
+        {
+            
+
+
             
         }
 

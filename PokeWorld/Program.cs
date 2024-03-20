@@ -7,9 +7,11 @@ class Program
 {
     static void Main()
     {
-        MapObjectReader coubeh = new MapObjectReader();
-        CellData_ apagnan = coubeh.GetMapObjectCellData("Ressources/MapObjects/Chest1.txt");
-        apagnan.printCellData();
+        FileManager coubeh = new FileManager();
+        coubeh.CreateIDToFile();
+
+        string[] map = coubeh.ReadFile("Ressources/Scenes/Scene1.txt");
+        
 
     }
 }
