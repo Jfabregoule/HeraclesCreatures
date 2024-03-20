@@ -61,7 +61,16 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Methods
 
-        public Attack() { }
+        public Attack() 
+        {
+            _stats = new AttackStats();
+        }
+
+        public override void Use(Creatures sender, Creatures receiver)
+        {
+            int damage = sender.stats.attack + Stats.Power * 2;
+            receiver.TakeDamage(damage);
+        }
 
         #endregion Methods
 

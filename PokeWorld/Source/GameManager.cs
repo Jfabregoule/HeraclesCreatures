@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Formats.Asn1;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,7 +70,7 @@ namespace HeraclesCreatures.Source
             _inputManager = new InputManager();
         }
         public void GameLoop()
-        { 
+        {
             while(_isRunning)
             {
                 _inputManager.Update();
@@ -78,7 +79,7 @@ namespace HeraclesCreatures.Source
                     Console.WriteLine("Oueoue");
                 }
             }
-            
+
         }
 
         #endregion Methods
