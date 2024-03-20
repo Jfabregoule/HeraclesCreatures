@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Map\MapObjects\" />
+    <Folder Include="Ressources\MapObjects\" />
   </ItemGroup>
 
 </Project>
