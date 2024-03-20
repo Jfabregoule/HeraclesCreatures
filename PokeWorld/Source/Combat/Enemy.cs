@@ -1,17 +1,15 @@
-﻿using HeraclesCreatures.Source.GameObject.Creatures.Moves;
+﻿using HeraclesCreatures.Source.GameObject.Creatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.GameObject.Creatures
+namespace HeraclesCreatures.Source.Combat
 {
-
-    #region Creatures Class
-
-    internal class Creatures
+    internal class Enemy
     {
+
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
@@ -22,9 +20,8 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
 
         #region Fields
 
-        string              _creatureName;
-        List<Moves.Moves>   _moves; 
-        CreatureStats       _Stats;
+        List<Creatures> _team;
+        int             _difficulty;
 
         #endregion Fields
 
@@ -38,9 +35,7 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
 
         #region Properties
 
-        public string CreatureName { get => _creatureName; private set => _creatureName = value; }
-        internal List<Moves.Moves> Moves { get => _moves; private set => _moves = value; }
-        public CreatureStats Stats { get => _Stats; private set => _Stats = value; }
+
 
         #endregion Properties
 
@@ -61,19 +56,57 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                         Methods                                            |
+        |                                          Methods                                           |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
-        public Creatures() { }
-        public Creatures(string CreatureName) { }
+
+        public Enemy(List<Creatures> team, int difficulty) 
+        {
+            _team = team;
+            _difficulty = difficulty;
+        }
+
+        public void Turn ()
+        {
+            switch (_difficulty)
+            {
+                case 1:
+                    EasyTurn();
+                    break;
+                case 2:
+                    MediumTurn();
+                    break;
+                case 3:
+                    HardTurn(); 
+                    break;
+                default:
+                    MediumTurn();
+                    break;
+            }
+        }
+
+        public void EasyTurn()
+        {
+            Random random = new Random();
+
+            int randomIndex = random.Next(0, _team[0].Moves.Count);
+            _team[0].Moves[randomIndex].Use();
+        }
+
+        public void MediumTurn()
+        {
+
+        }
+
+        public void HardTurn()
+        {
+
+        }
 
         #endregion Methods
 
     }
-
-    #endregion Creatures Class
-
 }

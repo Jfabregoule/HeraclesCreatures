@@ -1,17 +1,16 @@
-﻿using HeraclesCreatures.Source.GameObject.Creatures.Moves;
+﻿using HeraclesCreatures.GameObject;
+using HeraclesCreatures.Source.GameObject.Creatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.GameObject.Creatures
+namespace HeraclesCreatures.Source.Combat
 {
-
-    #region Creatures Class
-
-    internal class Creatures
+    internal class CombatManager
     {
+
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
@@ -22,9 +21,10 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
 
         #region Fields
 
-        string              _creatureName;
-        List<Moves.Moves>   _moves; 
-        CreatureStats       _Stats;
+        Player              _player;
+        List<Creatures>     _enemyCreatures;
+        int                 _currentTurn;
+        bool                _isPlayerTurn;
 
         #endregion Fields
 
@@ -38,9 +38,7 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
 
         #region Properties
 
-        public string CreatureName { get => _creatureName; private set => _creatureName = value; }
-        internal List<Moves.Moves> Moves { get => _moves; private set => _moves = value; }
-        public CreatureStats Stats { get => _Stats; private set => _Stats = value; }
+
 
         #endregion Properties
 
@@ -61,19 +59,24 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                         Methods                                            |
+        |                                          Methods                                           |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
-        public Creatures() { }
-        public Creatures(string CreatureName) { }
+
+        public CombatManager(Player player, List<Creatures> enemyCreatures) 
+        {
+            _player = player;
+            _enemyCreatures = enemyCreatures;
+            _currentTurn = 0;
+            _isPlayerTurn = true;
+        }
+
+
 
         #endregion Methods
 
     }
-
-    #endregion Creatures Class
-
 }
