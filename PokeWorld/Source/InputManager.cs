@@ -80,6 +80,8 @@ namespace HeraclesCreatures.Source
             return pressedKeys.Contains(key);
         }
 
+        public bool IsAnyKeyPressed() { return pressedKeys.Count > 0;}
+
         #endregion Methods
     }
 }

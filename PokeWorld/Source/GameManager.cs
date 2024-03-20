@@ -73,9 +73,9 @@ namespace HeraclesCreatures.Source
             while(_isRunning)
             {
                 _inputManager.Update();
-                if (_inputManager.GetKeyDown(ConsoleKey.Z))
+                if (_inputManager.IsAnyKeyPressed())
                 {
-                    Console.WriteLine('z');
+                    Console.WriteLine("Oueoue");
                 }
             }
             
