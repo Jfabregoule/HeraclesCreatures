@@ -23,6 +23,7 @@ namespace HeraclesCreatures.Source.Combat
         List<Creatures> _team;
         int             _difficulty;
 
+
         #endregion Fields
 
         /*------------------------------------------------------------------------------------------*\
@@ -35,6 +36,7 @@ namespace HeraclesCreatures.Source.Combat
 
         #region Properties
 
+        internal List<Creatures> Team { get => _team; set => _team = value; }
 
 
         #endregion Properties
@@ -65,7 +67,7 @@ namespace HeraclesCreatures.Source.Combat
 
         public Enemy(List<Creatures> team, int difficulty) 
         {
-            _team = team;
+            Team = team;
             _difficulty = difficulty;
         }
 
@@ -93,7 +95,7 @@ namespace HeraclesCreatures.Source.Combat
             Random random = new Random();
 
             int randomIndex = random.Next(0, EnnemyCreature.Moves.Count);
-            EnnemyCreature.Moves[randomIndex].Use(_team[0], AllyCreature);
+            EnnemyCreature.Moves[randomIndex].Use(Team[0], AllyCreature);
         }
 
         public void MediumTurn()

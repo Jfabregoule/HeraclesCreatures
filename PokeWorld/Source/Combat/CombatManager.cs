@@ -22,9 +22,11 @@ namespace HeraclesCreatures.Source.Combat
         #region Fields
 
         Player              _player;
-        List<Creatures>     _enemyCreatures;
+        Enemy               _enemy;
         int                 _currentTurn;
         bool                _isPlayerTurn;
+        Creatures           _currentPlayerCreature;
+        Creatures           _currentEnemyCreature;
 
         #endregion Fields
 
@@ -66,12 +68,30 @@ namespace HeraclesCreatures.Source.Combat
 
         #region Methods
 
-        public CombatManager(Player player, List<Creatures> enemyCreatures) 
+        public CombatManager(Player player, Enemy enemy) 
         {
             _player = player;
-            _enemyCreatures = enemyCreatures;
+            _enemy = enemy;
             _currentTurn = 0;
             _isPlayerTurn = true;
+            _currentPlayerCreature = player.Creatures[0];
+            _currentEnemyCreature = enemy.Team[0];
+        }
+
+        public void StartFight() 
+        {
+
+        }
+
+        public void SwapCreature(string creatureName) 
+        {
+            for (int i = 0; i < _player.Creatures.Count(); i++)
+            {
+                if (_player.Creatures[i].CreatureName == creatureName)
+                {
+                    _currentPlayerCreature = _player.Creatures[i];
+                }
+            }
         }
 
 
