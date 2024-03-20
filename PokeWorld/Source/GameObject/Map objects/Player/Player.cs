@@ -37,6 +37,9 @@ namespace HeraclesCreatures.GameObject
 
         #region Properties
 
+        internal List<Items> Items { get => _items; set => _items = value; }
+        internal List<Creatures> Creatures { get => _creatures; set => _creatures = value; }
+
 
         #endregion Properties
 
@@ -64,7 +67,20 @@ namespace HeraclesCreatures.GameObject
 
         #region Methods
 
-        public Player() { }
+        public Player() 
+        {
+            _items = new List<Items>();
+            _creatures = new List<Creatures>();
+        }
+        public void AddCreature(Creatures creatures)
+        {
+            _creatures.Add(creatures);
+        }
+
+        public void AddItems(Items items)
+        {
+            _items.Add(items);
+        }
 
         #endregion Methods
 

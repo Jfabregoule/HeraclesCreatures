@@ -1,29 +1,30 @@
-﻿using System;
+﻿using HeraclesCreatures.Source.Map;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Formats.Asn1;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
+namespace HeraclesCreatures.Source
 {
-    internal struct AttackStats
+    internal class GameManager
     {
 
         /*------------------------------------------------------------------------------------------*\
-       |                                                                                            |
-       |                                                                                            |
-       |                                          Fields                                            |
-       |                                                                                            |
-       |                                                                                            |
-       \*------------------------------------------------------------------------------------------*/
+        |                                                                                            |
+        |                                                                                            |
+        |                                          Fields                                            |
+        |                                                                                            |
+        |                                                                                            |
+        \*------------------------------------------------------------------------------------------*/
 
         #region Fields
 
-        int _power;
-        int _accuracy;
-        int _critRate;
-        int _maxPP;
-        string _type;
+        InputManager _inputManager;
+        MapClass _map;
+        bool _isRunning;
 
         #endregion Fields
 
@@ -37,16 +38,6 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Properties
 
-        public int Power { get => _power; private set => _power = value; }
-
-        public int Accuracy { get => _accuracy; private set => _accuracy = value; }
-
-        public int CritRate { get => _critRate; private set => _critRate = value; }
-
-        public int MaxPP { get => _maxPP; private set => _maxPP = value; }
-
-        public string Type { get => _type; private set => _type = value; }
-
         #endregion Properties
 
         /*------------------------------------------------------------------------------------------*\
@@ -58,8 +49,6 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
         \*------------------------------------------------------------------------------------------*/
 
         #region Events
-
-
 
         #endregion Events
 
@@ -73,12 +62,24 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Methods
 
-        public AttackStats() 
+        public GameManager() { }
+
+        public void InitializeGame()
         {
-            _power = 0;
-            _accuracy = 0;
-            _critRate = 0;
-            _maxPP = 0;
+            _isRunning = true;
+            _inputManager = new InputManager();
+        }
+        public void GameLoop()
+        {
+            while (_isRunning)
+            {
+                _inputManager.Update();
+                if (_inputManager.IsAnyKeyPressed())
+                {
+                    Console.WriteLine("Oueoue");
+                }
+            }
+
         }
 
         #endregion Methods

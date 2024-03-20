@@ -1,29 +1,29 @@
-﻿using System;
+﻿using HeraclesCreatures.Source.GameObject.Creatures;
+using HeraclesCreatures.Source.GameObject.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
+namespace HeraclesCreatures.Source
 {
-    internal struct AttackStats
+    class InputManager
     {
-
         /*------------------------------------------------------------------------------------------*\
-       |                                                                                            |
-       |                                                                                            |
-       |                                          Fields                                            |
-       |                                                                                            |
-       |                                                                                            |
-       \*------------------------------------------------------------------------------------------*/
+         |                                                                                            |
+         |                                                                                            |
+         |                                          Fields                                            |
+         |                                                                                            |
+         |                                                                                            |
+         \*------------------------------------------------------------------------------------------*/
 
         #region Fields
 
-        int _power;
-        int _accuracy;
-        int _critRate;
-        int _maxPP;
-        string _type;
+        Dictionary<string, bool> keyStates = new Dictionary<string, bool>();
+
+        HashSet<ConsoleKey> pressedKeys = new HashSet<ConsoleKey>();
+
 
         #endregion Fields
 
@@ -37,15 +37,6 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Properties
 
-        public int Power { get => _power; private set => _power = value; }
-
-        public int Accuracy { get => _accuracy; private set => _accuracy = value; }
-
-        public int CritRate { get => _critRate; private set => _critRate = value; }
-
-        public int MaxPP { get => _maxPP; private set => _maxPP = value; }
-
-        public string Type { get => _type; private set => _type = value; }
 
         #endregion Properties
 
@@ -73,15 +64,24 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Methods
 
-        public AttackStats() 
+        public void Update()
         {
-            _power = 0;
-            _accuracy = 0;
-            _critRate = 0;
-            _maxPP = 0;
+            pressedKeys.Clear();
+
+            while (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+                pressedKeys.Add(keyInfo.Key);
+            }
         }
 
-        #endregion Methods
+        public bool GetKeyDown(ConsoleKey key)
+        {
+            return pressedKeys.Contains(key);
+        }
 
+        public bool IsAnyKeyPressed() { return pressedKeys.Count > 0; }
+
+        #endregion Methods
     }
 }

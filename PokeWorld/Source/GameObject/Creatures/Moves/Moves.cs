@@ -66,6 +66,11 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         public Moves() { }
 
+        public virtual void Use(Creatures sender, Creatures receiver)
+        {
+
+        }
+
         #endregion Methods
 
     }

@@ -33,7 +33,7 @@ namespace HeraclesCreatures.Source.GameObject.Items
 
         #region Properties
 
-        public string name { get { return _name; } private set { _name = value; } }
+        public string name { get { return _name; } protected set { _name = value; } }
 
         #endregion Properties
 
@@ -61,7 +61,15 @@ namespace HeraclesCreatures.Source.GameObject.Items
 
         #region Methods
 
-        public Items() { }
+        public Items() 
+        { 
+            _name = string.Empty;
+        }
+
+        public virtual void Use(ref Creatures.Creatures creatures)
+        {
+
+        }
 
         #endregion Methods
     }

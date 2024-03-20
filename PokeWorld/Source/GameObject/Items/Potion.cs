@@ -62,9 +62,15 @@ namespace HeraclesCreatures.Source.GameObject.Items
 
         #region Methods
 
-        void Use(ref Creatures.Creatures creatures)
+
+        public Potion() 
         {
-            creatures.stats.health += _health;
+            name = "Potion";
+            _health = 10;
+        }
+        public override void Use(ref Creatures.Creatures creatures)
+        {
+            creatures.Heal(_health);
         }
 
         #endregion Methods

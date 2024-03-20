@@ -66,11 +66,40 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
-        public Creatures() { }
-        public Creatures(string CreatureName) { }
 
-        public SetHealth(int value)
+        public Creatures(string CreatureName)
         {
+            _creatureName = CreatureName;
+            _Stats = new CreatureStats();
+        }
+
+        public void TakeDamage(int damage)
+        {
+            _Stats.health -= damage;
+        }
+
+        public void Heal(int value)
+        {
+            if(_Stats.health + value >= _Stats.maxHealth)
+            {
+                _Stats.health = _Stats.maxHealth;
+            }
+            else
+            {
+                _Stats.health += value; 
+            }
+        }
+
+        public bool IsDead()
+        {
+            if(_Stats.health<= 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         #endregion Methods

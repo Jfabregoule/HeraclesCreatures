@@ -11,10 +11,13 @@
     #region Fields
 
     int _hp;
+    int _maxhp;
     int _attack;
     int _magicpower;
     int _defense;
     int _mana;
+    int _maxmana;
+    int _attackSpeed;
     string _type;
 
     #endregion Fields
@@ -30,12 +33,18 @@
 
     #region Properties
 
-    public int health {  get { return _hp; } private set { _hp = value; } }
+    public int health {  get { return _hp; } set { _hp = value; } }
+    public int maxHealth { get => _maxhp; set => _maxhp = value; }
     public int attack { get { return _attack; } private set { _attack = value; } }
     public int magicpower { get { return _magicpower; } private set { _magicpower = value; } }
     public int defense { get { return _defense; } private set { _defense = value; } }
+    public int maxMana { get => _maxmana; set => _maxmana = value; }
     public int mana { get { return _mana; } private set { _mana = value; } }
+    public int AttackSpeed { get => _attackSpeed; set => _attackSpeed = value; }
     public string type { get { return _type; } private set { _type = value; } }
+
+
+
 
     #endregion Properties
 
@@ -65,11 +74,14 @@
 
     public CreatureStats()
     {
-        _hp = 0;
+        _hp = 100;
+        _maxhp = 100;
         _attack = 0;
         _magicpower = 0;
         _defense = 0;
+        _maxmana = 0;
         _mana = 0;
+        _attackSpeed = 0;
         _type = string.Empty;
     }
 
