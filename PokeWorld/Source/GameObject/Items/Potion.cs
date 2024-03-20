@@ -1,17 +1,15 @@
-﻿using HeraclesCreatures.Source.GameObject.Creatures.Moves;
+﻿using HeraclesCreatures.Source.GameObject.Creatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.GameObject.Creatures
+namespace HeraclesCreatures.Source.GameObject.Items
 {
-
-    #region Creatures Class
-
-    internal class Creatures
+    internal class Potion : Items
     {
+
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
@@ -22,9 +20,7 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
 
         #region Fields
 
-        string              _creatureName;
-        List<Moves.Moves>   _moves; 
-        CreatureStats       _Stats;
+        int _health;
 
         #endregion Fields
 
@@ -38,9 +34,7 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
 
         #region Properties
 
-        public string CreatureName { get => _creatureName; private set => _creatureName = value; }
-        internal List<Moves.Moves> Moves { get => _moves; private set => _moves = value; }
-        public CreatureStats Stats { get => _Stats; private set => _Stats = value; }
+        public int health { get {return _health; } }
 
         #endregion Properties
 
@@ -61,23 +55,18 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                         Methods                                            |
+        |                                          Methods                                           |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
-        public Creatures() { }
-        public Creatures(string CreatureName) { }
 
-        public SetHealth(int value)
+        void Use(ref Creatures.Creatures creatures)
         {
+            creatures.stats.health += _health;
         }
 
         #endregion Methods
-
     }
-
-    #endregion Creatures Class
-
 }

@@ -19,7 +19,7 @@ namespace HeraclesCreatures.Source.GameObject.Items
 
         #region Fields
 
-
+        string _name;
 
         #endregion Fields
 
@@ -33,7 +33,7 @@ namespace HeraclesCreatures.Source.GameObject.Items
 
         #region Properties
 
-
+        public string name { get { return _name; } private set { _name = value; } }
 
         #endregion Properties
 
