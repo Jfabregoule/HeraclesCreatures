@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Map
+namespace HeraclesCreatures
 {
-    public class Scene
+    internal static class Helper
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -19,9 +19,7 @@ namespace HeraclesCreatures.Map
 
         #region Fields
 
-        int _width;
-        int _height;
-        List<Cell> _cells;
+
 
         #endregion Fields
 
@@ -63,42 +61,48 @@ namespace HeraclesCreatures.Map
 
         #region Methods
 
-        public Scene(int width, int height)
+        public static ConsoleColor toColor(string color)
         {
-
-            string solutionDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            string relativePath = @"Map\Scenes\Scene1.txt";
-            string mapFilePath = Path.Combine(solutionDirectory, relativePath);
-            string[] mapLines = File.ReadAllLines(mapFilePath);
-
-
-            _width = mapLines[0].Length;
-            _height = mapLines.Length;
-
-            for (int i = 0; i < height; i++)
+            switch (color)
             {
-                for (int j = 0; j < width; j++)
-                {
-                    CellData_ cellData = new CellData_();
-                    /*
-                    switch (mapLines[i][j])
-                    {
-                        case 'P':
-                            cellData.IsWalkable = true;
-                            cellData.CellContent = new MapObject();
-                            cellData.Drawing = playerDrawing;
-                            break;
-                        default:
-                            break;
-                    }
-                     */
-                    _cells.Add(new Cell(i, j, new CellData_()));
-                }
+            case "Black ":
+                return ConsoleColor.Black;
+            case "DarkBlue ":
+                return ConsoleColor.DarkBlue;
+            case "DarkGreen":
+                return ConsoleColor.DarkGreen;
+            case "DarkCyan ":
+                return ConsoleColor.DarkCyan;
+            case "DarkRed ":
+                return ConsoleColor.DarkRed;
+            case "DarkMagenta ":
+                return ConsoleColor.DarkMagenta;
+            case "DarkYellow ":
+                return ConsoleColor.DarkYellow;
+            case "Gray":
+                return ConsoleColor.Gray;
+            case "DarkGray ":
+                return ConsoleColor.DarkGray;
+            case "Blue ":
+                return ConsoleColor.Blue;
+            case "Green ":
+                return ConsoleColor.Green;
+            case "Cyan ":
+                return ConsoleColor.Cyan;
+            case "Red ":
+                return ConsoleColor.Red;
+            case "Magenta ":
+                return ConsoleColor.Magenta;
+            case "Yellow  ":
+                return ConsoleColor.Yellow;
+            case "White  ":
+                return ConsoleColor.White;
+            default: 
+                return 0;
             }
         }
 
         #endregion Methods
-
 
     }
 }
