@@ -72,6 +72,7 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
         {
             _creatureName = CreatureName;
             _Stats = new CreatureStats();
+            _moves = new List<Moves.Moves>();
         }
 
         public void TakeDamage(int damage)
@@ -96,6 +97,11 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
             _moves.Add(move);
         }
 
+        internal void AddMove(ref Attack attack)
+        {
+            _moves.Add(attack);
+        }
+
         public bool IsDead()
         {
             if(_Stats.health<= 0)
@@ -107,6 +113,7 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
                 return false;
             }
         }
+
 
         #endregion Methods
 
