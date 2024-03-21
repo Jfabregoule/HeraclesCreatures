@@ -1,0 +1,13 @@
+Name:
+Charge
+
+Stats:
+DMG : 50
+Heal : 0
+PP : 5
+Mana cost : 40
+
+Buffs:
+ATK : +5
+DFC : -5
+SPD : 0

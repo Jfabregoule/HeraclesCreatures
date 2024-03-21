@@ -214,17 +214,20 @@ namespace HeraclesCreatures.FilesReaders
                 Console.WriteLine("Error occurred while reading the file.");
                 return new CellData_();
             }
-            
-            
+
         }
 
+
+
+        /*
         public Cell[,] GetMapCellArray(string filePath)
         {
-            
 
+            
 
             
         }
+         */
 
         #endregion Methods
 

@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace HeraclesCreatures
 {
-    internal class GameObject
+    public class GameObject
     {
 
         /*------------------------------------------------------------------------------------------*\
