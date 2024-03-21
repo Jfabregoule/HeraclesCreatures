@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HeraclesCreatures.Source.GameObject.Creatures;
-using HeraclesCreatures.Source.GameObject.Items;
 
-namespace HeraclesCreatures.Source.Combat.Figthers.Player
+namespace HeraclesCreatures
 {
     internal class Player : Fighter
     {

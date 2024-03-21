@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
+namespace HeraclesCreatures
 {
     internal class Attack : Moves
     {

@@ -1,13 +1,10 @@
-﻿using HeraclesCreatures.Source.Combat.Figthers.Enemy;
-using HeraclesCreatures.Source.Combat.Figthers.Player;
-using HeraclesCreatures.Source.GameObject.Creatures;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.Combat
+namespace HeraclesCreatures
 {
     internal class CombatManager
     {

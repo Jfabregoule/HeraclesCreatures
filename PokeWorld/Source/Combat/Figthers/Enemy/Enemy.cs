@@ -1,12 +1,10 @@
-﻿using HeraclesCreatures.Source.GameObject;
-using HeraclesCreatures.Source.GameObject.Creatures;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.Combat.Figthers.Enemy
+namespace HeraclesCreatures
 {
     internal class Enemy : Fighter
     {
