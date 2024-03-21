@@ -1,12 +1,10 @@
-﻿using HeraclesCreatures.Source.GameObject.Creatures;
-using HeraclesCreatures.Source.GameObject.Items;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source
+namespace HeraclesCreatures
 {
     class InputManager
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.Map
+namespace HeraclesCreatures
 {
     public class Cell
     {
