@@ -83,9 +83,14 @@ namespace HeraclesCreatures.Source.Combat
         {
             if(_currentPlayerCreature.Stats.AttackSpeed > _currentEnemyCreature.Stats.AttackSpeed) 
             { 
-                _isPlayerTurn |= true;
+                _isPlayerTurn = true;
             }
-            if(_isPlayerTurn)
+
+        }
+
+        public void Fighting()
+        {
+            if (_isPlayerTurn)
             {
                 for (int i = 0; i < _currentPlayerCreature.Moves.Count(); i++)
                 {
@@ -94,7 +99,15 @@ namespace HeraclesCreatures.Source.Combat
                 Console.ReadLine();
                 _isPlayerTurn = false;
             }
-
+            if (_isPlayerTurn == false)
+            {
+                Console.WriteLine(_currentEnemyCreature.Stats.health);
+                Console.WriteLine(_currentPlayerCreature.Stats.health);
+                _enemy.EasyTurn(_currentEnemyCreature, _currentPlayerCreature);
+                Console.WriteLine(_currentEnemyCreature.Stats.health);
+                Console.WriteLine(_currentPlayerCreature.Stats.health);
+                _isPlayerTurn = true;
+            }
         }
 
         public void SwapCreature(string creatureName) 

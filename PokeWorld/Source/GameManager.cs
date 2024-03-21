@@ -79,11 +79,11 @@ namespace HeraclesCreatures.Source
             Creatures OrangOutant = new Creatures("OrangOutant");
             List<Creatures> Singe = new List<Creatures>();
             Attack COUPDECAILLOU = new Attack();
-            OrangOutant.AddMove(ref COUPDECAILLOU);
+            OrangOutant.AddMove(COUPDECAILLOU);
             Singe.Add(OrangOutant);
             Enemy Ougabouga = new Enemy(Singe, 3);
             Creatures Tiger = new Creatures("Tiger");
-            Tiger.AddMove(ref COUPDECAILLOU);
+            Tiger.AddMove(COUPDECAILLOU);
             Player Hercule = new Player();
             Hercule.AddCreature(Tiger);
             CombatManager test = new CombatManager(Hercule, Ougabouga);
@@ -95,6 +95,7 @@ namespace HeraclesCreatures.Source
             while(_isRunning)
             {
                 _inputManager.Update();
+                
                 if (_inputManager.IsAnyKeyPressed())
                 {
                     Console.WriteLine("Oueoue");

@@ -10,5 +10,12 @@ namespace HeraclesCreatures.Source.Map
     {
         int _X;
         int _Y;
+        public Cell()
+        {
+            _X = 0;
+            _Y = 0; 
+        }
     }
+
+    
 }

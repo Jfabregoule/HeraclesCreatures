@@ -92,15 +92,15 @@ namespace HeraclesCreatures.Source.GameObject.Creatures
             }
         }
 
-        public void AddMove(ref Moves.Moves move) 
+        public void AddMove(Moves.Moves move) 
         {
             _moves.Add(move);
         }
 
-        internal void AddMove(ref Attack attack)
-        {
-            _moves.Add(attack);
-        }
+        //internal void AddMove(ref Attack attack)
+        //{
+        //    _moves.Add(attack);
+        //}
 
         public bool IsDead()
         {
