@@ -73,14 +73,23 @@ namespace HeraclesCreatures
 
             Creatures OrangOutant = new Creatures("OrangOutant");
             List<Creatures> Singe = new List<Creatures>();
-            Attack COUPDECAILLOU = new Attack();
+            Attack COUPDECAILLOU = new Attack("COUPDECAILLOU");
+            Spell COUP2TETE = new Spell("COUP2TETE");
             OrangOutant.AddMove(COUPDECAILLOU);
             Singe.Add(OrangOutant);
             Enemy Ougabouga = new Enemy(Singe, 3);
             Creatures Tiger = new Creatures("Tiger");
             Tiger.AddMove(COUPDECAILLOU);
+            Tiger.AddMove(COUP2TETE);
+            Creatures Viper = new Creatures("Viper");
+            Viper.AddMove(COUPDECAILLOU);
+            Potion popo = new Potion();
+            AttackPlus attP = new AttackPlus();
             Player Hercule = new Player();
             Hercule.AddCreature(Tiger);
+            Hercule.AddCreature(Viper);
+            Hercule.AddItems(popo);
+            Hercule.AddItems(attP);
             CombatManager test = new CombatManager(Hercule, Ougabouga);
             _currentFight = test;
             test.StartFight();

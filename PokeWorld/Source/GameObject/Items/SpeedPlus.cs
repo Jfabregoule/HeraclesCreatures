@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-
-    #region Moves Class
-
-    internal class Moves
+    internal class SpeedPlus : Items
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -23,7 +19,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        string _moveName;
+        int _speedBonus;
 
         #endregion Fields
 
@@ -37,7 +33,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public string MoveName { get => _moveName; protected set => _moveName = value; }
+        public int speedBonus { get { return _speedBonus; } }
 
         #endregion Properties
 
@@ -58,27 +54,24 @@ namespace HeraclesCreatures
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                         Methods                                            |
+        |                                          Methods                                           |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
 
-        public Moves() 
+
+        public SpeedPlus()
         {
-            _moveName = string.Empty;
+            name = "SpeedPlus";
+            _speedBonus = 10;
         }
-
-        public virtual void Use(Creatures sender, Creatures receiver)
+        public override void Use(ref Creatures creatures)
         {
-
+            creatures.BoostSpeed(_speedBonus);
         }
 
         #endregion Methods
-
     }
-
-    #endregion Moves Class
-
 }

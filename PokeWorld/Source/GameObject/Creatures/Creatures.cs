@@ -22,7 +22,8 @@ namespace HeraclesCreatures
         #region Fields
 
         string              _creatureName;
-        List<Moves>         _moves; 
+        List<Moves>         _moves;
+        bool                _isDead;
         CreatureStats       _Stats;
 
         #endregion Fields
@@ -73,43 +74,41 @@ namespace HeraclesCreatures
             _Stats = new CreatureStats();
             _moves = new List<Moves>();
         }
-
-        public void TakeDamage(int damage)
-        {
-            _Stats.health -= damage;
-        }
-
-        public void Heal(int value)
-        {
-            if(_Stats.health + value >= _Stats.maxHealth)
-            {
-                _Stats.health = _Stats.maxHealth;
-            }
-            else
-            {
-                _Stats.health += value; 
-            }
-        }
-
         public void AddMove(Moves move) 
         {
             _moves.Add(move);
         }
 
-        //internal void AddMove(ref Attack attack)
-        //{
-        //    _moves.Add(attack);
-        //}
+        public void TakeDamage(int damage)
+        {
+            _Stats.Damaged(damage);
+        }
 
-        public bool IsDead()
+        public void Heal(int value)
+        {
+            _Stats.Regen(value);
+        }
+
+        public void BoostAttack(int attack)
+        {
+            _Stats.AttackBoost(attack);
+        }
+
+        public void BoostSpeed(int speed)
+        {
+            _Stats.SpeedBoost(speed);
+        }
+
+
+        public void IsDead()
         {
             if(_Stats.health<= 0)
             {
-                return true;
+                _isDead = true;
             }
             else
             {
-                return false;
+                _isDead = false;
             }
         }
 

@@ -70,6 +70,8 @@ namespace HeraclesCreatures
         public override void Use(ref Creatures creatures)
         {
             creatures.Heal(_health);
+            Console.WriteLine("Vous venez de soigner" + creatures.CreatureName);
+            Console.WriteLine(creatures.CreatureName + " HP : " +creatures.Stats.health);
         }
 
         #endregion Methods

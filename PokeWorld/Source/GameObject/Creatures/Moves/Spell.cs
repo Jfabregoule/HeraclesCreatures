@@ -61,7 +61,10 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public Spell() { }
+        public Spell(string name) 
+        {
+            MoveName = name;
+        }
 
         #endregion Methods
 

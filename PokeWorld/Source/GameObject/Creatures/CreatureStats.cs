@@ -37,7 +37,7 @@
 
         public int health { get { return _hp; } set { _hp = value; } }
         public int maxHealth { get => _maxhp; set => _maxhp = value; }
-        public int attack { get { return _attack; } private set { _attack = value; } }
+        public int attack { get { return _attack; } set { _attack = value; } }
         public int magicpower { get { return _magicpower; } private set { _magicpower = value; } }
         public int defense { get { return _defense; } private set { _defense = value; } }
         public int maxMana { get => _maxmana; set => _maxmana = value; }
@@ -87,6 +87,45 @@
             _type = string.Empty;
         }
 
+
+        public void Regen(int amount)
+        {
+            if(health + amount > maxHealth)
+            {
+                health = maxHealth;
+            }
+            else if(amount == maxHealth)
+            {
+                health = amount;
+            }
+            else
+            {
+                health += amount;
+            }
+        }
+
+        public void Damaged(int amount)
+        {
+            health -= amount;
+        }
+
+        public void AttackBoost(int amount) 
+        {
+            if (amount < 0)
+            {
+                throw new ArgumentException(nameof(amount));
+            }
+            attack += amount;
+        }
+
+        public void SpeedBoost(int amount)
+        {
+            if (amount < 0)
+            {
+                throw new ArgumentException(nameof(amount));
+            }
+           AttackSpeed += amount;
+        }
         #endregion Methods
     }
 }

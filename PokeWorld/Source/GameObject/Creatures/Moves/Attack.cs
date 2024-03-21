@@ -61,16 +61,18 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public Attack() 
+        public Attack(string name) 
         {
             _stats = new AttackStats();
-            
+            MoveName = name;
         }
 
         public override void Use(Creatures sender, Creatures receiver)
         {
             int damage = sender.Stats.attack + Stats.Power * 2;
             receiver.TakeDamage(damage);
+            Console.WriteLine("Vous venez d'attaquer " + receiver.CreatureName + " avec " + MoveName);
+            Console.WriteLine(receiver.CreatureName + " HP : " + receiver.Stats.health);
         }
 
         #endregion Methods

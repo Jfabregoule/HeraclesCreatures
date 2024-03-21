@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace HeraclesCreatures
 {
-
-    #region Moves Class
-
-    internal class Moves
+    internal class AttackPlus : Items
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -23,7 +20,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        string _moveName;
+        int _attackBonus;
 
         #endregion Fields
 
@@ -37,7 +34,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public string MoveName { get => _moveName; protected set => _moveName = value; }
+        public int attackBonus { get { return _attackBonus; } }
 
         #endregion Properties
 
@@ -58,27 +55,24 @@ namespace HeraclesCreatures
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                         Methods                                            |
+        |                                          Methods                                           |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
 
-        public Moves() 
+
+        public AttackPlus()
         {
-            _moveName = string.Empty;
+            name = "AttackPlus";
+            _attackBonus = 10;
         }
-
-        public virtual void Use(Creatures sender, Creatures receiver)
+        public override void Use(ref Creatures creatures)
         {
-
+            creatures.BoostAttack(_attackBonus);
         }
 
         #endregion Methods
-
     }
-
-    #endregion Moves Class
-
 }
