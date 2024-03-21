@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Formats.Asn1;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,8 @@ namespace HeraclesCreatures
         MapClass                            _map;
         Dictionary<string, CreatureStats>   _creaturesStats;
         bool                                _isRunning;
+        List<string>                        _types;
+        double[,]                           _tableauValeurs;
 
         #endregion Fields
 
@@ -62,12 +65,12 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public GameManager() { }
-
-        public void InitializeGame()
+        public GameManager() 
         {
             _isRunning = true;
             _inputManager = new InputManager();
+
+            GenerateTypes();
 
             Creatures OrangOutant = new Creatures("OrangOutant");
             List<Creatures> Singe = new List<Creatures>();
@@ -81,8 +84,8 @@ namespace HeraclesCreatures
             Hercule.AddCreature(Tiger);
             CombatManager test = new CombatManager(Hercule, Ougabouga);
             test.StartFight();
-
         }
+
         public void GameLoop()
         {
             while(_isRunning)
@@ -97,6 +100,38 @@ namespace HeraclesCreatures
 
         }
 
+        private void GenerateTypes() 
+        {
+            _tableauValeurs = new double[,]
+            {
+                { 1, 1, 1, 1, 0.5, 1, 1, 1, 0.5, 1, 0 },
+                { 1, 0.5, 0.5, 2, 2, 1, 1, 1, 0.5, 1, 1 },
+                { 1, 2, 0.5, 0.5, 1, 1, 2, 1, 2, 1, 1 },
+                { 1, 0.5, 2, 0.5, 0.5, 0.5, 2, 1, 2, 0.5, 1 },
+                { 1, 0.5, 1, 0.5, 0.5, 1, 1, 1, 2, 1, 1 },
+                { 1, 1, 1, 2, 0.5, 0.5, 2, 1, 0.5, 1, 1 },
+                { 1, 2, 1, 0.5, 2, 0, 0.5, 1, 2, 1, 1 },
+                { 1, 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 2 },
+                { 1, 1, 1, 1, 0.5, 2, 0.5, 1, 0.5, 1, 1 },
+                { 1, 1, 1, 2, 0, 1, 0.5, 1, 0.5, 0.5, 1 },
+                { 1, 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 2 }
+            };
+            _types = new List<string>
+            {
+                "Normal", 
+                "Fire", 
+                "Water", 
+                "Plant", 
+                "Steel", 
+                "Flying", 
+                "Ground", 
+                "Dark", 
+                "Rock", 
+                "Poison", 
+                "Ghost"
+            };
+
+        }
         private void GetCreaturesStats() 
         {
 

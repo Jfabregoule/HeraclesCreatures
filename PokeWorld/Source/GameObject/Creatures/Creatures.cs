@@ -23,7 +23,7 @@ namespace HeraclesCreatures
 
         string              _creatureName;
         List<Moves>         _moves; 
-        CreatureStats       _Stats;
+        CreatureStats       _stats;
 
         #endregion Fields
 
@@ -39,7 +39,7 @@ namespace HeraclesCreatures
 
         public string CreatureName { get => _creatureName; private set => _creatureName = value; }
         internal List<Moves> Moves { get => _moves; private set => _moves = value; }
-        public CreatureStats Stats { get => _Stats; private set => _Stats = value; }
+        public CreatureStats Stats { get => _stats; private set => _stats = value; }
 
         #endregion Properties
 
@@ -70,24 +70,24 @@ namespace HeraclesCreatures
         public Creatures(string CreatureName)
         {
             _creatureName = CreatureName;
-            _Stats = new CreatureStats();
+            _stats = new CreatureStats();
             _moves = new List<Moves>();
         }
 
         public void TakeDamage(int damage)
         {
-            _Stats.health -= damage;
+            _stats.health -= damage;
         }
 
         public void Heal(int value)
         {
-            if(_Stats.health + value >= _Stats.maxHealth)
+            if(_stats.health + value >= _stats.maxHealth)
             {
-                _Stats.health = _Stats.maxHealth;
+                _stats.health = _stats.maxHealth;
             }
             else
             {
-                _Stats.health += value; 
+                _stats.health += value; 
             }
         }
 
@@ -103,7 +103,7 @@ namespace HeraclesCreatures
 
         public bool IsDead()
         {
-            if(_Stats.health<= 0)
+            if(_stats.health<= 0)
             {
                 return true;
             }
