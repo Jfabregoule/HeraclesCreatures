@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures.Source.GameObject.Map_objects.Ground
 {
-    internal class Ground
+    internal class Ground : MapObject
     {
 
         /*------------------------------------------------------------------------------------------*\

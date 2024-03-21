@@ -3,7 +3,7 @@ using HeraclesCreatures.Source.GameObject.Map_objects.Door;
 
 namespace HeraclesCreatures
 {
-    internal class Door
+    internal class Door : MapObject
     {
 
         /*------------------------------------------------------------------------------------------*\

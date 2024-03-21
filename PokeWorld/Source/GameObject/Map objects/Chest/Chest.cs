@@ -3,7 +3,7 @@ using HeraclesCreatures.Source.GameObject.Map_objects.Chest;
 
 namespace HeraclesCreatures
 {
-    internal class Chest
+    internal class Chest : MapObject
     {
 
         /*------------------------------------------------------------------------------------------*\

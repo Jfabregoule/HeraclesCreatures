@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures.Source.GameObject.Map_objects.Wall
 {
-    internal class Wall
+    internal class Wall : MapObject
     {
 
         /*------------------------------------------------------------------------------------------*\
