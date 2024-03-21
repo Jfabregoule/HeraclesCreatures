@@ -4,24 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Map
+namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 {
-    public class Cell
+    internal struct AttackStats
     {
 
         /*------------------------------------------------------------------------------------------*\
-        |                                                                                            |
-        |                                                                                            |
-        |                                          Fields                                            |
-        |                                                                                            |
-        |                                                                                            |
-        \*------------------------------------------------------------------------------------------*/
+       |                                                                                            |
+       |                                                                                            |
+       |                                          Fields                                            |
+       |                                                                                            |
+       |                                                                                            |
+       \*------------------------------------------------------------------------------------------*/
 
         #region Fields
 
-        int _x;
-        int _y;
-        CellData_ _cellData;
+        int _power;
+        int _accuracy;
+        int _critRate;
+        int _maxPP;
+        string _type;
 
         #endregion Fields
 
@@ -35,7 +37,15 @@ namespace HeraclesCreatures.Map
 
         #region Properties
 
+        public int Power { get => _power; private set => _power = value; }
 
+        public int Accuracy { get => _accuracy; private set => _accuracy = value; }
+
+        public int CritRate { get => _critRate; private set => _critRate = value; }
+
+        public int MaxPP { get => _maxPP; private set => _maxPP = value; }
+
+        public string Type { get => _type; private set => _type = value; }
 
         #endregion Properties
 
@@ -56,19 +66,19 @@ namespace HeraclesCreatures.Map
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                          Methods                                           |
+        |                                         Methods                                            |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
 
-        public Cell(int x, int y, CellData_ cellData)
+        public AttackStats() 
         {
-            _x = x;
-            _y = y;
-            _cellData = cellData;
-
+            _power = 0;
+            _accuracy = 0;
+            _critRate = 0;
+            _maxPP = 0;
         }
 
         #endregion Methods
