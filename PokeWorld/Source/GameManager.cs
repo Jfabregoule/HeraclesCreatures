@@ -29,7 +29,7 @@ namespace HeraclesCreatures
         Dictionary<string, Moves>           _moveStats;
         bool                                _isRunning;
         List<string>                        _types;
-        double[,]                           _tableauValeurs;
+        float[,]                            _typeTable;
 
         #endregion Fields
 
@@ -84,7 +84,7 @@ namespace HeraclesCreatures
             Tiger.AddMove(COUPDECAILLOU);
             Player Hercule = new Player();
             Hercule.AddCreature(Tiger);
-            CombatManager test = new CombatManager(Hercule, Ougabouga);
+            CombatManager test = new CombatManager(Hercule, Ougabouga, _types, _typeTable);
             _currentFight = test;
             test.StartFight();
         }
@@ -109,19 +109,19 @@ namespace HeraclesCreatures
 
         private void GenerateTypes() 
         {
-            _tableauValeurs = new double[,]
+            _typeTable = new float[,]
             {
-                { 1, 1, 1, 1, 0.5, 1, 1, 1, 0.5, 1, 0 },
-                { 1, 0.5, 0.5, 2, 2, 1, 1, 1, 0.5, 1, 1 },
-                { 1, 2, 0.5, 0.5, 1, 1, 2, 1, 2, 1, 1 },
-                { 1, 0.5, 2, 0.5, 0.5, 0.5, 2, 1, 2, 0.5, 1 },
-                { 1, 0.5, 1, 0.5, 0.5, 1, 1, 1, 2, 1, 1 },
-                { 1, 1, 1, 2, 0.5, 0.5, 2, 1, 0.5, 1, 1 },
-                { 1, 2, 1, 0.5, 2, 0, 0.5, 1, 2, 1, 1 },
-                { 1, 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 2 },
-                { 1, 1, 1, 1, 0.5, 2, 0.5, 1, 0.5, 1, 1 },
-                { 1, 1, 1, 2, 0, 1, 0.5, 1, 0.5, 0.5, 1 },
-                { 1, 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 2 }
+                { 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, 0.0f },
+                { 1.0f, 0.5f, 0.5f, 2.0f, 2.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, 1.0f },
+                { 1.0f, 2.0f, 0.5f, 0.5f, 1.0f, 1.0f, 2.0f, 1.0f, 2.0f, 1.0f, 1.0f },
+                { 1.0f, 0.5f, 2.0f, 0.5f, 0.5f, 0.5f, 2.0f, 1.0f, 2.0f, 0.5f, 1.0f },
+                { 1.0f, 0.5f, 1.0f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 2.0f, 1.0f, 1.0f },
+                { 1.0f, 1.0f, 1.0f, 2.0f, 0.5f, 0.5f, 2.0f, 1.0f, 0.5f, 1.0f, 1.0f },
+                { 1.0f, 2.0f, 1.0f, 0.5f, 2.0f, 0.0f, 0.5f, 1.0f, 2.0f, 1.0f, 1.0f },
+                { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, 1.0f, 2.0f },
+                { 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 2.0f, 0.5f, 1.0f, 0.5f, 1.0f, 1.0f },
+                { 1.0f, 1.0f, 1.0f, 2.0f, 0.0f, 1.0f, 0.5f, 1.0f, 0.5f, 0.5f, 1.0f },
+                { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, 1.0f, 2.0f }
             };
             _types = new List<string>
             {

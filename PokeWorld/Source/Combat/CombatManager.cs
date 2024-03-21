@@ -25,6 +25,8 @@ namespace HeraclesCreatures
         bool                _isPlayerTurn;
         Creatures           _currentPlayerCreature;
         Creatures           _currentEnemyCreature;
+        List<string>        _types;
+        float[,]            _typeTable;
 
         #endregion Fields
 
@@ -66,7 +68,7 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public CombatManager(Player player, Enemy enemy) 
+        public CombatManager(Player player, Enemy enemy, List<string> types, float[,] typeTable) 
         {
             _player = player;
             _enemy = enemy;
@@ -74,6 +76,8 @@ namespace HeraclesCreatures
             _isPlayerTurn = false;
             _currentPlayerCreature = player.Creatures[0];
             _currentEnemyCreature = enemy.Creatures[0];
+            _types = types;
+            _typeTable = typeTable;
         }
 
         public void StartFight() 
