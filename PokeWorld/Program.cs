@@ -6,7 +6,6 @@
         {
             GameManager gameManager = new GameManager();
 
-            gameManager.InitializeGame();
             gameManager.GameLoop();
             Console.WriteLine();
         }
