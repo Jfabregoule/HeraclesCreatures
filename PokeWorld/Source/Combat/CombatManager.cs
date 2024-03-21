@@ -91,7 +91,7 @@ namespace HeraclesCreatures
             {
                 for (int i = 0; i < _currentPlayerCreature.Moves.Count(); i++)
                 {
-                    Console.WriteLine(_currentPlayerCreature.Moves[i]);
+                    Console.WriteLine(_currentPlayerCreature.Moves[i].MoveName);
                 }
                 Console.ReadLine();
                 _isPlayerTurn = false;

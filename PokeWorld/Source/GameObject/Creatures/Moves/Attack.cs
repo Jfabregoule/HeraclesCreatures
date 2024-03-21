@@ -64,6 +64,7 @@ namespace HeraclesCreatures
         public Attack() 
         {
             _stats = new AttackStats();
+            
         }
 
         public override void Use(Creatures sender, Creatures receiver)

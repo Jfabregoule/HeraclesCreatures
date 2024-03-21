@@ -23,8 +23,10 @@ namespace HeraclesCreatures
         #region Fields
 
         InputManager                        _inputManager;
+        CombatManager                       _currentFight;
         MapClass                            _map;
         Dictionary<string, CreatureStats>   _creaturesStats;
+        Dictionary<string, Moves>           _moveStats;
         bool                                _isRunning;
         List<string>                        _types;
         double[,]                           _tableauValeurs;
@@ -83,6 +85,7 @@ namespace HeraclesCreatures
             Player Hercule = new Player();
             Hercule.AddCreature(Tiger);
             CombatManager test = new CombatManager(Hercule, Ougabouga);
+            _currentFight = test;
             test.StartFight();
         }
 
@@ -95,6 +98,10 @@ namespace HeraclesCreatures
                 if (_inputManager.IsAnyKeyPressed())
                 {
                     Console.WriteLine("Oueoue");
+                }
+                if (_currentFight != null)
+                {
+                    _currentFight.Fighting();
                 }
             }
 
