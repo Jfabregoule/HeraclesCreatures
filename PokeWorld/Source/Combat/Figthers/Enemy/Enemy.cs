@@ -73,35 +73,41 @@ namespace HeraclesCreatures
             _typeTable = typeTable;
         }
 
-        public void Turn(Creatures EnnemyCreature, Creatures AllyCreature)
+        public void Turn(Creatures EnemyCreature, Creatures AllyCreature)
         {
             switch (Difficulty)
             {
                 case 1:
-                    EasyTurn(EnnemyCreature, AllyCreature);
+                    EasyTurn(EnemyCreature, AllyCreature);
                     break;
                 case 2:
-                    MediumTurn(EnnemyCreature, AllyCreature, _types, _typeTable);
+                    MediumTurn(EnemyCreature, AllyCreature, _types, _typeTable);
                     break;
                 case 3:
                     HardTurn();
                     break;
                 default:
-                    MediumTurn(EnnemyCreature, AllyCreature, _types, _typeTable);
+                    MediumTurn(EnemyCreature, AllyCreature, _types, _typeTable);
                     break;
             }
         }
 
-        private void EasyTurn(Creatures EnnemyCreature, Creatures AllyCreature)
+        private void EasyTurn(Creatures EnemyCreature, Creatures AllyCreature)
         {
             Random random = new Random();
 
-            int randomIndex = random.Next(0, EnnemyCreature.Moves.Count);
-            EnnemyCreature.Moves[randomIndex].Use(EnnemyCreature, AllyCreature);
+            int randomIndex = random.Next(0, EnemyCreature.Moves.Count);
+            EnemyCreature.Moves[randomIndex].Use(EnemyCreature, AllyCreature);
         }
 
-        private void MediumTurn(Creatures EnnemyCreature, Creatures AllyCreature, List<string> types, float[,] typeTable)
+        private void MediumTurn(Creatures EnemyCreature, Creatures AllyCreature, List<string> types, float[,] typeTable)
         {
+            string enemyType = EnemyCreature.Stats.type;
+            int j = types.IndexOf(enemyType);
+            for (int i = 0; i < AllyCreature.Moves.Count; i++) 
+            {
+                
+            }
 
         }
 
