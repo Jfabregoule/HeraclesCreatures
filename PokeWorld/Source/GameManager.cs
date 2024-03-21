@@ -29,8 +29,10 @@ namespace HeraclesCreatures.Source
         #region Fields
 
         InputManager                        _inputManager;
+        CombatManager                       _currentFight;
         MapClass                            _map;
         Dictionary<string, CreatureStats>   _creaturesStats;
+        Dictionary<string, Moves>           _moveStats;
         bool                                _isRunning;
 
         #endregion Fields
@@ -87,6 +89,7 @@ namespace HeraclesCreatures.Source
             Player Hercule = new Player();
             Hercule.AddCreature(Tiger);
             CombatManager test = new CombatManager(Hercule, Ougabouga);
+            _currentFight = test;
             test.StartFight();
 
         }
@@ -99,6 +102,10 @@ namespace HeraclesCreatures.Source
                 if (_inputManager.IsAnyKeyPressed())
                 {
                     Console.WriteLine("Oueoue");
+                }
+                if (_currentFight != null)
+                {
+                    _currentFight.Fighting();
                 }
             }
 
