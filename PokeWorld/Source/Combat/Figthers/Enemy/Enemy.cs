@@ -19,7 +19,9 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        int _difficulty;
+        int             _difficulty;
+        List<string>    _types;
+        float[,]        _typeTable;
 
 
         #endregion Fields
@@ -63,10 +65,12 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public Enemy(List<Creatures> team, int difficulty)
+        public Enemy(List<Creatures> team, int difficulty, List<string> types, float[,] typeTable)
         {
             Creatures = team;
             Difficulty = difficulty;
+            _types = types;
+            _typeTable = typeTable;
         }
 
         public void Turn(Creatures EnnemyCreature, Creatures AllyCreature)
@@ -77,18 +81,18 @@ namespace HeraclesCreatures
                     EasyTurn(EnnemyCreature, AllyCreature);
                     break;
                 case 2:
-                    MediumTurn();
+                    MediumTurn(EnnemyCreature, AllyCreature, _types, _typeTable);
                     break;
                 case 3:
                     HardTurn();
                     break;
                 default:
-                    MediumTurn();
+                    MediumTurn(EnnemyCreature, AllyCreature, _types, _typeTable);
                     break;
             }
         }
 
-        public void EasyTurn(Creatures EnnemyCreature, Creatures AllyCreature)
+        private void EasyTurn(Creatures EnnemyCreature, Creatures AllyCreature)
         {
             Random random = new Random();
 
@@ -96,12 +100,12 @@ namespace HeraclesCreatures
             EnnemyCreature.Moves[randomIndex].Use(EnnemyCreature, AllyCreature);
         }
 
-        public void MediumTurn()
+        private void MediumTurn(Creatures EnnemyCreature, Creatures AllyCreature, List<string> types, float[,] typeTable)
         {
 
         }
 
-        public void HardTurn()
+        private void HardTurn()
         {
 
         }

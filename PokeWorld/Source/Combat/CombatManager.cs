@@ -104,7 +104,7 @@ namespace HeraclesCreatures
             {
                 Console.WriteLine(_currentEnemyCreature.Stats.health);
                 Console.WriteLine(_currentPlayerCreature.Stats.health);
-                _enemy.EasyTurn(_currentEnemyCreature, _currentPlayerCreature);
+                _enemy.Turn(_currentEnemyCreature, _currentPlayerCreature);
                 Console.WriteLine(_currentEnemyCreature.Stats.health);
                 Console.WriteLine(_currentPlayerCreature.Stats.health);
                 _isPlayerTurn = true;

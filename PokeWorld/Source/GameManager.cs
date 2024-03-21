@@ -79,7 +79,7 @@ namespace HeraclesCreatures
             Attack COUPDECAILLOU = new Attack();
             OrangOutant.AddMove(COUPDECAILLOU);
             Singe.Add(OrangOutant);
-            Enemy Ougabouga = new Enemy(Singe, 3);
+            Enemy Ougabouga = new Enemy(Singe, 1, _types, _typeTable);
             Creatures Tiger = new Creatures("Tiger");
             Tiger.AddMove(COUPDECAILLOU);
             Player Hercule = new Player();
