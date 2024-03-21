@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
-namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
+namespace HeraclesCreatures
 {
     internal class Spell : Moves
     {
 
         /*------------------------------------------------------------------------------------------*\
-       |                                                                                            |
-       |                                                                                            |
-       |                                          Fields                                            |
-       |                                                                                            |
-       |                                                                                            |
-       \*------------------------------------------------------------------------------------------*/
+        |                                                                                            |
+        |                                                                                            |
+        |                                          Fields                                            |
+        |                                                                                            |
+        |                                                                                            |
+        \*------------------------------------------------------------------------------------------*/
 
         #region Fields
 
@@ -33,7 +29,7 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Properties
 
-        public SpellStats Stats { get => _stats; private set => _stats = value; }
+        internal SpellStats Stats { get => _stats; set => _stats = value; }
 
         #endregion Properties
 

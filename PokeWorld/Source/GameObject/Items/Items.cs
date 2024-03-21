@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
-namespace HeraclesCreatures.Source.GameObject.Items
+namespace HeraclesCreatures
 {
     internal class Items : GameObject
     {
@@ -66,7 +62,7 @@ namespace HeraclesCreatures.Source.GameObject.Items
             _name = string.Empty;
         }
 
-        public virtual void Use(ref Creatures.Creatures creatures)
+        public virtual void Use(ref Creatures creatures)
         {
 
         }

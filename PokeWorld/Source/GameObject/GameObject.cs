@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
-namespace HeraclesCreatures.Source.GameObject
+namespace HeraclesCreatures
 {
-    internal class GameObject
+    public class GameObject
     {
 
         /*------------------------------------------------------------------------------------------*\

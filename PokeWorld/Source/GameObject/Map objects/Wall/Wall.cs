@@ -1,13 +1,13 @@
-﻿using System;
+﻿using HeraclesCreatures.Ressources.MapObjects.Walls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
-namespace HeraclesCreatures
+namespace HeraclesCreatures.Source.GameObject.Map_objects.Wall
 {
-    public class GameObject
+    internal class Wall
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -20,7 +20,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        string _name;
+        WallData _data;
 
         #endregion Fields
 
@@ -34,7 +34,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public string Name { get => _name; private set => _name = value; }
+        internal WallData Data { get => _data; set => _data = value; }
 
         #endregion Properties
 
@@ -62,7 +62,10 @@ namespace HeraclesCreatures
 
         #region Methods
 
-
+        public Wall()
+        {
+            _data = new WallData();
+        }
 
         #endregion Methods
 

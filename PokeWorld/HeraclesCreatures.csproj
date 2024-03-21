@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="FilesReaders\Datas\" />
-    <Folder Include="Ressources\MapObjects\Walls\StoneWall\" />
+    <Folder Include="Ressources\MapObjects\Walls\Stone\" />
+    <Folder Include="Ressources\Spells\" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
-namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
+namespace HeraclesCreatures
 {
 
     #region Moves Class
@@ -22,6 +18,7 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Fields
 
+        // Data
         string _moveName;
 
         #endregion Fields
@@ -36,7 +33,7 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Properties
 
-        public string MoveName { get => _moveName; private set => _moveName = value; }
+        public string MoveName { get => _moveName; set => _moveName = value; }
 
         #endregion Properties
 

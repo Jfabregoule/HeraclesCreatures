@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
-namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
+namespace HeraclesCreatures
 {
     internal class Attack : Moves
     {
@@ -33,7 +29,7 @@ namespace HeraclesCreatures.Source.GameObject.Creatures.Moves
 
         #region Properties
 
-        public AttackStats Stats { get => _stats; private set => _stats = value; }
+        internal AttackStats Stats { get => _stats; set => _stats = value; }
 
         #endregion Properties
 

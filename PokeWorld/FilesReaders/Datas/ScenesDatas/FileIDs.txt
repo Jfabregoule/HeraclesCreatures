@@ -1,6 +1,0 @@
-DG
-Ressources/MapObjects/Grounds/Grass/Grass.txt
-C1
-Ressources/MapObjects/Chests/Chest1.txt
-GGG
-Ressources/MapObjects/Grounds/Grass/Grass.txt

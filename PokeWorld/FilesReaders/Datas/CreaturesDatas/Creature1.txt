@@ -1,8 +1,0 @@
-Stats:
-HP : 50
-DMG : 50
-SPD : 50
-
-MovePool:
-Charge
-Ruée

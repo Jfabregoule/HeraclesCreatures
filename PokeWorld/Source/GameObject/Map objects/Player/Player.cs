@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HeraclesCreatures.Source.GameObject;
-using HeraclesCreatures.Source.GameObject.Creatures;
-using HeraclesCreatures.Source.GameObject.Items;
+﻿using HeraclesCreatures;
 
-namespace HeraclesCreatures.GameObject
+namespace HeraclesCreatures
 {
-    internal class Player : MapObject
+    internal class Player
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -19,9 +12,11 @@ namespace HeraclesCreatures.GameObject
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
-        
+
         #region Fields
 
+        int _x;
+        int _y;
         List<Items> _items;
         List<Creatures> _creatures;
 
@@ -37,6 +32,8 @@ namespace HeraclesCreatures.GameObject
 
         #region Properties
 
+        public int X { get => _x; set => _x = value; }
+        public int Y { get => _y; set => _y = value; }
         internal List<Items> Items { get => _items; set => _items = value; }
         internal List<Creatures> Creatures { get => _creatures; set => _creatures = value; }
 
@@ -69,6 +66,8 @@ namespace HeraclesCreatures.GameObject
 
         public Player() 
         {
+            _x = 0;
+            _y = 0;
             _items = new List<Items>();
             _creatures = new List<Creatures>();
         }

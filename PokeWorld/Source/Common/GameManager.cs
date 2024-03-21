@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
 namespace HeraclesCreatures
 {
-    public class MapObject : GameObject
+    internal class GameManager
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -20,8 +15,9 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        int _x;
-        int _y;
+        InputManager _inputManager;
+        MapClass _map;
+        bool _isRunning;
 
         #endregion Fields
 
@@ -35,9 +31,6 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public int X { get => _x; private set => _x = value; }
-        public int Y { get => _y; private set => _y = value; }
-
         #endregion Properties
 
         /*------------------------------------------------------------------------------------------*\
@@ -50,29 +43,39 @@ namespace HeraclesCreatures
 
         #region Events
 
-
-
         #endregion Events
 
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                          Methods                                           |
+        |                                         Methods                                            |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
 
-        // Constructor
-        public MapObject()
+        public GameManager() { }
+
+        public void InitializeGame()
         {
-            _x = 0;
-            _y = 0;
+            _isRunning = true;
+            _inputManager = new InputManager();
+        }
+        public void GameLoop()
+        {
+            while (_isRunning)
+            {
+                _inputManager.Update();
+                if (_inputManager.IsAnyKeyPressed())
+                {
+                    Console.WriteLine("Oueoue");
+                }
+            }
+
         }
 
         #endregion Methods
 
     }
-
 }

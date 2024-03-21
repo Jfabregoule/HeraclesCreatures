@@ -1,12 +1,13 @@
-﻿using System;
+﻿using HeraclesCreatures.Ressources.MapObjects.Grounds;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures
+namespace HeraclesCreatures.Source.GameObject.Map_objects.Ground
 {
-    internal static class Helper
+    internal class Ground
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -19,7 +20,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-
+        GroundData _data;
 
         #endregion Fields
 
@@ -33,7 +34,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-
+        internal GroundData Data { get => _data; set => _data = value; }
 
         #endregion Properties
 
@@ -61,45 +62,9 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public static ConsoleColor toColor(string color)
+        public Ground()
         {
-            switch (color)
-            {
-            case "Black ":
-                return ConsoleColor.Black;
-            case "DarkBlue ":
-                return ConsoleColor.DarkBlue;
-            case "DarkGreen":
-                return ConsoleColor.DarkGreen;
-            case "DarkCyan ":
-                return ConsoleColor.DarkCyan;
-            case "DarkRed ":
-                return ConsoleColor.DarkRed;
-            case "DarkMagenta ":
-                return ConsoleColor.DarkMagenta;
-            case "DarkYellow ":
-                return ConsoleColor.DarkYellow;
-            case "Gray":
-                return ConsoleColor.Gray;
-            case "DarkGray ":
-                return ConsoleColor.DarkGray;
-            case "Blue ":
-                return ConsoleColor.Blue;
-            case "Green ":
-                return ConsoleColor.Green;
-            case "Cyan ":
-                return ConsoleColor.Cyan;
-            case "Red ":
-                return ConsoleColor.Red;
-            case "Magenta ":
-                return ConsoleColor.Magenta;
-            case "Yellow  ":
-                return ConsoleColor.Yellow;
-            case "White  ":
-                return ConsoleColor.White;
-            default: 
-                return 0;
-            }
+            _data = new GroundData();
         }
 
         #endregion Methods

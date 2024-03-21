@@ -1,0 +1,23 @@
+Name:
+Charge
+
+Stats:
+Power: 50
+Accuracy: 0
+CritRate: 5
+MaxPP: 40
+Type: Fire
+
+Buffs:
+Attack : +5
+MagicPower : +5
+Defense : 0
+Mana: 0
+Speed : 0
+
+Debuffs:
+Attack : 0
+MagicPower : 0
+Defense : 0
+Mana: 5
+Speed : 0

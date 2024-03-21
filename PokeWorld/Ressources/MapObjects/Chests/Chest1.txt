@@ -4,10 +4,13 @@ Chest
 Walkable:
 true
 
+Credits:
+Benjamin ARHANCET
+
 Drawing:
 __________
-|________|
-|   ()   |
+|        |
+|---()---|
 |        |
 |________|
 

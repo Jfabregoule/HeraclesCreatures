@@ -1,14 +1,10 @@
-﻿using HeraclesCreatures.GameObject;
-using HeraclesCreatures.Source;
-using HeraclesCreatures.Source.GameObject.Creatures;
-using HeraclesCreatures.Source.GameObject.Items;
-using System;
-using System.IO;
+﻿using HeraclesCreatures;
 
 class Program
 {
     public static void Main(string[] args)
     {
+        /*
         GameManager gameManager = new GameManager();
         Player Hercule = new Player();
         Creatures Tiger = new Creatures("Tiger");
@@ -23,13 +19,14 @@ class Program
         Hercule.Items[0].Use(ref Tiger);
         Console.WriteLine(Hercule.Creatures[0].stats.health);
 
+        
         gameManager.InitializeGame();
         gameManager.GameLoop();
         Console.WriteLine();
-
-        FileManager coubeh = new FileManager();
-        coubeh.CreateIDToFile();
-
-        string[] map = coubeh.ReadFile("Ressources/Scenes/Scene1.txt");
+        */
+        FileManager shoukran = new FileManager();
+        CellData_ mabrouk = new CellData_();
+        mabrouk = shoukran.GetMapObjectData("Ressources/Players/Player1.txt");
+        mabrouk.printCellData();
     }
 }

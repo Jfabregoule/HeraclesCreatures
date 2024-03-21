@@ -1,11 +1,6 @@
-﻿using HeraclesCreatures.Source.GameObject.Creatures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
-namespace HeraclesCreatures.Source.GameObject.Items
+namespace HeraclesCreatures
 {
     internal class Potion : Items
     {
@@ -68,7 +63,7 @@ namespace HeraclesCreatures.Source.GameObject.Items
             name = "Potion";
             _health = 10;
         }
-        public override void Use(ref Creatures.Creatures creatures)
+        public override void Use(ref Creatures creatures)
         {
             creatures.Heal(_health);
         }

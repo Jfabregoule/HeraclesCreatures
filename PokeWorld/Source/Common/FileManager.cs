@@ -1,13 +1,6 @@
-﻿using HeraclesCreatures.Map;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
-namespace HeraclesCreatures.FilesReaders
+namespace HeraclesCreatures
 {
     internal class FileManager
     {
@@ -22,7 +15,12 @@ namespace HeraclesCreatures.FilesReaders
 
         #region Fields
 
-        Dictionary<string, string> _idToFile = new Dictionary<string, string>();
+        Dictionary<string, CreatureStats> _creaturesData;
+        Dictionary<string, SpellStats> _spellsData;
+        Dictionary<string, AttackStats> _attacksData;
+        Dictionary<string, MapObject> _tilesData;
+        Dictionary<string, Player> _playersData;
+        Dictionary<string, Scene> _scenesData;
 
         #endregion Fields
 
@@ -36,7 +34,12 @@ namespace HeraclesCreatures.FilesReaders
 
         #region Properties
 
-        public Dictionary<string, string> IdToFile { get => _idToFile; set => _idToFile = value; }
+        public Dictionary<string, CreatureStats> CreaturesData { get => _creaturesData; set => _creaturesData = value; }
+        internal Dictionary<string, SpellStats> SpellsData { get => _spellsData; set => _spellsData = value; }
+        internal Dictionary<string, AttackStats> AttacksData { get => _attacksData; set => _attacksData = value; }
+        public Dictionary<string, MapObject> TilesData { get => _tilesData; set => _tilesData = value; }
+        internal Dictionary<string, Player> PlayersData { get => _playersData; set => _playersData = value; }
+        public Dictionary<string, Scene> ScenesData { get => _scenesData; set => _scenesData = value; }
 
         #endregion Properties
 
@@ -64,8 +67,19 @@ namespace HeraclesCreatures.FilesReaders
 
         #region Methods
 
+        public FileManager()
+        {
+            _creaturesData = new Dictionary<string, CreatureStats>();
+            _spellsData = new Dictionary<string, SpellStats>();
+            _attacksData = new Dictionary<string, AttackStats>();
+            _tilesData = new Dictionary<string, MapObject>();
+            _playersData = new Dictionary<string, Player>();
+            _scenesData = new Dictionary<string, Scene>();
+        }
+
         public string[] ReadFile(string filePath)
         {
+            string[] empty = new string[0];
             try
             {
                 string solutionDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
@@ -79,32 +93,14 @@ namespace HeraclesCreatures.FilesReaders
                 else
                 {
                     Console.WriteLine("File not found.");
-                    return null;
+                    
+                    return empty;
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred while reading the file: {ex.Message}");
-                return null;
-            }
-        }
-
-        public void CreateIDToFile()
-        {
-            string[] fileIdentifiersLines = ReadFile("FilesReaders/Datas/FileIDs.txt");
-            if (fileIdentifiersLines != null)
-            {
-                for (int i = 0; i < fileIdentifiersLines.Length; i++)
-                {
-                    if (i % 2 == 0)
-                    {
-                        _idToFile[fileIdentifiersLines[i]] = fileIdentifiersLines[i + 1];
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("Error occurred while reading the file.");
+                return empty;
             }
         }
 
@@ -165,22 +161,6 @@ namespace HeraclesCreatures.FilesReaders
             {
                 for (int i = 0; i < mapObjectLines.Length; i++)
                 {
-                    /*
-                    // Map Object
-                    if (mapObjectLines[i] == "Type:")
-                    {
-                        object mapObject = CreateInstanceFromString(mapObjectLines[i + 1]);
-                        switch (mapObjectLines[i + 1]) {
-                            case "Chest":
-                                break;
-                            case "Ground":
-                                break;
-                            case "Wall":
-                                break;
-                        }
-                        cellData.CellContent = mapObject;
-                    }
-                    */
 
                     // Walkable
                     if (mapObjectLines[i] == "Walkable:")
@@ -217,17 +197,41 @@ namespace HeraclesCreatures.FilesReaders
 
         }
 
-
-
-        /*
-        public Cell[,] GetMapCellArray(string filePath)
+        public Spell GetSpellData(string filePath)
         {
 
-            
+            Spell spell = new Spell();
+            SpellStats stats = new SpellStats();
 
-            
+            string[] spellLines = ReadFile(filePath);
+            if (spellLines != null)
+            {
+
+                for (int i = 0; i < spellLines.Length; i++)
+                {
+
+                    // Name
+                    if (spellLines[i] == "Name:")
+                    {
+                        spell.MoveName = spellLines[i+1];
+                    }
+
+                    // Stats
+                    else if (spellLines[i] == "Stats:")
+                    {
+                        
+                    }
+
+                }
+
+                return spell;
+            }
+            else { 
+                Console.WriteLine(); 
+                return new Spell();
+            }
         }
-         */
+
 
         #endregion Methods
 

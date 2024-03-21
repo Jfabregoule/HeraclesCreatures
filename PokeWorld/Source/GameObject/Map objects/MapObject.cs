@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
-namespace HeraclesCreatures.Source.GameObject
+namespace HeraclesCreatures
 {
-    internal class MapObject : GameObject
+    public class MapObject : GameObject
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -35,8 +30,8 @@ namespace HeraclesCreatures.Source.GameObject
 
         #region Properties
 
-        public int X { get { return _x; } set { _x = value; } }
-        public int Y { get { return _y; } set { _y = value; } }
+        public int X { get => _x; private set => _x = value; }
+        public int Y { get => _y; private set => _y = value; }
 
         #endregion Properties
 
@@ -51,20 +46,28 @@ namespace HeraclesCreatures.Source.GameObject
         #region Events
 
 
+
         #endregion Events
 
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                         Methods                                            |
+        |                                          Methods                                           |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
 
+        // Constructor
+        public MapObject()
+        {
+            _x = 0;
+            _y = 0;
+        }
 
         #endregion Methods
 
     }
+
 }
