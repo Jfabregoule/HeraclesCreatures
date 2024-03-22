@@ -24,7 +24,7 @@ namespace HeraclesCreatures
         string              _creatureName;
         List<Moves>         _moves;
         bool                _isDead;
-        CreatureStats       _Stats;
+        CreatureStats       _stats;
 
         #endregion Fields
 
@@ -81,22 +81,22 @@ namespace HeraclesCreatures
 
         public void TakeDamage(int damage)
         {
-            _Stats.Damaged(damage);
+            _stats.Damaged(damage);
         }
 
         public void Heal(int value)
         {
-            _Stats.Regen(value);
+            _stats.Regen(value);
         }
 
         public void BoostAttack(int attack)
         {
-            _Stats.AttackBoost(attack);
+            _stats.AttackBoost(attack);
         }
 
         public void BoostSpeed(int speed)
         {
-            _Stats.SpeedBoost(speed);
+            _stats.SpeedBoost(speed);
         }
 
 

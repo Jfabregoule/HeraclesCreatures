@@ -81,13 +81,13 @@ namespace HeraclesCreatures
                     EasyTurn(EnemyCreature, AllyCreature);
                     break;
                 case 2:
-                    MediumTurn(EnemyCreature, AllyCreature, _types, _typeTable);
+                    MediumTurn(EnemyCreature, AllyCreature);
                     break;
                 case 3:
                     HardTurn();
                     break;
                 default:
-                    MediumTurn(EnemyCreature, AllyCreature, _types, _typeTable);
+                    MediumTurn(EnemyCreature, AllyCreature);
                     break;
             }
         }
@@ -100,10 +100,10 @@ namespace HeraclesCreatures
             EnemyCreature.Moves[randomIndex].Use(EnemyCreature, AllyCreature);
         }
 
-        private void MediumTurn(Creatures EnemyCreature, Creatures AllyCreature, List<string> types, float[,] typeTable)
+        private void MediumTurn(Creatures EnemyCreature, Creatures AllyCreature)
         {
             string enemyType = EnemyCreature.Stats.type;
-            int j = types.IndexOf(enemyType);
+            int j = _types.IndexOf(enemyType);
             for (int i = 0; i < AllyCreature.Moves.Count; i++) 
             {
                 

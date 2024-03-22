@@ -93,7 +93,6 @@ namespace HeraclesCreatures
             Hercule.AddCreature(Viper);
             Hercule.AddItems(popo);
             Hercule.AddItems(attP);
-            CombatManager test = new CombatManager(Hercule, Ougabouga);
             CombatManager test = new CombatManager(Hercule, Ougabouga, _types, _typeTable);
             _currentFight = test;
             test.StartFight();

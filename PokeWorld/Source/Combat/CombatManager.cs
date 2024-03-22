@@ -174,7 +174,7 @@ namespace HeraclesCreatures
             if (_isPlayerTurn == false)
             {
                 Console.WriteLine("Au tour d'" + _currentEnemyCreature.CreatureName);
-                _enemy.EasyTurn(_currentEnemyCreature, _currentPlayerCreature);
+                _enemy.Turn(_currentEnemyCreature, _currentPlayerCreature);
                 Console.Write(_currentEnemyCreature.CreatureName + " : ");
                 Console.WriteLine(_currentEnemyCreature.Stats.health);
                 Console.Write(_currentPlayerCreature.CreatureName + " : ");
