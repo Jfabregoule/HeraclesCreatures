@@ -75,6 +75,7 @@ namespace HeraclesCreatures
             GenerateTypes();
 
             CreatureStats OrangOutanStats = new CreatureStats();
+            OrangOutanStats.type = "Plant";
             Creatures OrangOutant = new Creatures("OrangOutant", OrangOutanStats);
             List<Creatures> Singe = new List<Creatures>();
             Attack COUPDECAILLOU = new Attack("COUPDECAILLOU");

@@ -38,12 +38,12 @@
         public float health { get { return _hp; } set { _hp = value; } }
         public float maxHealth { get => _maxhp; set => _maxhp = value; }
         public float attack { get { return _attack; } set { _attack = value; } }
-        public float magicpower { get { return _magicpower; } private set { _magicpower = value; } }
-        public float defense { get { return _defense; } private set { _defense = value; } }
+        public float magicpower { get { return _magicpower; } set { _magicpower = value; } }
+        public float defense { get { return _defense; } set { _defense = value; } }
         public float maxMana { get => _maxmana; set => _maxmana = value; }
-        public float mana { get { return _mana; } private set { _mana = value; } }
+        public float mana { get { return _mana; } set { _mana = value; } }
         public float AttackSpeed { get => _attackSpeed; set => _attackSpeed = value; }
-        public string type { get { return _type; } private set { _type = value; } }
+        public string type { get { return _type; } set { _type = value; } }
 
 
 
