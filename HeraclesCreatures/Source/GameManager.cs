@@ -211,6 +211,7 @@ namespace HeraclesCreatures
                         }
 
                         string moveName = Path.GetFileNameWithoutExtension(filePath);
+                        moveName = moveName.Replace('_', ' ');
 
                         _moveStats.Add(moveName, moveStats);
                     }
@@ -286,6 +287,7 @@ namespace HeraclesCreatures
                         }
 
                         string creatureName = Path.GetFileNameWithoutExtension(filePath);
+                        creatureName = creatureName.Replace('_', ' ');
 
                         _creaturesStats.Add(creatureName, creatureStats);
                     }
