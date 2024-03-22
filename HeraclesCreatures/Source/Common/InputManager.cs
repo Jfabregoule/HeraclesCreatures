@@ -1,27 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    internal class MapObject : GameObject
+    class InputManager
     {
-
         /*------------------------------------------------------------------------------------------*\
-        |                                                                                            |
-        |                                                                                            |
-        |                                          Fields                                            |
-        |                                                                                            |
-        |                                                                                            |
-        \*------------------------------------------------------------------------------------------*/
+         |                                                                                            |
+         |                                                                                            |
+         |                                          Fields                                            |
+         |                                                                                            |
+         |                                                                                            |
+         \*------------------------------------------------------------------------------------------*/
 
         #region Fields
 
-        int _x;
-        int _y;
+        Dictionary<string, bool> keyStates = new Dictionary<string, bool>();
+
+        HashSet<ConsoleKey> pressedKeys = new HashSet<ConsoleKey>();
+
 
         #endregion Fields
 
@@ -35,8 +35,6 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public int X { get => _x; private set => _x = value; }
-        public int Y { get => _y; private set => _y = value; }
 
         #endregion Properties
 
@@ -51,6 +49,7 @@ namespace HeraclesCreatures
         #region Events
 
 
+
         #endregion Events
 
         /*------------------------------------------------------------------------------------------*\
@@ -63,14 +62,24 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        // Constructor
-        public MapObject()
+        public void Update()
         {
-            _x = 0;
-            _y = 0;
+            pressedKeys.Clear();
+
+            while (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+                pressedKeys.Add(keyInfo.Key);
+            }
         }
 
-        #endregion Methods
+        public bool GetKeyDown(ConsoleKey key)
+        {
+            return pressedKeys.Contains(key);
+        }
 
+        public bool IsAnyKeyPressed() { return pressedKeys.Count > 0; }
+
+        #endregion Methods
     }
 }

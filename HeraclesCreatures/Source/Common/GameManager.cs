@@ -23,15 +23,15 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        InputManager                        _inputManager;
-        CombatManager                       _currentFight;
-        MapClass                            _map;
-        Dictionary<string, CreatureStats>   _creaturesStats;
-        Dictionary<string, MoveStats>       _moveStats;
-        Dictionary<string, List<string>>    _movePools;
-        bool                                _isRunning;
-        List<string>                        _types;
-        float[,]                            _typeTable;
+        InputManager _inputManager;
+        CombatManager _currentFight;
+        Scene _scene;
+        Dictionary<string, CreatureStats> _creaturesStats;
+        Dictionary<string, MoveStats> _moveStats;
+        Dictionary<string, List<string>> _movePools;
+        bool _isRunning;
+        List<string> _types;
+        float[,] _typeTable;
 
         #endregion Fields
 
@@ -89,7 +89,7 @@ namespace HeraclesCreatures
             Spell COUP2TETE = new Spell("COUP2TETE");
             OrangOutant.AddMove(COUPDECAILLOU);
             Singe.Add(OrangOutant);
-            Enemy Ougabouga = new Enemy("Ougabouga",Singe, 2, _types, _typeTable);
+            Enemy Ougabouga = new Enemy("Ougabouga", Singe, 2, _types, _typeTable);
             CreatureStats TigerStats = new CreatureStats();
             Creatures Tiger = new Creatures("Tiger", TigerStats);
             Tiger.AddMove(COUPDECAILLOU);
@@ -159,7 +159,7 @@ namespace HeraclesCreatures
             };
 
         }
-        
+
         private void GenerateMoves()
         {
             string folderPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\Resources\\Moves";

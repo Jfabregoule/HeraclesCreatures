@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
 namespace HeraclesCreatures
 {
-    internal class MapObject : GameObject
+    internal static class Helper
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -20,8 +15,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        int _x;
-        int _y;
+
 
         #endregion Fields
 
@@ -35,8 +29,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public int X { get => _x; private set => _x = value; }
-        public int Y { get => _y; private set => _y = value; }
+
 
         #endregion Properties
 
@@ -51,23 +44,58 @@ namespace HeraclesCreatures
         #region Events
 
 
+
         #endregion Events
 
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                         Methods                                            |
+        |                                          Methods                                           |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
 
-        // Constructor
-        public MapObject()
+        public static ConsoleColor toColor(string color)
         {
-            _x = 0;
-            _y = 0;
+            switch (color)
+            {
+                case "Black ":
+                    return ConsoleColor.Black;
+                case "DarkBlue ":
+                    return ConsoleColor.DarkBlue;
+                case "DarkGreen":
+                    return ConsoleColor.DarkGreen;
+                case "DarkCyan ":
+                    return ConsoleColor.DarkCyan;
+                case "DarkRed ":
+                    return ConsoleColor.DarkRed;
+                case "DarkMagenta ":
+                    return ConsoleColor.DarkMagenta;
+                case "DarkYellow ":
+                    return ConsoleColor.DarkYellow;
+                case "Gray":
+                    return ConsoleColor.Gray;
+                case "DarkGray ":
+                    return ConsoleColor.DarkGray;
+                case "Blue ":
+                    return ConsoleColor.Blue;
+                case "Green ":
+                    return ConsoleColor.Green;
+                case "Cyan ":
+                    return ConsoleColor.Cyan;
+                case "Red ":
+                    return ConsoleColor.Red;
+                case "Magenta ":
+                    return ConsoleColor.Magenta;
+                case "Yellow  ":
+                    return ConsoleColor.Yellow;
+                case "White  ":
+                    return ConsoleColor.White;
+                default:
+                    return 0;
+            }
         }
 
         #endregion Methods

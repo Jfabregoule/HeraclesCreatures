@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures
+namespace HeraclesCreatures.Source.GameObject.Map_objects.Door
 {
-    internal class MapObject : GameObject
+    internal struct DoorData
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -20,8 +19,8 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        int _x;
-        int _y;
+        Scene _targetScene;
+        bool _isLocked;
 
         #endregion Fields
 
@@ -35,8 +34,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public int X { get => _x; private set => _x = value; }
-        public int Y { get => _y; private set => _y = value; }
+
 
         #endregion Properties
 
@@ -51,24 +49,20 @@ namespace HeraclesCreatures
         #region Events
 
 
+
         #endregion Events
 
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                         Methods                                            |
+        |                                          Methods                                           |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
 
-        // Constructor
-        public MapObject()
-        {
-            _x = 0;
-            _y = 0;
-        }
+
 
         #endregion Methods
 

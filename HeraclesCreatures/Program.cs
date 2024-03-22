@@ -1,4 +1,6 @@
-﻿namespace HeraclesCreatures
+﻿using HeraclesCreatures;
+
+namespace HeraclesCreatures
 {
     class Program
     {

@@ -1,13 +1,13 @@
-﻿using System;
+﻿using HeraclesCreatures.Ressources.MapObjects.Grounds;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures
+namespace HeraclesCreatures.Source.GameObject.Map_objects.Ground
 {
-    internal class MapObject : GameObject
+    internal class Ground : MapObject
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -20,8 +20,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        int _x;
-        int _y;
+        GroundData _data;
 
         #endregion Fields
 
@@ -35,8 +34,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public int X { get => _x; private set => _x = value; }
-        public int Y { get => _y; private set => _y = value; }
+        internal GroundData Data { get => _data; set => _data = value; }
 
         #endregion Properties
 
@@ -51,23 +49,22 @@ namespace HeraclesCreatures
         #region Events
 
 
+
         #endregion Events
 
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                         Methods                                            |
+        |                                          Methods                                           |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
 
-        // Constructor
-        public MapObject()
+        public Ground()
         {
-            _x = 0;
-            _y = 0;
+            _data = new GroundData();
         }
 
         #endregion Methods

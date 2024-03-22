@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
 namespace HeraclesCreatures
 {
-    class InputManager
+    public class Scene
     {
+
         /*------------------------------------------------------------------------------------------*\
-         |                                                                                            |
-         |                                                                                            |
-         |                                          Fields                                            |
-         |                                                                                            |
-         |                                                                                            |
-         \*------------------------------------------------------------------------------------------*/
+        |                                                                                            |
+        |                                                                                            |
+        |                                          Fields                                            |
+        |                                                                                            |
+        |                                                                                            |
+        \*------------------------------------------------------------------------------------------*/
 
         #region Fields
 
-        Dictionary<string, bool> keyStates = new Dictionary<string, bool>();
-
-        HashSet<ConsoleKey> pressedKeys = new HashSet<ConsoleKey>();
-
+        int _width;
+        int _height;
+        Cell[,] _cells;
 
         #endregion Fields
 
@@ -34,6 +30,7 @@ namespace HeraclesCreatures
         \*------------------------------------------------------------------------------------------*/
 
         #region Properties
+
 
 
         #endregion Properties
@@ -55,31 +52,22 @@ namespace HeraclesCreatures
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
         |                                                                                            |
-        |                                         Methods                                            |
+        |                                          Methods                                           |
         |                                                                                            |
         |                                                                                            |
         \*------------------------------------------------------------------------------------------*/
 
         #region Methods
 
-        public void Update()
+        public Scene(int width, int height, Cell[,] cells)
         {
-            pressedKeys.Clear();
-
-            while (Console.KeyAvailable)
-            {
-                ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
-                pressedKeys.Add(keyInfo.Key);
-            }
+            _width = width;
+            _height = height;
+            _cells = cells;
         }
-
-        public bool GetKeyDown(ConsoleKey key)
-        {
-            return pressedKeys.Contains(key);
-        }
-
-        public bool IsAnyKeyPressed() { return pressedKeys.Count > 0;}
 
         #endregion Methods
+
+
     }
 }
