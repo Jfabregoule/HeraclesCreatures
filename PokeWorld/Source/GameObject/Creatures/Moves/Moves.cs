@@ -23,7 +23,8 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        string _moveName;
+        string      _moveName;
+        MoveStats   _stats;
 
         #endregion Fields
 
@@ -38,6 +39,8 @@ namespace HeraclesCreatures
         #region Properties
 
         public string MoveName { get => _moveName; protected set => _moveName = value; }
+
+        public MoveStats Stats { get => _stats; private set => _stats = value; }
 
         #endregion Properties
 
@@ -67,12 +70,20 @@ namespace HeraclesCreatures
 
         public Moves() 
         {
+            _stats = new MoveStats();
             _moveName = string.Empty;
         }
 
-        public virtual void Use(Creatures sender, Creatures receiver)
+        public virtual void Use(Creatures sender, Creatures receiver, float effectiveness)
         {
 
+        }
+
+        public float GetEffectiveness(string enemyType, List<string> types, float[,] typeTable)
+        {
+            int j = types.IndexOf(enemyType);
+            int i = types.IndexOf(_stats.Type);
+            return typeTable[i, j];
         }
 
         #endregion Methods

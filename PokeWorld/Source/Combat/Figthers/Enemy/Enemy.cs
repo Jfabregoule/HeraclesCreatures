@@ -97,18 +97,33 @@ namespace HeraclesCreatures
             Random random = new Random();
 
             int randomIndex = random.Next(0, EnemyCreature.Moves.Count);
-            EnemyCreature.Moves[randomIndex].Use(EnemyCreature, AllyCreature);
+            float effectiveness = AllyCreature.Moves[randomIndex].GetEffectiveness(EnemyCreature.Stats.type, _types, _typeTable);
+            EnemyCreature.Moves[randomIndex].Use(EnemyCreature, AllyCreature, effectiveness);
         }
 
         private void MediumTurn(Creatures EnemyCreature, Creatures AllyCreature)
         {
+            Random random = new Random();
+            int randomIndex = random.Next(0, EnemyCreature.Moves.Count);
+
+            int bestMoveIndex = randomIndex;
+            float bestEffect = 0.0f;
             string enemyType = EnemyCreature.Stats.type;
             int j = _types.IndexOf(enemyType);
-            for (int i = 0; i < AllyCreature.Moves.Count; i++) 
+            for (int x = 0; x < AllyCreature.Moves.Count; x++) 
             {
-                
+                int i = _types.IndexOf(AllyCreature.Moves[x].Stats.Type);
+                if (_typeTable[i, j] > bestEffect)
+                {
+                    bestMoveIndex = x;
+                    bestEffect = _typeTable[i, j];
+                    Console.Write("Effect :");
+                    Console.WriteLine(_typeTable[i, j]);
+                }
             }
-
+            EnemyCreature.Moves[bestMoveIndex].Use(EnemyCreature, AllyCreature, bestEffect);
+            Console.WriteLine("Best move index :");
+            Console.WriteLine(bestMoveIndex);
         }
 
         private void HardTurn()

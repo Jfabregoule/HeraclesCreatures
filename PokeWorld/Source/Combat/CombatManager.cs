@@ -109,13 +109,15 @@ namespace HeraclesCreatures
                     {
                         if (combatVal == "0")
                         {
-                            _currentPlayerCreature.Moves[0].Use(_currentPlayerCreature, _currentEnemyCreature);
+                            float effectiveness = _currentPlayerCreature.Moves[0].GetEffectiveness(_currentEnemyCreature.Stats.type, _types, _typeTable);
+                            _currentPlayerCreature.Moves[0].Use(_currentPlayerCreature, _currentEnemyCreature, effectiveness);
                             _isPlayerTurn = false;
 
                         }
                         if (combatVal == "1")
                         {
-                            _currentPlayerCreature.Moves[1].Use(_currentPlayerCreature, _currentEnemyCreature);
+                            float effectiveness = _currentPlayerCreature.Moves[1].GetEffectiveness(_currentEnemyCreature.Stats.type, _types, _typeTable);
+                            _currentPlayerCreature.Moves[1].Use(_currentPlayerCreature, _currentEnemyCreature, effectiveness);
                             _isPlayerTurn = false;
 
                         }

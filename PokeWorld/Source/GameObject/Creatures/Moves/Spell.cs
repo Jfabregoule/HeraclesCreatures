@@ -19,8 +19,6 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        SpellStats _stats;
-
         #endregion Fields
 
         /*------------------------------------------------------------------------------------------*\
@@ -32,8 +30,6 @@ namespace HeraclesCreatures
         \*------------------------------------------------------------------------------------------*/
 
         #region Properties
-
-        public SpellStats Stats { get => _stats; private set => _stats = value; }
 
         #endregion Properties
 

@@ -19,8 +19,6 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        AttackStats _stats;
-
         #endregion Fields
 
         /*------------------------------------------------------------------------------------------*\
@@ -32,8 +30,6 @@ namespace HeraclesCreatures
         \*------------------------------------------------------------------------------------------*/
 
         #region Properties
-
-        public AttackStats Stats { get => _stats; private set => _stats = value; }
 
         #endregion Properties
 
@@ -63,13 +59,12 @@ namespace HeraclesCreatures
 
         public Attack(string name) 
         {
-            _stats = new AttackStats();
             MoveName = name;
         }
 
-        public override void Use(Creatures sender, Creatures receiver)
+        public override void Use(Creatures sender, Creatures receiver, float effectiveness)
         {
-            int damage = sender.Stats.attack + Stats.Power * 2;
+            float damage = (sender.Stats.attack + Stats.Power * 2) * effectiveness;
             receiver.TakeDamage(damage);
             Console.WriteLine("Vous venez d'attaquer " + receiver.CreatureName + " avec " + MoveName);
             Console.WriteLine(receiver.CreatureName + " HP : " + receiver.Stats.health);

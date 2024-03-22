@@ -12,14 +12,14 @@
 
         #region Fields
 
-        int _hp;
-        int _maxhp;
-        int _attack;
-        int _magicpower;
-        int _defense;
-        int _mana;
-        int _maxmana;
-        int _attackSpeed;
+        float _hp;
+        float _maxhp;
+        float _attack;
+        float _magicpower;
+        float _defense;
+        float _mana;
+        float _maxmana;
+        float _attackSpeed;
         string _type;
 
         #endregion Fields
@@ -35,14 +35,14 @@
 
         #region Properties
 
-        public int health { get { return _hp; } set { _hp = value; } }
-        public int maxHealth { get => _maxhp; set => _maxhp = value; }
-        public int attack { get { return _attack; } set { _attack = value; } }
-        public int magicpower { get { return _magicpower; } private set { _magicpower = value; } }
-        public int defense { get { return _defense; } private set { _defense = value; } }
-        public int maxMana { get => _maxmana; set => _maxmana = value; }
-        public int mana { get { return _mana; } private set { _mana = value; } }
-        public int AttackSpeed { get => _attackSpeed; set => _attackSpeed = value; }
+        public float health { get { return _hp; } set { _hp = value; } }
+        public float maxHealth { get => _maxhp; set => _maxhp = value; }
+        public float attack { get { return _attack; } set { _attack = value; } }
+        public float magicpower { get { return _magicpower; } private set { _magicpower = value; } }
+        public float defense { get { return _defense; } private set { _defense = value; } }
+        public float maxMana { get => _maxmana; set => _maxmana = value; }
+        public float mana { get { return _mana; } private set { _mana = value; } }
+        public float AttackSpeed { get => _attackSpeed; set => _attackSpeed = value; }
         public string type { get { return _type; } private set { _type = value; } }
 
 
@@ -84,11 +84,11 @@
             _maxmana = 0;
             _mana = 0;
             _attackSpeed = 0;
-            _type = string.Empty;
+            _type = "Water";
         }
 
 
-        public void Regen(int amount)
+        public void Regen(float amount)
         {
             if(health + amount > maxHealth)
             {
@@ -104,12 +104,12 @@
             }
         }
 
-        public void Damaged(int amount)
+        public void Damaged(float amount)
         {
             health -= amount;
         }
 
-        public void AttackBoost(int amount) 
+        public void AttackBoost(float amount) 
         {
             if (amount < 0)
             {
@@ -118,7 +118,7 @@
             attack += amount;
         }
 
-        public void SpeedBoost(int amount)
+        public void SpeedBoost(float amount)
         {
             if (amount < 0)
             {

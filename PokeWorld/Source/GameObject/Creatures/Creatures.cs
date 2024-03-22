@@ -79,22 +79,22 @@ namespace HeraclesCreatures
             _moves.Add(move);
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             _stats.Damaged(damage);
         }
 
-        public void Heal(int value)
+        public void Heal(float value)
         {
             _stats.Regen(value);
         }
 
-        public void BoostAttack(int attack)
+        public void BoostAttack(float attack)
         {
             _stats.AttackBoost(attack);
         }
 
-        public void BoostSpeed(int speed)
+        public void BoostSpeed(float speed)
         {
             _stats.SpeedBoost(speed);
         }

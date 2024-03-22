@@ -80,7 +80,7 @@ namespace HeraclesCreatures
             Spell COUP2TETE = new Spell("COUP2TETE");
             OrangOutant.AddMove(COUPDECAILLOU);
             Singe.Add(OrangOutant);
-            Enemy Ougabouga = new Enemy(Singe, 1, _types, _typeTable);
+            Enemy Ougabouga = new Enemy(Singe, 2, _types, _typeTable);
             Creatures Tiger = new Creatures("Tiger");
             Tiger.AddMove(COUPDECAILLOU);
             Tiger.AddMove(COUP2TETE);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    internal struct AttackStats
+    internal struct MoveStats
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -23,6 +23,7 @@ namespace HeraclesCreatures
         int     _accuracy;
         int     _critRate;
         int     _maxPP;
+        int     _manaCost;
         string  _type;
 
         #endregion Fields
@@ -43,9 +44,12 @@ namespace HeraclesCreatures
 
         public int      CritRate { get => _critRate; private set => _critRate = value; }
 
-        public int      MaxPP { get => _maxPP; private set => _maxPP = value; }
+        public int MaxPP { get => _maxPP; private set => _maxPP = value; }
+
+        public int      Mana { get => _manaCost; private set => _manaCost = value; }
 
         public string   Type { get => _type; private set => _type = value; }
+
 
         #endregion Properties
 
@@ -73,13 +77,14 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public AttackStats() 
+        public MoveStats() 
         {
             _power = 10;
             _accuracy = 10;
             _critRate = 5;
             _maxPP = 6;
-            _type = string.Empty;
+            _manaCost = 10;
+            _type = "Fire";
         }
 
         #endregion Methods
