@@ -74,17 +74,20 @@ namespace HeraclesCreatures
 
             GenerateTypes();
 
-            Creatures OrangOutant = new Creatures("OrangOutant");
+            CreatureStats OrangOutanStats = new CreatureStats();
+            Creatures OrangOutant = new Creatures("OrangOutant", OrangOutanStats);
             List<Creatures> Singe = new List<Creatures>();
             Attack COUPDECAILLOU = new Attack("COUPDECAILLOU");
             Spell COUP2TETE = new Spell("COUP2TETE");
             OrangOutant.AddMove(COUPDECAILLOU);
             Singe.Add(OrangOutant);
             Enemy Ougabouga = new Enemy(Singe, 2, _types, _typeTable);
-            Creatures Tiger = new Creatures("Tiger");
+            CreatureStats TigerStats = new CreatureStats();
+            Creatures Tiger = new Creatures("Tiger", TigerStats);
             Tiger.AddMove(COUPDECAILLOU);
             Tiger.AddMove(COUP2TETE);
-            Creatures Viper = new Creatures("Viper");
+            CreatureStats ViperStats = new CreatureStats();
+            Creatures Viper = new Creatures("Viper", ViperStats);
             Viper.AddMove(COUPDECAILLOU);
             Potion popo = new Potion();
             AttackPlus attP = new AttackPlus();

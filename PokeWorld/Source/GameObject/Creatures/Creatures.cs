@@ -68,10 +68,10 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public Creatures(string CreatureName)
+        public Creatures(string CreatureName, CreatureStats stats)
         {
             _creatureName = CreatureName;
-            _stats = new CreatureStats();
+            _stats = stats;
             _moves = new List<Moves>();
         }
         public void AddMove(Moves move) 

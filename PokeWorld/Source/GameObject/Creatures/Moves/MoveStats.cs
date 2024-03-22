@@ -44,7 +44,7 @@ namespace HeraclesCreatures
 
         public int      CritRate { get => _critRate; private set => _critRate = value; }
 
-        public int MaxPP { get => _maxPP; private set => _maxPP = value; }
+        public int      MaxPP { get => _maxPP; private set => _maxPP = value; }
 
         public int      Mana { get => _manaCost; private set => _manaCost = value; }
 
