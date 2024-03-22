@@ -4,6 +4,7 @@ using System.Data;
 using System.Formats.Asn1;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +28,7 @@ namespace HeraclesCreatures
         MapClass                            _map;
         Dictionary<string, CreatureStats>   _creaturesStats;
         Dictionary<string, MoveStats>       _moveStats;
+        Dictionary<string, List<string>>    _movePools;
         bool                                _isRunning;
         List<string>                        _types;
         float[,]                            _typeTable;
@@ -73,6 +75,7 @@ namespace HeraclesCreatures
             _inputManager = new InputManager();
             _creaturesStats = new Dictionary<string, CreatureStats>();
             _moveStats = new Dictionary<string, MoveStats>();
+            _movePools = new Dictionary<string, List<string>>();
 
             GenerateTypes();
             GenerateMoves();
@@ -230,11 +233,13 @@ namespace HeraclesCreatures
         private void GenerateCreatures()
         {
             string folderPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\Resources\\Creatures";
+
+            // Vérifier si le dossier existe
             if (Directory.Exists(folderPath))
             {
-
                 string[] files = Directory.GetFiles(folderPath, "*.txt");
 
+                // Parcourir tous les fichiers
                 foreach (string filePath in files)
                 {
                     try
@@ -243,45 +248,58 @@ namespace HeraclesCreatures
 
                         CreatureStats creatureStats = new CreatureStats();
 
+                        List<string> movePool = new List<string>();
+
+                        bool inMovePoolSection = false;
+
                         foreach (string line in lines)
                         {
-                            string[] parts = line.Split(':');
-                            if (parts.Length == 2)
+                            if (line.Trim().Equals("MovePool :", StringComparison.OrdinalIgnoreCase))
                             {
-                                string key = parts[0].Trim();
-                                string value = parts[1].Trim();
-
-                                switch (key)
+                                inMovePoolSection = true;
+                            }
+                            else if (inMovePoolSection && !string.IsNullOrWhiteSpace(line))
+                            {
+                                movePool.Add(line.Trim());
+                            }
+                            else
+                            {
+                                string[] parts = line.Split(':');
+                                if (parts.Length == 2)
                                 {
-                                    case "HP":
-                                        creatureStats.health = float.Parse(value);
-                                        break;
-                                    case "MAXHP":
-                                        creatureStats.maxHealth = float.Parse(value);
-                                        break;
-                                    case "ATTACK":
-                                        creatureStats.attack = float.Parse(value);
-                                        break;
-                                    case "MAGICPOWER":
-                                        creatureStats.magicpower = float.Parse(value);
-                                        break;
-                                    case "DEFENSE":
-                                        creatureStats.defense = float.Parse(value);
-                                        break;
-                                    case "MANA":
-                                        creatureStats.mana = float.Parse(value);
-                                        break;
-                                    case "MAXMANA":
-                                        creatureStats.maxMana = float.Parse(value);
-                                        break;
-                                    case "SPEED":
-                                        creatureStats.AttackSpeed = float.Parse(value);
-                                        break;
-                                    case "TYPE":
-                                        creatureStats.type = value;
-                                        break;
-                                    default:
-                                        break;
+                                    string key = parts[0].Trim();
+                                    string value = parts[1].Trim();
+
+                                    switch (key)
+                                    {
+                                        case "HP":
+                                            creatureStats.health = float.Parse(value);
+                                            break;
+                                        case "MAXHP":
+                                            creatureStats.maxHealth = float.Parse(value);
+                                            break;
+                                        case "ATTACK":
+                                            creatureStats.attack = float.Parse(value);
+                                            break;
+                                        case "MAGICPOWER":
+                                            creatureStats.magicpower = float.Parse(value);
+                                            break;
+                                        case "DEFENSE":
+                                            creatureStats.defense = float.Parse(value);
+                                            break;
+                                        case "MANA":
+                                            creatureStats.mana = float.Parse(value);
+                                            break;
+                                        case "MAXMANA":
+                                            creatureStats.maxMana = float.Parse(value);
+                                            break;
+                                        case "SPEED":
+                                            creatureStats.AttackSpeed = float.Parse(value);
+                                            break;
+                                        case "TYPE":
+                                            creatureStats.type = value;
+                                            break;
+                                    }
                                 }
                             }
                         }
@@ -290,6 +308,8 @@ namespace HeraclesCreatures
                         creatureName = creatureName.Replace('_', ' ');
 
                         _creaturesStats.Add(creatureName, creatureStats);
+
+                        _movePools.Add(creatureName, movePool);
                     }
                     catch (Exception ex)
                     {
