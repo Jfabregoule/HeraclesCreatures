@@ -20,6 +20,7 @@ namespace HeraclesCreatures
         #region Fields
 
         List<Creatures> _creatures;
+        string _name;
 
         #endregion Fields
 
@@ -34,6 +35,7 @@ namespace HeraclesCreatures
         #region Properties
 
         internal List<Creatures> Creatures { get => _creatures; set => _creatures = value; }
+        public string Name { get => _name; set => _name = value; }
 
         #endregion Properties
 
@@ -61,6 +63,10 @@ namespace HeraclesCreatures
 
         #region Methods
 
+        public Fighter()
+        {
+            Name = string.Empty;
+        }
         public void AddCreature(Creatures creatures)
         {
             _creatures.Add(creatures);

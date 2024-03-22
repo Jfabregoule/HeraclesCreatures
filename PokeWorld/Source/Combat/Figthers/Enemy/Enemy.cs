@@ -65,8 +65,9 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public Enemy(List<Creatures> team, int difficulty, List<string> types, float[,] typeTable)
+        public Enemy(string name,List<Creatures> team, int difficulty, List<string> types, float[,] typeTable)
         {
+            Name = name;
             Creatures = team;
             Difficulty = difficulty;
             _types = types;

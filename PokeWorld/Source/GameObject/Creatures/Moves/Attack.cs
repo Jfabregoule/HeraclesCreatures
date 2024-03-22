@@ -66,7 +66,7 @@ namespace HeraclesCreatures
         {
             float damage = (sender.Stats.attack + Stats.Power * 2) * effectiveness;
             receiver.TakeDamage(damage);
-            Console.WriteLine("Vous venez d'attaquer " + receiver.CreatureName + " avec " + MoveName);
+            Console.WriteLine(sender.CreatureName + " attacks " + receiver.CreatureName + " with " + MoveName);
             Console.WriteLine(receiver.CreatureName + " HP : " + receiver.Stats.health);
         }
 

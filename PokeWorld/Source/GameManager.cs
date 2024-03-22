@@ -75,14 +75,18 @@ namespace HeraclesCreatures
             GenerateTypes();
 
             CreatureStats OrangOutanStats = new CreatureStats();
+            CreatureStats GorillaOutanStats = new CreatureStats();
             OrangOutanStats.type = "Plant";
             Creatures OrangOutant = new Creatures("OrangOutant", OrangOutanStats);
+            Creatures Gorilla = new Creatures("Gorrila", GorillaOutanStats);
             List<Creatures> Singe = new List<Creatures>();
             Attack COUPDECAILLOU = new Attack("COUPDECAILLOU");
             Spell COUP2TETE = new Spell("COUP2TETE");
             OrangOutant.AddMove(COUPDECAILLOU);
+            Gorilla.AddMove(COUPDECAILLOU);
             Singe.Add(OrangOutant);
-            Enemy Ougabouga = new Enemy(Singe, 2, _types, _typeTable);
+            Singe.Add(Gorilla);
+            Enemy Ougabouga = new Enemy("Ougabouga",Singe, 2, _types, _typeTable);
             CreatureStats TigerStats = new CreatureStats();
             Creatures Tiger = new Creatures("Tiger", TigerStats);
             Tiger.AddMove(COUPDECAILLOU);
@@ -92,7 +96,7 @@ namespace HeraclesCreatures
             Viper.AddMove(COUPDECAILLOU);
             Potion popo = new Potion();
             AttackPlus attP = new AttackPlus();
-            Player Hercule = new Player();
+            Player Hercule = new Player("Hercule");
             Hercule.AddCreature(Tiger);
             Hercule.AddCreature(Viper);
             Hercule.AddItems(popo);
@@ -112,9 +116,10 @@ namespace HeraclesCreatures
                 {
                     Console.WriteLine("Oueoue");
                 }
-                if (_currentFight != null)
+                if (_currentFight != null && _currentFight.IsOver == false)
                 {
                     _currentFight.Fighting();
+                    _currentFight.FightEnd();
                 }
             }
 

@@ -67,7 +67,7 @@ namespace HeraclesCreatures
         public override void Use(ref Creatures creatures)
         {
             creatures.Heal(creatures.Stats.maxHealth);
-            creatures.IsDead();
+            creatures.CheckIsDead();
         }
 
         #endregion Methods

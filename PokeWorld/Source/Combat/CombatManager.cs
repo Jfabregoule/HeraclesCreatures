@@ -23,10 +23,12 @@ namespace HeraclesCreatures
         Enemy               _enemy;
         int                 _currentTurn;
         bool                _isPlayerTurn;
+        bool                _isOver;
         Creatures           _currentPlayerCreature;
         Creatures           _currentEnemyCreature;
         List<string>        _types;
         float[,]            _typeTable;
+
 
         #endregion Fields
 
@@ -40,6 +42,8 @@ namespace HeraclesCreatures
 
         #region Properties
 
+        public bool IsOver { get => _isOver; private set => _isOver = value; }
+        public int CurrentTurn { get => _currentTurn; private set => _currentTurn = value; }
 
 
         #endregion Properties
@@ -72,7 +76,8 @@ namespace HeraclesCreatures
         {
             _player = player;
             _enemy = enemy;
-            _currentTurn = 0;
+            _isOver = false;
+            CurrentTurn = 0;
             _isPlayerTurn = false;
             _currentPlayerCreature = player.Creatures[0];
             _currentEnemyCreature = enemy.Creatures[0];
@@ -91,6 +96,14 @@ namespace HeraclesCreatures
 
         public void Fighting()
         {
+            if(_isOver == false) 
+            {
+                AutoSwap(_player, _currentPlayerCreature);
+            }
+            Console.WriteLine(" ");
+            Console.WriteLine(_currentPlayerCreature.CreatureName + " : " + _currentPlayerCreature.Stats.health + "/" + _currentPlayerCreature.Stats.maxHealth);
+            Console.WriteLine(" ");
+
             if (_isPlayerTurn)
             {
                 Console.WriteLine("-Combat");
@@ -122,10 +135,6 @@ namespace HeraclesCreatures
 
                         }
                     }
-                    Console.Write(_currentEnemyCreature.CreatureName + " : ");
-                    Console.WriteLine(_currentEnemyCreature.Stats.health);
-                    Console.Write(_currentPlayerCreature.CreatureName + " : ");
-                    Console.WriteLine(_currentPlayerCreature.Stats.health);
 
                 }
                 else if (val == "Objets")
@@ -168,21 +177,28 @@ namespace HeraclesCreatures
                         if (swapval == "1")
                         {
                             SwapCreature(_player, _player.Creatures[1].CreatureName);
+                            _isPlayerTurn = false;
                         }
                     }
                 }
             }
+            
 
             if (_isPlayerTurn == false)
             {
+                if (_isOver == false)
+                {
+                    AutoSwap(_enemy, _currentEnemyCreature);
+                }
                 Console.WriteLine("Au tour d'" + _currentEnemyCreature.CreatureName);
                 _enemy.Turn(_currentEnemyCreature, _currentPlayerCreature);
-                Console.Write(_currentEnemyCreature.CreatureName + " : ");
-                Console.WriteLine(_currentEnemyCreature.Stats.health);
-                Console.Write(_currentPlayerCreature.CreatureName + " : ");
-                Console.WriteLine(_currentPlayerCreature.Stats.health);
                 _isPlayerTurn = true;
             }
+            CurrentTurn += 1;
+            Console.WriteLine(" ");
+            Console.WriteLine(_currentEnemyCreature.CreatureName + " : " + _currentEnemyCreature.Stats.health + "/" + _currentEnemyCreature.Stats.maxHealth);
+            Console.WriteLine(" ");
+
         }
 
         public void SwapCreature(Fighter fighter,string creatureName) 
@@ -194,15 +210,68 @@ namespace HeraclesCreatures
                     if(fighter == _player)
                     {
                         _currentPlayerCreature = fighter.Creatures[i];
-                        _isPlayerTurn = false;
                     }
                     else if(fighter == _enemy)
                     {
                         _currentEnemyCreature = fighter.Creatures[i];
-                        _isPlayerTurn = true;
                     }
                 }
             }
+        }
+
+        public void FightEnd()
+        {
+            int playerCreatureDead = 0;
+            int enemyCreatureDead = 0;
+            for (int i = 0; i < _player.Creatures.Count(); i++)
+            {
+                _player.Creatures[i].CheckIsDead();
+                if (_player.Creatures[i].IsDead)
+                {
+                    playerCreatureDead += 1;
+                }
+            }
+            for (int i = 0; i < _enemy.Creatures.Count(); i++)
+            {
+                _enemy.Creatures[i].CheckIsDead();
+                if (_enemy.Creatures[i].IsDead)
+                {
+                    enemyCreatureDead += 1;
+                }
+            }
+            if (playerCreatureDead == _player.Creatures.Count())
+            {
+
+                Win(_enemy, _player);
+                IsOver = true;
+            }
+            else if (enemyCreatureDead == _enemy.Creatures.Count())
+            {
+                Win(_player, _enemy);
+                IsOver = true ;
+            }
+        }
+
+        public void AutoSwap(Fighter fighter,Creatures currentCreature)
+        {
+            currentCreature.CheckIsDead();
+            if (currentCreature.IsDead)
+            {
+                for (int i = 0; i < fighter.Creatures.Count(); i++)
+                {
+                    if (currentCreature == fighter.Creatures[i] && fighter.Creatures[i + 1] != null)
+                    {
+                        SwapCreature(fighter, fighter.Creatures[i + 1].CreatureName);
+                        break;
+                    }
+                }
+            }
+        }
+
+        public void Win(Fighter Winner, Fighter Looser)
+        {
+            Console.WriteLine("The winner is " +  Winner.Name);
+            Console.WriteLine(Looser.Name + " has lost.");
         }
 
 

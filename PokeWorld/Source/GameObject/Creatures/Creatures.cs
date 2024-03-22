@@ -41,6 +41,7 @@ namespace HeraclesCreatures
         public string CreatureName { get => _creatureName; private set => _creatureName = value; }
         internal List<Moves> Moves { get => _moves; private set => _moves = value; }
         public CreatureStats Stats { get => _stats; private set => _stats = value; }
+        public bool IsDead { get => _isDead; private set => _isDead = value; }
 
         #endregion Properties
 
@@ -100,15 +101,15 @@ namespace HeraclesCreatures
         }
 
 
-        public void IsDead()
+        public void CheckIsDead()
         {
             if(_stats.health<= 0)
             {
-                _isDead = true;
+                IsDead = true;
             }
             else
             {
-                _isDead = false;
+                IsDead = false;
             }
         }
 
