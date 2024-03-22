@@ -1,0 +1,14 @@
+Stats:
+HP : 50
+MAXHP : 50
+ATTACK : 2
+MAGICPOWER : 3
+DEFENSE : 5
+MAXMANA : 30
+MANA : 30
+SPEED : 3
+TYPE : Fire
+
+MovePool :
+Charge
+Ruée

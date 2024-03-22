@@ -1,0 +1,14 @@
+Stats:
+HP : 160
+MAXHP : 160
+ATTACK : 10
+MAGICPOWER : 20
+DEFENSE : 15
+MAXMANA : 100
+MANA : 100
+SPEED : 15
+TYPE : Poison
+
+MovePool :
+Charge
+Ruée

@@ -1,0 +1,14 @@
+Stats:
+HP : 120
+MAXHP : 120
+ATTACK : 10
+MAGICPOWER : 7
+DEFENSE : 15
+MAXMANA : 40
+MANA : 40
+SPEED : 15
+TYPE : Ground
+
+MovePool :
+Charge
+Ruée

@@ -19,11 +19,12 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        int     _power;
-        int     _accuracy;
-        int     _critRate;
-        int     _maxPP;
-        int     _manaCost;
+        float _power;
+        float _accuracy;
+        float _critRate;
+        float _maxPP;
+        float _PP;
+        float _manaCost;
         string  _type;
 
         #endregion Fields
@@ -38,17 +39,19 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public int      Power { get => _power; private set => _power = value; }
+        public float    Power { get => _power; set => _power = value; }
 
-        public int      Accuracy { get => _accuracy; private set => _accuracy = value; }
+        public float    Accuracy { get => _accuracy; set => _accuracy = value; }
 
-        public int      CritRate { get => _critRate; private set => _critRate = value; }
+        public float    CritRate { get => _critRate; set => _critRate = value; }
 
-        public int      MaxPP { get => _maxPP; private set => _maxPP = value; }
+        public float    MaxPP { get => _maxPP; set => _maxPP = value; }
 
-        public int      Mana { get => _manaCost; private set => _manaCost = value; }
+        public float    PP { get => _PP; set => _PP = value; }
 
-        public string   Type { get => _type; private set => _type = value; }
+        public float    ManaCost { get => _manaCost; set => _manaCost = value; }
+
+        public string   Type { get => _type; set => _type = value; }
 
 
         #endregion Properties
@@ -83,6 +86,7 @@ namespace HeraclesCreatures
             _accuracy = 10;
             _critRate = 5;
             _maxPP = 6;
+            _PP = 6;
             _manaCost = 10;
             _type = "Fire";
         }

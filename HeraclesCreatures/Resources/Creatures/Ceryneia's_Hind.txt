@@ -1,0 +1,14 @@
+Stats:
+HP : 80
+MAXHP : 80
+ATTACK : 5
+MAGICPOWER : 10
+DEFENSE : 5
+MAXMANA : 50
+MANA : 50
+SPEED : 10
+TYPE : Normal
+
+MovePool :
+Charge
+Ruée
