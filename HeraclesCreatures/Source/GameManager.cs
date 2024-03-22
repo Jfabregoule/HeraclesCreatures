@@ -89,7 +89,7 @@ namespace HeraclesCreatures
             Spell COUP2TETE = new Spell("COUP2TETE");
             OrangOutant.AddMove(COUPDECAILLOU);
             Singe.Add(OrangOutant);
-            Enemy Ougabouga = new Enemy(Singe, 2, _types, _typeTable);
+            Enemy Ougabouga = new Enemy("Ougabouga",Singe, 2, _types, _typeTable);
             CreatureStats TigerStats = new CreatureStats();
             Creatures Tiger = new Creatures("Tiger", TigerStats);
             Tiger.AddMove(COUPDECAILLOU);
@@ -99,7 +99,7 @@ namespace HeraclesCreatures
             Viper.AddMove(COUPDECAILLOU);
             Potion popo = new Potion();
             AttackPlus attP = new AttackPlus();
-            Player Hercule = new Player();
+            Player Hercule = new Player("Hercule");
             Hercule.AddCreature(Tiger);
             Hercule.AddCreature(Viper);
             Hercule.AddItems(popo);
