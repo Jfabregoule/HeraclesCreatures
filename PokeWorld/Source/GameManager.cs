@@ -71,8 +71,10 @@ namespace HeraclesCreatures
         {
             _isRunning = true;
             _inputManager = new InputManager();
+            _creaturesStats = new Dictionary<string, CreatureStats>();
 
             GenerateTypes();
+            GenerateCreatures();
 
             CreatureStats OrangOutanStats = new CreatureStats();
             OrangOutanStats.type = "Plant";
@@ -152,14 +154,77 @@ namespace HeraclesCreatures
             };
 
         }
-        private void GetCreaturesStats() 
-        {
 
-        }
-
-        private void GetMoves() 
+        private void GenerateCreatures()
         {
-            
+            string folderPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\Resources\\Creatures";
+            if (Directory.Exists(folderPath))
+            {
+
+                string[] files = Directory.GetFiles(folderPath, "*.txt");
+
+                foreach (string filePath in files)
+                {
+                    try
+                    {
+                        string[] lines = File.ReadAllLines(filePath);
+
+                        CreatureStats creatureStats = new CreatureStats();
+
+                        foreach (string line in lines)
+                        {
+                            string[] parts = line.Split(':');
+                            if (parts.Length == 2)
+                            {
+                                string key = parts[0].Trim();
+                                string value = parts[1].Trim();
+
+                                switch (key)
+                                {
+                                    case "HP":
+                                        creatureStats.health = float.Parse(value);
+                                        break;
+                                    case "MAXHP":
+                                        creatureStats.maxHealth = float.Parse(value);
+                                        break;
+                                    case "ATTACK":
+                                        creatureStats.attack = float.Parse(value);
+                                        break;
+                                    case "MAGICPOWER":
+                                        creatureStats.magicpower = float.Parse(value);
+                                        break;
+                                    case "DEFENSE":
+                                        creatureStats.defense = float.Parse(value);
+                                        break;
+                                    case "MAXMANA":
+                                        creatureStats.maxMana = float.Parse(value);
+                                        break;
+                                    case "SPEED":
+                                        creatureStats.AttackSpeed = float.Parse(value);
+                                        break;
+                                    case "TYPE":
+                                        creatureStats.type = value;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+
+                        string creatureName = Path.GetFileNameWithoutExtension(filePath);
+
+                        _creaturesStats.Add(creatureName, creatureStats);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Une erreur s'est produite lors de la lecture du fichier {filePath}: {ex.Message}");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Le dossier spécifié n'existe pas : {folderPath}");
+            }
         }
 
         #endregion Methods
