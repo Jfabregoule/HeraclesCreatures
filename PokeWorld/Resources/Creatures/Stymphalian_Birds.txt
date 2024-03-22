@@ -1,0 +1,14 @@
+Stats:
+HP : 50
+MAXHP : 50
+ATTACK : 7
+MAGICPOWER : 5
+DEFENSE : 5
+MAXMANA : 30
+MANA : 30
+SPEED : 12
+TYPE : Flying
+
+MovePool :
+Charge
+Ruée

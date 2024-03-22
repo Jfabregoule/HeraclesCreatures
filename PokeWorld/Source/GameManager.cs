@@ -196,6 +196,9 @@ namespace HeraclesCreatures
                                     case "DEFENSE":
                                         creatureStats.defense = float.Parse(value);
                                         break;
+                                    case "MANA":
+                                        creatureStats.mana = float.Parse(value);
+                                        break;
                                     case "MAXMANA":
                                         creatureStats.maxMana = float.Parse(value);
                                         break;

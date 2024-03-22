@@ -1,0 +1,14 @@
+Stats:
+HP : 500
+MAXHP : 500
+ATTACK : 20
+MAGICPOWER : 30
+DEFENSE : 25
+MAXMANA : 200
+MANA : 200
+SPEED : 20
+TYPE : Ghost
+
+MovePool :
+Charge
+Ruée

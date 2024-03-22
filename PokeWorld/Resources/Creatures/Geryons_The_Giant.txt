@@ -1,0 +1,14 @@
+Stats:
+HP : 150
+MAXHP : 150
+ATTACK : 12
+MAGICPOWER : 8
+DEFENSE : 20
+MAXMANA : 60
+MANA : 60
+SPEED : 12
+TYPE : Rock
+
+MovePool :
+Charge
+Ruée

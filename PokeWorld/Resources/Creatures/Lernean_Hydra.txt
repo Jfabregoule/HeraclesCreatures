@@ -1,0 +1,14 @@
+Stats:
+HP : 65
+MAXHP : 65
+ATTACK : 5
+MAGICPOWER : 3
+DEFENSE : 2
+MAXMANA : 30
+MANA : 30
+SPEED : 6
+TYPE : Water
+
+MovePool :
+Charge
+Ruée
