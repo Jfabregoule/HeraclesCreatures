@@ -26,7 +26,7 @@ namespace HeraclesCreatures
         CombatManager                       _currentFight;
         MapClass                            _map;
         Dictionary<string, CreatureStats>   _creaturesStats;
-        Dictionary<string, Moves>           _moveStats;
+        Dictionary<string, MoveStats>       _moveStats;
         bool                                _isRunning;
         List<string>                        _types;
         float[,]                            _typeTable;
@@ -67,13 +67,15 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public GameManager() 
+        public GameManager()
         {
             _isRunning = true;
             _inputManager = new InputManager();
             _creaturesStats = new Dictionary<string, CreatureStats>();
+            _moveStats = new Dictionary<string, MoveStats>();
 
             GenerateTypes();
+            GenerateMoves();
             GenerateCreatures();
 
             CreatureStats OrangOutanStats = new CreatureStats();
@@ -106,10 +108,10 @@ namespace HeraclesCreatures
 
         public void GameLoop()
         {
-            while(_isRunning)
+            while (_isRunning)
             {
                 _inputManager.Update();
-                
+
                 if (_inputManager.IsAnyKeyPressed())
                 {
                     Console.WriteLine("Oueoue");
@@ -122,7 +124,7 @@ namespace HeraclesCreatures
 
         }
 
-        private void GenerateTypes() 
+        private void GenerateTypes()
         {
             _typeTable = new float[,]
             {
@@ -140,19 +142,88 @@ namespace HeraclesCreatures
             };
             _types = new List<string>
             {
-                "Normal", 
-                "Fire", 
-                "Water", 
-                "Plant", 
-                "Steel", 
-                "Flying", 
-                "Ground", 
-                "Dark", 
-                "Rock", 
-                "Poison", 
+                "Normal",
+                "Fire",
+                "Water",
+                "Plant",
+                "Steel",
+                "Flying",
+                "Ground",
+                "Dark",
+                "Rock",
+                "Poison",
                 "Ghost"
             };
 
+        }
+        
+        private void GenerateMoves()
+        {
+            string folderPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\Resources\\Moves";
+            if (Directory.Exists(folderPath))
+            {
+
+                string[] files = Directory.GetFiles(folderPath, "*.txt");
+
+                foreach (string filePath in files)
+                {
+                    try
+                    {
+                        string[] lines = File.ReadAllLines(filePath);
+
+                        MoveStats moveStats = new MoveStats();
+
+                        foreach (string line in lines)
+                        {
+                            string[] parts = line.Split(':');
+                            if (parts.Length == 2)
+                            {
+                                string key = parts[0].Trim();
+                                string value = parts[1].Trim();
+
+                                switch (key)
+                                {
+                                    case "POWER":
+                                        moveStats.Power = float.Parse(value);
+                                        break;
+                                    case "ACCURACY":
+                                        moveStats.Accuracy = float.Parse(value);
+                                        break;
+                                    case "CRITRATE":
+                                        moveStats.CritRate = float.Parse(value);
+                                        break;
+                                    case "MAXPP":
+                                        moveStats.MaxPP = float.Parse(value);
+                                        break;
+                                    case "PP":
+                                        moveStats.PP = float.Parse(value);
+                                        break;
+                                    case "MANACOST":
+                                        moveStats.ManaCost = float.Parse(value);
+                                        break;
+                                    case "TYPE":
+                                        moveStats.Type = value;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+
+                        string moveName = Path.GetFileNameWithoutExtension(filePath);
+
+                        _moveStats.Add(moveName, moveStats);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Une erreur s'est produite lors de la lecture du fichier {filePath}: {ex.Message}");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Le dossier spécifié n'existe pas : {folderPath}");
+            }
         }
 
         private void GenerateCreatures()
