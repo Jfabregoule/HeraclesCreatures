@@ -11,6 +11,23 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
+    enum GamePhase
+    {
+        Beginning,
+        Checkpoint1,
+        Checkpoint2,
+        Checkpoint3,
+        Checkpoint4,
+        Checkpoint5,
+        Checkpoint6,
+        Checkpoint7,
+        Checkpoint8,
+        Checkpoint9,
+        Checkpoint10,
+        Checkpoint11,
+        Ending,
+    }
+
     internal class GameManager
     {
 
@@ -24,16 +41,20 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        InputManager _inputManager;
-        CombatManager _currentFight;
-        Scene _scene;
-        Dictionary<string, CreatureStats> _creaturesStats;
-        Dictionary<string, MoveStats> _moveStats;
-        Dictionary<string, List<string>> _movePools;
-        Dictionary<string, Moves>       _moves;
-        bool _isRunning;
-        List<string> _types;
-        float[,] _typeTable;
+        bool                                _isRunning;
+        GamePhase                           _gamePhase;
+
+        InputManager                        _inputManager;
+        CombatManager                       _currentFight;
+
+        Scene                               _scene;
+
+        Dictionary<string, CreatureStats>   _creaturesStats;
+        Dictionary<string, MoveStats>       _moveStats;
+        Dictionary<string, List<string>>    _movePools;
+        Dictionary<string, Moves>           _moves;
+        List<string>                        _types;
+        float[,]                            _typeTable;
 
         #endregion Fields
 
@@ -74,6 +95,7 @@ namespace HeraclesCreatures
         public GameManager()
         {
             _isRunning = true;
+            _gamePhase = GamePhase.Beginning;
             _inputManager = new InputManager();
             _creaturesStats = new Dictionary<string, CreatureStats>();
             _moveStats = new Dictionary<string, MoveStats>();
@@ -126,7 +148,8 @@ namespace HeraclesCreatures
             //test.StartFight();
 
             int i = 0;
-            GameData gameData = new GameData(Hercule, 2);
+            // Sauvegarder les données
+            GameData gameData = new GameData(Hercule, _gamePhase);
             SaveManager.Save(gameData, "savegame.dat");
 
             Console.WriteLine("Données sauvegardées.");
@@ -136,7 +159,7 @@ namespace HeraclesCreatures
             if (loadedData != null)
             {
                 Console.WriteLine("Données chargées :");
-                Console.WriteLine("CheckPoint : " + loadedData.CheckPoint.ToString());
+                Console.WriteLine("CheckPoint : " + loadedData.Phase.ToString());
                 Console.WriteLine("Name : " + loadedData.Player.Name);
             }
         }

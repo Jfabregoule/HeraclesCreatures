@@ -64,8 +64,11 @@ namespace HeraclesCreatures.Source.Common
 
         public static void Save(GameData data, string filename)
         {
+            string saveFolderPath = Path.Combine("..", "..", "..", "Resources", "Save");
+            string fullPath = Path.Combine(saveFolderPath, filename);
+
             BinaryFormatter formatter = new BinaryFormatter();
-            using (FileStream stream = new FileStream(filename, FileMode.Create))
+            using (FileStream stream = new FileStream(fullPath, FileMode.Create))
             {
                 formatter.Serialize(stream, data);
             }
@@ -73,10 +76,13 @@ namespace HeraclesCreatures.Source.Common
 
         public static GameData Load(string filename)
         {
-            if (File.Exists(filename))
+            string saveFolderPath = Path.Combine("..", "..", "..", "Resources", "Save");
+            string fullPath = Path.Combine(saveFolderPath, filename);
+
+            if (File.Exists(fullPath))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                using (FileStream stream = new FileStream(filename, FileMode.Open))
+                using (FileStream stream = new FileStream(fullPath, FileMode.Open))
                 {
                     return (GameData)formatter.Deserialize(stream);
                 }

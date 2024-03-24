@@ -20,8 +20,8 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        Player  _player;
-        int     _checkPoint;
+        Player      _player;
+        GamePhase   _phase;
 
 
         #endregion Fields
@@ -36,7 +36,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public int CheckPoint { get => _checkPoint; set => _checkPoint = value; }
+        public GamePhase Phase { get => _phase; set => _phase = value; }
         public Player Player { get => _player; set => _player = value; }
 
 
@@ -66,10 +66,10 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public GameData(Player player, int checkpoint) 
+        public GameData(Player player, GamePhase phase) 
         {
             _player = player;
-            _checkPoint = checkpoint;
+            _phase = phase;
         }
 
         #endregion Methods
