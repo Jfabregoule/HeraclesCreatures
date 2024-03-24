@@ -107,6 +107,9 @@ namespace HeraclesCreatures
             CombatManager test = new CombatManager(Hercule, Ougabouga, _types, _typeTable);
             _currentFight = test;
             test.StartFight();
+
+            Enemy hydra = GenerateEnemy("Hydra");
+            int i = 0;
         }
 
         public void GameLoop()
@@ -321,6 +324,83 @@ namespace HeraclesCreatures
             {
                 Console.WriteLine($"Le dossier spécifié n'existe pas : {folderPath}");
             }
+        }
+
+        Enemy GenerateEnemy(string enemyName)
+        {
+            Enemy enemy = null;
+
+            string folderPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\Resources\\Enemies";
+
+            if (Directory.Exists(folderPath))
+            {
+                string[] files = Directory.GetFiles(folderPath, "*.txt");
+
+                foreach (string filePath in files)
+                {
+                    if (Path.GetFileNameWithoutExtension(filePath).Replace('_', ' ') == enemyName)
+                    {
+                        int difficulty = 1;
+                        List<Creatures> enemyTeam = new List<Creatures>();
+
+                        try
+                        {
+                            string[] lines = File.ReadAllLines(filePath);
+
+                            bool inDifficultySection = false;
+                            bool inCreaturesPoolSection = false;
+                            bool inItemsPoolSection = false;
+
+                            foreach (string line in lines)
+                            {
+                                if (line.Trim().Equals("Difficulty :", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    inDifficultySection = true;
+                                    inCreaturesPoolSection = false;
+                                    inItemsPoolSection = false;
+                                }
+                                else if (line.Trim().Equals("Creatures :", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    inDifficultySection = false;
+                                    inCreaturesPoolSection = true;
+                                    inItemsPoolSection = false;
+                                }
+                                else if (line.Trim().Equals("Items :", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    inDifficultySection = false;
+                                    inCreaturesPoolSection = false;
+                                    inItemsPoolSection = true;
+                                }
+                                else if (inDifficultySection && !string.IsNullOrWhiteSpace(line))
+                                {
+                                    difficulty = Int32.Parse(line.Trim());
+                                }
+                                else if (inCreaturesPoolSection && !string.IsNullOrWhiteSpace(line))
+                                {
+                                    Creatures creature = new Creatures(line.Trim(), _creaturesStats[line.Trim()]);
+                                    enemyTeam.Add(creature);
+                                }
+                                else if (inItemsPoolSection && !string.IsNullOrWhiteSpace(line))
+                                {
+                                    // Faire la liste items et l'ajouter a l'enemy
+                                }
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Une erreur s'est produite lors de la lecture du fichier {filePath}: {ex.Message}");
+                        }
+                        enemy = new Enemy(enemyName, enemyTeam, difficulty, _types, _typeTable);
+                    }
+                    
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Le dossier spécifié n'existe pas : {folderPath}");
+            }
+            return enemy;
         }
 
         #endregion Methods
