@@ -29,6 +29,7 @@ namespace HeraclesCreatures
         Dictionary<string, CreatureStats> _creaturesStats;
         Dictionary<string, MoveStats> _moveStats;
         Dictionary<string, List<string>> _movePools;
+        Dictionary<string, Moves>       _moves;
         bool _isRunning;
         List<string> _types;
         float[,] _typeTable;
@@ -76,37 +77,38 @@ namespace HeraclesCreatures
             _creaturesStats = new Dictionary<string, CreatureStats>();
             _moveStats = new Dictionary<string, MoveStats>();
             _movePools = new Dictionary<string, List<string>>();
+            _moves = new Dictionary<string, Moves>();
 
             GenerateTypes();
             GenerateMoves();
             GenerateCreatures();
 
-            CreatureStats OrangOutanStats = new CreatureStats();
-            OrangOutanStats.type = "Plant";
-            Creatures OrangOutant = new Creatures("OrangOutant", OrangOutanStats);
-            List<Creatures> Singe = new List<Creatures>();
-            Attack COUPDECAILLOU = new Attack("COUPDECAILLOU");
-            Spell COUP2TETE = new Spell("COUP2TETE");
-            OrangOutant.AddMove(COUPDECAILLOU);
-            Singe.Add(OrangOutant);
-            Enemy Ougabouga = new Enemy("Ougabouga", Singe, 2, _types, _typeTable);
-            CreatureStats TigerStats = new CreatureStats();
-            Creatures Tiger = new Creatures("Tiger", TigerStats);
-            Tiger.AddMove(COUPDECAILLOU);
-            Tiger.AddMove(COUP2TETE);
-            CreatureStats ViperStats = new CreatureStats();
-            Creatures Viper = new Creatures("Viper", ViperStats);
-            Viper.AddMove(COUPDECAILLOU);
-            Potion popo = new Potion();
-            AttackPlus attP = new AttackPlus();
-            Player Hercule = new Player("Hercule");
-            Hercule.AddCreature(Tiger);
-            Hercule.AddCreature(Viper);
-            Hercule.AddItems(popo);
-            Hercule.AddItems(attP);
-            CombatManager test = new CombatManager(Hercule, Ougabouga, _types, _typeTable);
-            _currentFight = test;
-            test.StartFight();
+            //CreatureStats OrangOutanStats = new CreatureStats();
+            //OrangOutanStats.type = "Plant";
+            //Creatures OrangOutant = new Creatures("OrangOutant", OrangOutanStats);
+            //List<Creatures> Singe = new List<Creatures>();
+            //Attack COUPDECAILLOU = new Attack("COUPDECAILLOU");
+            //Spell COUP2TETE = new Spell("COUP2TETE");
+            //OrangOutant.AddMove(COUPDECAILLOU);
+            //Singe.Add(OrangOutant);
+            //Enemy Ougabouga = new Enemy("Ougabouga", Singe, 2, _types, _typeTable);
+            //CreatureStats TigerStats = new CreatureStats();
+            //Creatures Tiger = new Creatures("Tiger", TigerStats);
+            //Tiger.AddMove(COUPDECAILLOU);
+            //Tiger.AddMove(COUP2TETE);
+            //CreatureStats ViperStats = new CreatureStats();
+            //Creatures Viper = new Creatures("Viper", ViperStats);
+            //Viper.AddMove(COUPDECAILLOU);
+            //Potion popo = new Potion();
+            //AttackPlus attP = new AttackPlus();
+            //Player Hercule = new Player("Hercule");
+            //Hercule.AddCreature(Tiger);
+            //Hercule.AddCreature(Viper);
+            //Hercule.AddItems(popo);
+            //Hercule.AddItems(attP);
+            //CombatManager test = new CombatManager(Hercule, Ougabouga, _types, _typeTable);
+            //_currentFight = test;
+            //test.StartFight();
 
             Enemy hydra = GenerateEnemy("Hydra");
             int i = 0;
@@ -161,6 +163,17 @@ namespace HeraclesCreatures
                 "Ghost"
             };
 
+        }
+
+        private List<Moves> GenerateCreatureMovePool(string creatureName)
+        {
+            List<Moves> moves = new List<Moves>();
+            for (int i = 0; i < _movePools[creatureName].Count; i++)
+            {
+                Moves move = new Moves(_movePools[creatureName][i], _moveStats[_movePools[creatureName][i]]);
+                moves.Add(move);
+            }
+            return moves;
         }
 
         private void GenerateMoves()
@@ -220,6 +233,8 @@ namespace HeraclesCreatures
                         moveName = moveName.Replace('_', ' ');
 
                         _moveStats.Add(moveName, moveStats);
+                        Moves move = new Moves(moveName, moveStats);
+                        _moves.Add(moveName, move);
                     }
                     catch (Exception ex)
                     {
@@ -377,7 +392,7 @@ namespace HeraclesCreatures
                                 }
                                 else if (inCreaturesPoolSection && !string.IsNullOrWhiteSpace(line))
                                 {
-                                    Creatures creature = new Creatures(line.Trim(), _creaturesStats[line.Trim()]);
+                                    Creatures creature = new Creatures(line.Trim(), _creaturesStats[line.Trim()], GenerateCreatureMovePool(line.Trim()));
                                     enemyTeam.Add(creature);
                                 }
                                 else if (inItemsPoolSection && !string.IsNullOrWhiteSpace(line))

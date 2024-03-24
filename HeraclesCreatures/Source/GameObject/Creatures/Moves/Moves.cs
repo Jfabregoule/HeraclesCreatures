@@ -74,6 +74,12 @@ namespace HeraclesCreatures
             _moveName = string.Empty;
         }
 
+        public Moves(string name, MoveStats stats)
+        {
+            _stats = stats;
+            _moveName = name;
+        }
+
         public virtual void Use(Creatures sender, Creatures receiver, float effectiveness)
         {
 
