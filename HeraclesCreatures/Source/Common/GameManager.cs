@@ -98,7 +98,9 @@ namespace HeraclesCreatures
             Potion popo = new Potion();
             AttackPlus attP = new AttackPlus();
             Creatures lion = new Creatures("Nemean Lion", _creaturesStats["Nemean Lion"], GenerateCreatureMovePool("Nemean Lion"));
+            Creatures heracles = new Creatures("Heracles", _creaturesStats["Heracles"], GenerateCreatureMovePool("Heracles"));
             Hercule.AddCreature(lion);
+            Hercule.AddCreature(heracles);
             Hercule.AddItems(popo);
             Hercule.AddItems(attP);
             CombatManager test = new CombatManager(Hercule, hydra, _types, _typeTable);
