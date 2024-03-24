@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HeraclesCreatures.Source.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Formats.Asn1;
@@ -125,6 +126,19 @@ namespace HeraclesCreatures
             //test.StartFight();
 
             int i = 0;
+            GameData gameData = new GameData(Hercule, 2);
+            SaveManager.Save(gameData, "savegame.dat");
+
+            Console.WriteLine("Données sauvegardées.");
+
+            // Charger les données
+            GameData loadedData = SaveManager.Load("savegame.dat");
+            if (loadedData != null)
+            {
+                Console.WriteLine("Données chargées :");
+                Console.WriteLine("CheckPoint : " + loadedData.CheckPoint.ToString());
+                Console.WriteLine("Name : " + loadedData.Player.Name);
+            }
         }
 
         public void GameLoop()

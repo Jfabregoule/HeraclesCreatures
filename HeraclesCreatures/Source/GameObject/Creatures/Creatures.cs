@@ -8,7 +8,7 @@ namespace HeraclesCreatures
 {
 
     #region Creatures Class
-
+    [Serializable]
     internal class Creatures
     {
         /*------------------------------------------------------------------------------------------*\

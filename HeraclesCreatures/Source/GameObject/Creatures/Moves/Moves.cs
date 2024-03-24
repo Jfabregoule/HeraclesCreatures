@@ -9,7 +9,7 @@ namespace HeraclesCreatures
 {
 
     #region Moves Class
-
+    [Serializable]
     internal class Moves
     {
 

@@ -1,5 +1,6 @@
 ﻿namespace HeraclesCreatures
 {
+    [Serializable]
     public struct CreatureStats
     {
         /*------------------------------------------------------------------------------------------*\

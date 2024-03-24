@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HeraclesCreatures
 {
     [Serializable]
-    internal class Potion : Items
+    internal class GameData
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -20,7 +20,9 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        int _health;
+        Player  _player;
+        int     _checkPoint;
+
 
         #endregion Fields
 
@@ -34,7 +36,9 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public int health { get {return _health; } }
+        public int CheckPoint { get => _checkPoint; set => _checkPoint = value; }
+        public Player Player { get => _player; set => _player = value; }
+
 
         #endregion Properties
 
@@ -62,19 +66,13 @@ namespace HeraclesCreatures
 
         #region Methods
 
-
-        public Potion() 
+        public GameData(Player player, int checkpoint) 
         {
-            name = "Potion";
-            _health = 10;
-        }
-        public override void Use(ref Creatures creatures)
-        {
-            creatures.Heal(_health);
-            Console.WriteLine("Vous venez de soigner" + creatures.CreatureName);
-            Console.WriteLine(creatures.CreatureName + " HP : " +creatures.Stats.health);
+            _player = player;
+            _checkPoint = checkpoint;
         }
 
         #endregion Methods
+
     }
 }
