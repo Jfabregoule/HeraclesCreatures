@@ -23,8 +23,8 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        string      _moveName;
-        MoveStats   _stats;
+        protected string      _moveName;
+        protected MoveStats   _stats;
 
         #endregion Fields
 
@@ -82,7 +82,6 @@ namespace HeraclesCreatures
 
         public virtual void Use(Creatures sender, Creatures receiver, float effectiveness)
         {
-
         }
 
         public float GetEffectiveness(string enemyType, List<string> types, float[,] typeTable)

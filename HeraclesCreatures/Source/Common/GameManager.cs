@@ -92,6 +92,18 @@ namespace HeraclesCreatures
             //OrangOutant.AddMove(COUPDECAILLOU);
             //Singe.Add(OrangOutant);
             //Enemy Ougabouga = new Enemy("Ougabouga", Singe, 2, _types, _typeTable);
+            //Enemy hydra = new GenerateEnemy("Hydra");
+            Enemy hydra = GenerateEnemy("Hydra");
+            Player Hercule = new Player("Hercule");
+            Potion popo = new Potion();
+            AttackPlus attP = new AttackPlus();
+            Creatures lion = new Creatures("Nemean Lion", _creaturesStats["Nemean Lion"], GenerateCreatureMovePool("Nemean Lion"));
+            Hercule.AddCreature(lion);
+            Hercule.AddItems(popo);
+            Hercule.AddItems(attP);
+            CombatManager test = new CombatManager(Hercule, hydra, _types, _typeTable);
+            _currentFight = test;
+            test.StartFight();
             //CreatureStats TigerStats = new CreatureStats();
             //Creatures Tiger = new Creatures("Tiger", TigerStats);
             //Tiger.AddMove(COUPDECAILLOU);
@@ -110,7 +122,6 @@ namespace HeraclesCreatures
             //_currentFight = test;
             //test.StartFight();
 
-            Enemy hydra = GenerateEnemy("Hydra");
             int i = 0;
         }
 
@@ -170,8 +181,16 @@ namespace HeraclesCreatures
             List<Moves> moves = new List<Moves>();
             for (int i = 0; i < _movePools[creatureName].Count; i++)
             {
-                Moves move = new Moves(_movePools[creatureName][i], _moveStats[_movePools[creatureName][i]]);
-                moves.Add(move);
+                if (_moveStats[_movePools[creatureName][i]].ManaCost > 0)
+                {
+                    Spell spell = new Spell(_movePools[creatureName][i], _moveStats[_movePools[creatureName][i]]);
+                    moves.Add(spell);
+                }
+                else
+                {
+                    Attack attack = new Attack(_movePools[creatureName][i], _moveStats[_movePools[creatureName][i]]);
+                    moves.Add(attack);
+                }
             }
             return moves;
         }

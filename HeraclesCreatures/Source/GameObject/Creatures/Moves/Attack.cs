@@ -57,9 +57,15 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public Attack(string name) 
+        public Attack(string name)
         {
             MoveName = name;
+        }
+
+        public Attack(string name, MoveStats stats)
+        {
+            _stats = stats;
+            _moveName = name;
         }
 
         public override void Use(Creatures sender, Creatures receiver, float effectiveness)
