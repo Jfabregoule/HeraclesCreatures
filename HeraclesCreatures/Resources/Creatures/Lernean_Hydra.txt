@@ -1,3 +1,6 @@
+Name:
+LerneanHydra
+
 Stats:
 HP : 65
 MAXHP : 65

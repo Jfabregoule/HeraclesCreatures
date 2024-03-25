@@ -1,13 +1,12 @@
-﻿using HeraclesCreatures.Ressources.MapObjects.Walls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Source.GameObject.Map_objects.Wall
+namespace HeraclesCreatures
 {
-    internal class Wall : MapObject
+    internal struct MapObjectData
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -20,7 +19,9 @@ namespace HeraclesCreatures.Source.GameObject.Map_objects.Wall
 
         #region Fields
 
-        WallData _data;
+        char[,] _drawing;
+        ConsoleColor[,] _foregroundColor;
+        ConsoleColor[,] _backgroundColor;
 
         #endregion Fields
 
@@ -34,7 +35,9 @@ namespace HeraclesCreatures.Source.GameObject.Map_objects.Wall
 
         #region Properties
 
-        internal WallData Data { get => _data; set => _data = value; }
+        public char[,] Drawing { get => _drawing; set => _drawing = value; }
+        public ConsoleColor[,] ForegroundColor { get => _foregroundColor; set => _foregroundColor = value; }
+        public ConsoleColor[,] BackgroundColor { get => _backgroundColor; set => _backgroundColor = value; }
 
         #endregion Properties
 
@@ -62,9 +65,11 @@ namespace HeraclesCreatures.Source.GameObject.Map_objects.Wall
 
         #region Methods
 
-        public Wall()
+        public MapObjectData()
         {
-            _data = new WallData();
+            _drawing = new char[4, 4];
+            _foregroundColor = new ConsoleColor[4, 4];
+            _backgroundColor = new ConsoleColor[4, 4];
         }
 
         #endregion Methods

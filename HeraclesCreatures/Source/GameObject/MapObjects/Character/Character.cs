@@ -1,9 +1,12 @@
-﻿using HeraclesCreatures;
-using HeraclesCreatures.Source.GameObject.Map_objects.Chest;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    internal class Chest : MapObject
+    internal class Character
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -16,7 +19,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        ChestData _data;
+        CharacterData _data;
 
         #endregion Fields
 
@@ -30,7 +33,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        internal ChestData Data { get => _data; set => _data = value; }
+        internal CharacterData Data { get => _data; set => _data = value; }
 
         #endregion Properties
 
@@ -58,9 +61,9 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public Chest() 
+        public Character()
         {
-            _data = new ChestData();
+
         }
 
         #endregion Methods

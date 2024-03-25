@@ -1,4 +1,7 @@
-﻿Drawing:
+﻿Name:
+DefaultPlayer
+
+Drawing:
     ()    
 /===||===\
     ||    
