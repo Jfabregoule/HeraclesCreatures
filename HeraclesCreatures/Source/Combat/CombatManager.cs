@@ -97,109 +97,117 @@ namespace HeraclesCreatures
 
         public void Fighting()
         {
-            if(_isOver == false) 
+            while (_isOver == false)
             {
                 AutoSwap(_player, _currentPlayerCreature);
-            }
-            Console.WriteLine(" ");
-            Console.WriteLine(_currentPlayerCreature.CreatureName + " : " + _currentPlayerCreature.Stats.health + "/" + _currentPlayerCreature.Stats.maxHealth);
-            Console.WriteLine(" ");
+                Console.WriteLine(" ");
+                Console.WriteLine(_currentPlayerCreature.CreatureName + " : " + _currentPlayerCreature.Stats.health + "/" + _currentPlayerCreature.Stats.maxHealth);
+                Console.WriteLine(" ");
 
-            if (_isPlayerTurn)
-            {
-                Console.WriteLine("-Combat");
-                Console.WriteLine("-Objets");
-                Console.WriteLine("-Swap");
-                string val = Console.ReadLine();
-                if (val == "Combat")
+                if (_isPlayerTurn)
                 {
-                    Console.WriteLine("Choisissez votre attaque");
-                    for (int i = 0; i < _currentPlayerCreature.Moves.Count(); i++)
+                    Console.WriteLine("-Combat");
+                    Console.WriteLine("-Objets");
+                    Console.WriteLine("-Swap");
+                    string val = Console.ReadLine();
+                    if (val == "Combat")
                     {
-                        Console.WriteLine(i + " : " + _currentPlayerCreature.Moves[i].MoveName);
+                        Console.WriteLine("Choisissez votre attaque");
+                        for (int i = 0; i < _currentPlayerCreature.Moves.Count(); i++)
+                        {
+                            Console.WriteLine(i + " : " + _currentPlayerCreature.Moves[i].MoveName);
+                        }
+                        string combatVal = Console.ReadLine();
+                        if (combatVal != null)
+                        {
+                            if (combatVal == "0")
+                            {
+                                float effectiveness = _currentPlayerCreature.Moves[0].GetEffectiveness(_currentEnemyCreature.Stats.type, _types, _typeTable);
+                                _currentPlayerCreature.Moves[0].Use(_currentPlayerCreature, _currentEnemyCreature, effectiveness);
+                                _isPlayerTurn = false;
+
+                            }
+                            if (combatVal == "1")
+                            {
+                                float effectiveness = _currentPlayerCreature.Moves[1].GetEffectiveness(_currentEnemyCreature.Stats.type, _types, _typeTable);
+                                _currentPlayerCreature.Moves[1].Use(_currentPlayerCreature, _currentEnemyCreature, effectiveness);
+                                _isPlayerTurn = false;
+
+                            }
+                        }
+
                     }
-                    string combatVal = Console.ReadLine();
-                    if (combatVal != null)
+                    else if (val == "Objets")
                     {
-                        if (combatVal == "0")
+                        Console.WriteLine("Objets : ");
+                        for (int i = 0; i < _player.Items.Count(); i++)
                         {
-                            float effectiveness = _currentPlayerCreature.Moves[0].GetEffectiveness(_currentEnemyCreature.Stats.type, _types, _typeTable);
-                            _currentPlayerCreature.Moves[0].Use(_currentPlayerCreature, _currentEnemyCreature, effectiveness);
-                            _isPlayerTurn = false;
-
+                            Console.WriteLine(i + " : " + _player.Items[i].name);
                         }
-                        if (combatVal == "1")
-                        {
-                            float effectiveness = _currentPlayerCreature.Moves[1].GetEffectiveness(_currentEnemyCreature.Stats.type, _types, _typeTable);
-                            _currentPlayerCreature.Moves[1].Use(_currentPlayerCreature, _currentEnemyCreature, effectiveness);
-                            _isPlayerTurn = false;
 
+                        string objval = Console.ReadLine();
+                        if (objval != null)
+                        {
+                            if (objval == "0")
+                            {
+                                _player.Items[0].Use(ref _currentPlayerCreature);
+                                _isPlayerTurn = false;
+                            }
+                            else if (objval == "1")
+                            {
+                                _player.Items[1].Use(ref _currentPlayerCreature);
+                                _isPlayerTurn = false;
+                            }
+                        }
+
+                    }
+                    else if (val == "Swap")
+                    {
+                        for (int i = 0; i < _player.Creatures.Count(); i++)
+                        {
+                            if (_player.Creatures[i] == _currentPlayerCreature) { }
+                            else
+                            {
+                                Console.WriteLine(i + " : " + _player.Creatures[i].CreatureName);
+                            }
+                        }
+                        string swapval = Console.ReadLine();
+                        if (swapval != null)
+                        {
+                            if (swapval == "1")
+                            {
+                                SwapCreature(_player, _player.Creatures[1].CreatureName);
+                                _isPlayerTurn = false;
+                            }
                         }
                     }
-
                 }
-                else if (val == "Objets")
-                {
-                    Console.WriteLine("Objets : ");
-                    for (int i = 0; i < _player.Items.Count(); i++)
-                    {
-                        Console.WriteLine(i + " : " + _player.Items[i].name);
-                    }
 
-                    string objval = Console.ReadLine();
-                    if (objval != null)
-                    {
-                        if (objval == "0")
-                        {
-                            _player.Items[0].Use(ref _currentPlayerCreature);
-                            _isPlayerTurn = false;
-                        }
-                        else if (objval == "1")
-                        {
-                            _player.Items[1].Use(ref _currentPlayerCreature);
-                            _isPlayerTurn = false;
-                        }
-                    }
-
-                }
-                else if (val == "Swap")
-                {
-                    for (int i = 0; i < _player.Creatures.Count(); i++)
-                    {
-                        if (_player.Creatures[i] == _currentPlayerCreature) { }
-                        else
-                        {
-                            Console.WriteLine(i + " : " + _player.Creatures[i].CreatureName);
-                        }
-                    }
-                    string swapval = Console.ReadLine();
-                    if (swapval != null)
-                    {
-                        if (swapval == "1")
-                        {
-                            SwapCreature(_player, _player.Creatures[1].CreatureName);
-                            _isPlayerTurn = false;
-                        }
-                    }
-                }
-            }
-
-            if (_isPlayerTurn == false)
-            {
-                if (_isOver == false)
+                if (_isPlayerTurn == false)
                 {
                     AutoSwap(_enemy, _currentEnemyCreature);
+                    Console.WriteLine("Au tour d'" + _currentEnemyCreature.CreatureName);
+                    _enemy.Turn(_currentEnemyCreature, _currentPlayerCreature);
+                    _isPlayerTurn = true;
                 }
-                Console.WriteLine("Au tour d'" + _currentEnemyCreature.CreatureName);
-                _enemy.Turn(_currentEnemyCreature, _currentPlayerCreature);
-                _isPlayerTurn = true;
+                CheckForStatusEffects(_currentPlayerCreature, _currentEnemyCreature);
+                CurrentTurn += 1;
+                if (_enemy.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD))
+                {
+                    FightEnd(_player);
+                }
+                else if (_player.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD))
+                {
+                    FightEnd(_enemy);
+                }
+                if (_isOver == false)
+                {
+                    Console.WriteLine(" ");
+                    Console.WriteLine(_currentEnemyCreature.CreatureName + " : " + _currentEnemyCreature.Stats.health + "/" + _currentEnemyCreature.Stats.maxHealth);
+                    Console.WriteLine(" ");
+                } 
             }
-            CheckForStatusEffects(_currentPlayerCreature, _currentEnemyCreature);
-            CurrentTurn += 1;
-            Console.WriteLine(" ");
-            Console.WriteLine(_currentEnemyCreature.CreatureName + " : " + _currentEnemyCreature.Stats.health + "/" + _currentEnemyCreature.Stats.maxHealth);
-            Console.WriteLine(" ");
-
+            
         }
 
         public void CheckForStatusEffects(Creatures allyCreature, Creatures enemyCreature)
@@ -296,33 +304,15 @@ namespace HeraclesCreatures
             }
         }
 
-        public void FightEnd()
+        public void FightEnd(Fighter fighter)
         {
-            int playerCreatureDead = 0;
-            int enemyCreatureDead = 0;
-            for (int i = 0; i < _player.Creatures.Count(); i++)
-            {
-                _player.Creatures[i].CheckIsDead();
-                if (_player.Creatures[i].State == CreatureState.DEAD)
-                {
-                    playerCreatureDead += 1;
-                }
-            }
-            for (int i = 0; i < _enemy.Creatures.Count(); i++)
-            {
-                _enemy.Creatures[i].CheckIsDead();
-                if (_enemy.Creatures[i].State == CreatureState.DEAD)
-                {
-                    enemyCreatureDead += 1;
-                }
-            }
-            if (playerCreatureDead == _player.Creatures.Count())
+            if (fighter == _enemy)
             {
 
                 Win(_enemy, _player);
                 IsOver = true;
             }
-            else if (enemyCreatureDead == _enemy.Creatures.Count())
+            else if (fighter == _player)
             {
                 Win(_player, _enemy);
                 IsOver = true ;
@@ -336,7 +326,7 @@ namespace HeraclesCreatures
             {
                 for (int i = 0; i < fighter.Creatures.Count(); i++)
                 {
-                    if (currentCreature == fighter.Creatures[i] && fighter.Creatures[i + 1] != null)
+                    if (currentCreature == fighter.Creatures[i] && i + 1 < fighter.Creatures.Count())
                     {
                         SwapCreature(fighter, fighter.Creatures[i + 1].CreatureName);
                         break;
