@@ -6,12 +6,12 @@ namespace HeraclesCreatures
     {
         public static void Main(string[] args)
         {
-            /*
+            
             GameManager gameManager = new GameManager();
 
             gameManager.GameLoop();
             Console.WriteLine();
-            */
+           
             static void DisplayDictionary<T>(Dictionary<string, T> dictionary)
             {
                 Console.WriteLine($"Dictionary<{typeof(string).Name}, {typeof(T).Name}>:");
