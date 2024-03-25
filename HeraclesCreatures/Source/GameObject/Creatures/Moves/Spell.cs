@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
+    [Serializable]
     internal class Spell : Moves
     {
 
@@ -57,9 +58,14 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public Spell(string name) 
+        public Spell(string name)
         {
             MoveName = name;
+        }
+        public Spell(string name, MoveStats stats)
+        {
+            _stats = stats;
+            _moveName = name;
         }
 
         #endregion Methods

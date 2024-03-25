@@ -9,7 +9,7 @@ namespace HeraclesCreatures
 {
 
     #region Moves Class
-
+    [Serializable]
     internal class Moves
     {
 
@@ -23,8 +23,8 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        string      _moveName;
-        MoveStats   _stats;
+        protected string      _moveName;
+        protected MoveStats   _stats;
 
         #endregion Fields
 
@@ -74,9 +74,47 @@ namespace HeraclesCreatures
             _moveName = string.Empty;
         }
 
+        public Moves(string name, MoveStats stats)
+        {
+            _stats = stats;
+            _moveName = name;
+        }
+
         public virtual void Use(Creatures sender, Creatures receiver, float effectiveness)
         {
+            Random random = new Random();
+            int chance = random.Next(1, 101);
 
+            if (chance <= 20)
+            {
+                if (_stats.Type == "Normal")
+                    receiver.State = CreatureState.NUMB;
+                else if (_stats.Type == "Fire")
+                    receiver.State = CreatureState.BURNED;
+                else if (_stats.Type == "Water")
+                    receiver.State = CreatureState.SOAKED;
+                else if (_stats.Type == "Grass")
+                    receiver.State = CreatureState.WITHERED;
+                else if (_stats.Type == "Steel")
+                    receiver.State = CreatureState.RUSTED;
+                else if (_stats.Type == "Flying")
+                    receiver.State = CreatureState.DIZZY;
+                else if (_stats.Type == "Ground")
+                    receiver.State = CreatureState.SHAKEN;
+                else if (_stats.Type == "Dark")
+                    receiver.State = CreatureState.BLINDED;
+                else if (_stats.Type == "Rock")
+                    receiver.State = CreatureState.ERODED;
+                else if (_stats.Type == "Poison")
+                    receiver.State = CreatureState.POISONED;
+                else if (_stats.Type == "Ghost")
+                    receiver.State = CreatureState.SCARED;
+                Console.Write(sender.CreatureName);
+                Console.Write(" made ");
+                Console.Write(receiver.CreatureName);
+                Console.Write(" feel ");
+                Console.WriteLine(receiver.State.ToString().ToLower());
+            }
         }
 
         public float GetEffectiveness(string enemyType, List<string> types, float[,] typeTable)

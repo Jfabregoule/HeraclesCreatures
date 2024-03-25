@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HeraclesCreatures.Source.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Formats.Asn1;
@@ -10,6 +11,23 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
+    enum GamePhase
+    {
+        Beginning,
+        Checkpoint1,
+        Checkpoint2,
+        Checkpoint3,
+        Checkpoint4,
+        Checkpoint5,
+        Checkpoint6,
+        Checkpoint7,
+        Checkpoint8,
+        Checkpoint9,
+        Checkpoint10,
+        Checkpoint11,
+        Ending,
+    }
+
     internal class GameManager
     {
 
@@ -23,15 +41,20 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        InputManager _inputManager;
-        CombatManager _currentFight;
-        Scene _scene;
-        Dictionary<string, CreatureStats> _creaturesStats;
-        Dictionary<string, MoveStats> _moveStats;
-        Dictionary<string, List<string>> _movePools;
-        bool _isRunning;
-        List<string> _types;
-        float[,] _typeTable;
+        bool                                _isRunning;
+        GamePhase                           _gamePhase;
+
+        InputManager                        _inputManager;
+        CombatManager                       _currentFight;
+
+        Scene                               _scene;
+
+        Dictionary<string, CreatureStats>   _creaturesStats;
+        Dictionary<string, MoveStats>       _moveStats;
+        Dictionary<string, List<string>>    _movePools;
+        Dictionary<string, Moves>           _moves;
+        List<string>                        _types;
+        float[,]                            _typeTable;
 
         #endregion Fields
 
@@ -72,41 +95,73 @@ namespace HeraclesCreatures
         public GameManager()
         {
             _isRunning = true;
+            _gamePhase = GamePhase.Beginning;
             _inputManager = new InputManager();
             _creaturesStats = new Dictionary<string, CreatureStats>();
             _moveStats = new Dictionary<string, MoveStats>();
             _movePools = new Dictionary<string, List<string>>();
+            _moves = new Dictionary<string, Moves>();
 
             GenerateTypes();
             GenerateMoves();
             GenerateCreatures();
 
-            CreatureStats OrangOutanStats = new CreatureStats();
-            OrangOutanStats.type = "Plant";
-            Creatures OrangOutant = new Creatures("OrangOutant", OrangOutanStats);
-            List<Creatures> Singe = new List<Creatures>();
-            Attack COUPDECAILLOU = new Attack("COUPDECAILLOU");
-            Spell COUP2TETE = new Spell("COUP2TETE");
-            OrangOutant.AddMove(COUPDECAILLOU);
-            Singe.Add(OrangOutant);
-            Enemy Ougabouga = new Enemy("Ougabouga", Singe, 2, _types, _typeTable);
-            CreatureStats TigerStats = new CreatureStats();
-            Creatures Tiger = new Creatures("Tiger", TigerStats);
-            Tiger.AddMove(COUPDECAILLOU);
-            Tiger.AddMove(COUP2TETE);
-            CreatureStats ViperStats = new CreatureStats();
-            Creatures Viper = new Creatures("Viper", ViperStats);
-            Viper.AddMove(COUPDECAILLOU);
+            //CreatureStats OrangOutanStats = new CreatureStats();
+            //OrangOutanStats.type = "Plant";
+            //Creatures OrangOutant = new Creatures("OrangOutant", OrangOutanStats);
+            //List<Creatures> Singe = new List<Creatures>();
+            //Attack COUPDECAILLOU = new Attack("COUPDECAILLOU");
+            //Spell COUP2TETE = new Spell("COUP2TETE");
+            //OrangOutant.AddMove(COUPDECAILLOU);
+            //Singe.Add(OrangOutant);
+            //Enemy Ougabouga = new Enemy("Ougabouga", Singe, 2, _types, _typeTable);
+            //Enemy hydra = new GenerateEnemy("Hydra");
+            Enemy hydra = GenerateEnemy("Hydra");
+            Player Hercule = new Player("Hercule");
             Potion popo = new Potion();
             AttackPlus attP = new AttackPlus();
-            Player Hercule = new Player("Hercule");
-            Hercule.AddCreature(Tiger);
-            Hercule.AddCreature(Viper);
+            Creatures lion = new Creatures("Nemean Lion", _creaturesStats["Nemean Lion"], GenerateCreatureMovePool("Nemean Lion"));
+            Creatures heracles = new Creatures("Heracles", _creaturesStats["Heracles"], GenerateCreatureMovePool("Heracles"));
+            Hercule.AddCreature(lion);
+            Hercule.AddCreature(heracles);
             Hercule.AddItems(popo);
             Hercule.AddItems(attP);
-            CombatManager test = new CombatManager(Hercule, Ougabouga, _types, _typeTable);
+            CombatManager test = new CombatManager(Hercule, hydra, _types, _typeTable);
             _currentFight = test;
             test.StartFight();
+            //CreatureStats TigerStats = new CreatureStats();
+            //Creatures Tiger = new Creatures("Tiger", TigerStats);
+            //Tiger.AddMove(COUPDECAILLOU);
+            //Tiger.AddMove(COUP2TETE);
+            //CreatureStats ViperStats = new CreatureStats();
+            //Creatures Viper = new Creatures("Viper", ViperStats);
+            //Viper.AddMove(COUPDECAILLOU);
+            //Potion popo = new Potion();
+            //AttackPlus attP = new AttackPlus();
+            //Player Hercule = new Player("Hercule");
+            //Hercule.AddCreature(Tiger);
+            //Hercule.AddCreature(Viper);
+            //Hercule.AddItems(popo);
+            //Hercule.AddItems(attP);
+            //CombatManager test = new CombatManager(Hercule, Ougabouga, _types, _typeTable);
+            //_currentFight = test;
+            //test.StartFight();
+
+            int i = 0;
+            // Sauvegarder les données
+            GameData gameData = new GameData(Hercule, _gamePhase);
+            SaveManager.Save(gameData, "savegame.dat");
+
+            Console.WriteLine("Données sauvegardées.");
+
+            // Charger les données
+            GameData loadedData = SaveManager.Load("savegame.dat");
+            if (loadedData != null)
+            {
+                Console.WriteLine("Données chargées :");
+                Console.WriteLine("CheckPoint : " + loadedData.Phase.ToString());
+                Console.WriteLine("Name : " + loadedData.Player.Name);
+            }
         }
 
         public void GameLoop()
@@ -160,6 +215,25 @@ namespace HeraclesCreatures
                 "Ghost"
             };
 
+        }
+
+        private List<Moves> GenerateCreatureMovePool(string creatureName)
+        {
+            List<Moves> moves = new List<Moves>();
+            for (int i = 0; i < _movePools[creatureName].Count; i++)
+            {
+                if (_moveStats[_movePools[creatureName][i]].ManaCost > 0)
+                {
+                    Spell spell = new Spell(_movePools[creatureName][i], _moveStats[_movePools[creatureName][i]]);
+                    moves.Add(spell);
+                }
+                else
+                {
+                    Attack attack = new Attack(_movePools[creatureName][i], _moveStats[_movePools[creatureName][i]]);
+                    moves.Add(attack);
+                }
+            }
+            return moves;
         }
 
         private void GenerateMoves()
@@ -219,6 +293,8 @@ namespace HeraclesCreatures
                         moveName = moveName.Replace('_', ' ');
 
                         _moveStats.Add(moveName, moveStats);
+                        Moves move = new Moves(moveName, moveStats);
+                        _moves.Add(moveName, move);
                     }
                     catch (Exception ex)
                     {
@@ -323,6 +399,83 @@ namespace HeraclesCreatures
             {
                 Console.WriteLine($"Le dossier spécifié n'existe pas : {folderPath}");
             }
+        }
+
+        Enemy GenerateEnemy(string enemyName)
+        {
+            Enemy enemy = null;
+
+            string folderPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\Resources\\Enemies";
+
+            if (Directory.Exists(folderPath))
+            {
+                string[] files = Directory.GetFiles(folderPath, "*.txt");
+
+                foreach (string filePath in files)
+                {
+                    if (Path.GetFileNameWithoutExtension(filePath).Replace('_', ' ') == enemyName)
+                    {
+                        int difficulty = 1;
+                        List<Creatures> enemyTeam = new List<Creatures>();
+
+                        try
+                        {
+                            string[] lines = File.ReadAllLines(filePath);
+
+                            bool inDifficultySection = false;
+                            bool inCreaturesPoolSection = false;
+                            bool inItemsPoolSection = false;
+
+                            foreach (string line in lines)
+                            {
+                                if (line.Trim().Equals("Difficulty :", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    inDifficultySection = true;
+                                    inCreaturesPoolSection = false;
+                                    inItemsPoolSection = false;
+                                }
+                                else if (line.Trim().Equals("Creatures :", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    inDifficultySection = false;
+                                    inCreaturesPoolSection = true;
+                                    inItemsPoolSection = false;
+                                }
+                                else if (line.Trim().Equals("Items :", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    inDifficultySection = false;
+                                    inCreaturesPoolSection = false;
+                                    inItemsPoolSection = true;
+                                }
+                                else if (inDifficultySection && !string.IsNullOrWhiteSpace(line))
+                                {
+                                    difficulty = Int32.Parse(line.Trim());
+                                }
+                                else if (inCreaturesPoolSection && !string.IsNullOrWhiteSpace(line))
+                                {
+                                    Creatures creature = new Creatures(line.Trim(), _creaturesStats[line.Trim()], GenerateCreatureMovePool(line.Trim()));
+                                    enemyTeam.Add(creature);
+                                }
+                                else if (inItemsPoolSection && !string.IsNullOrWhiteSpace(line))
+                                {
+                                    // Faire la liste items et l'ajouter a l'enemy
+                                }
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Une erreur s'est produite lors de la lecture du fichier {filePath}: {ex.Message}");
+                        }
+                        enemy = new Enemy(enemyName, enemyTeam, difficulty, _types, _typeTable);
+                    }
+                    
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Le dossier spécifié n'existe pas : {folderPath}");
+            }
+            return enemy;
         }
 
         #endregion Methods

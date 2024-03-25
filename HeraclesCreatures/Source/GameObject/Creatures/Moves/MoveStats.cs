@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
+    [Serializable]
     internal struct MoveStats
     {
 

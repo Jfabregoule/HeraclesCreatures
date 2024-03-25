@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures
+namespace HeraclesCreatures.Source.Common
 {
-    [Serializable]
-    internal class Potion : Items
+    internal class SaveManager
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -20,7 +20,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        int _health;
+
 
         #endregion Fields
 
@@ -34,7 +34,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public int health { get {return _health; } }
+
 
         #endregion Properties
 
@@ -62,19 +62,39 @@ namespace HeraclesCreatures
 
         #region Methods
 
+        public static void Save(GameData data, string filename)
+        {
+            string saveFolderPath = Path.Combine("..", "..", "..", "Resources", "Save");
+            string fullPath = Path.Combine(saveFolderPath, filename);
 
-        public Potion() 
-        {
-            name = "Potion";
-            _health = 10;
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream stream = new FileStream(fullPath, FileMode.Create))
+            {
+                formatter.Serialize(stream, data);
+            }
         }
-        public override void Use(ref Creatures creatures)
+
+        public static GameData Load(string filename)
         {
-            creatures.Heal(_health);
-            Console.WriteLine("Vous venez de soigner" + creatures.CreatureName);
-            Console.WriteLine(creatures.CreatureName + " HP : " +creatures.Stats.health);
+            string saveFolderPath = Path.Combine("..", "..", "..", "Resources", "Save");
+            string fullPath = Path.Combine(saveFolderPath, filename);
+
+            if (File.Exists(fullPath))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                using (FileStream stream = new FileStream(fullPath, FileMode.Open))
+                {
+                    return (GameData)formatter.Deserialize(stream);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Aucun fichier de sauvegarde trouvé.");
+                return null;
+            }
         }
 
         #endregion Methods
+
     }
 }
