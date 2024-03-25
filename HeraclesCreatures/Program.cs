@@ -12,26 +12,18 @@ namespace HeraclesCreatures
             gameManager.GameLoop();
             Console.WriteLine();
             */
-            void PrintDictionary(Dictionary<string, List<string[]>> dictionary)
+            static void DisplayDictionary<T>(Dictionary<string, T> dictionary)
             {
+                Console.WriteLine($"Dictionary<{typeof(string).Name}, {typeof(T).Name}>:");
                 foreach (var kvp in dictionary)
                 {
-                    Console.WriteLine($"Key: {kvp.Key}");
-
-                    foreach (var item in kvp.Value)
-                    {
-                        foreach (var value in item)
-                        {
-                            Console.Write($" {value}");
-                        }
-                        Console.WriteLine();
-                    }
-                    Console.WriteLine();
+                    Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
                 }
+                Console.WriteLine();
             }
             FileManager shoukran = new FileManager();
-            Dictionary<string, List<string[]>> mabrouk = shoukran.GetRessources();
-            PrintDictionary(mabrouk);
+            shoukran.FillAllDictionnaries();
+            shoukran.DisplayDictionaries();
 
         }
 

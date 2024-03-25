@@ -1,5 +1,8 @@
-﻿Name:
-DefaultPlayer
+﻿Type:
+Character
+
+Name:
+DefaultCharacter
 
 Drawing:
     ()    

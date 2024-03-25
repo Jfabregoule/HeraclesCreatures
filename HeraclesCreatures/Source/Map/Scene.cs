@@ -76,6 +76,5 @@ namespace HeraclesCreatures
 
         #endregion Methods
 
-
     }
 }

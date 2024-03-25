@@ -19,7 +19,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        
+        MapObjectData _mapData;
 
         #endregion Fields
 
@@ -33,7 +33,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        
+        internal MapObjectData MapData { get => _mapData; set => _mapData = value; }
 
         #endregion Properties
 
@@ -63,7 +63,7 @@ namespace HeraclesCreatures
 
         public CharacterData()
         {
-            
+            _mapData = new MapObjectData();
         }
 
         #endregion Methods

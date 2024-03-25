@@ -1,4 +1,7 @@
-﻿Name:
+﻿Type:
+Chest
+
+Name:
 Chest1
 
 Drawing:

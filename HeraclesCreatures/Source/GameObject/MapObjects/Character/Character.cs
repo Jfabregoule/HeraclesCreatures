@@ -63,7 +63,7 @@ namespace HeraclesCreatures
 
         public Character()
         {
-
+            _data = new CharacterData();
         }
 
         #endregion Methods

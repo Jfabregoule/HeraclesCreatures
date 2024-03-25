@@ -1,10 +1,9 @@
 ﻿Name:
 FirstScene
 
-WSD,GGD,C1,GGD
-WSD,C1,GGD,GGD
-C1,GGD,C1,WSD
+WSD,GGD,GGD,GGD
+WSD,GGD,GGD,GGD
+GGD,GGD,GGD,WSD
 
 WallStoneDefault = WSD
 GroundGrassDefault = GGD
-Chest1 = C1

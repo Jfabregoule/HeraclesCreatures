@@ -1,5 +1,20 @@
-﻿Name:
+﻿Type:
+Door
+
+Name:
 Door1
+
+TargetScene:
+FirstScene
+
+IsLocked:
+false
+
+ArrivalX:
+1
+
+ArrivalY:
+1
 
 Drawing:
 ++++++++++

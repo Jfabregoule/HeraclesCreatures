@@ -19,10 +19,11 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        Scene _targetScene;
+        string _targetSceneName;
         bool _isLocked;
         int _arrivalX;
         int _arrivalY;
+        MapObjectData _mapData;
 
         #endregion Fields
 
@@ -36,10 +37,11 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public Scene TargetScene { get => _targetScene; set => _targetScene = value; }
+        public string TargetSceneName { get => _targetSceneName; set => _targetSceneName = value; }
         public bool IsLocked { get => _isLocked; set => _isLocked = value; }
         public int ArrivalX { get => _arrivalX; set => _arrivalX = value; }
         public int ArrivalY { get => _arrivalY; set => _arrivalY = value; }
+        internal MapObjectData MapData { get => _mapData; set => _mapData = value; }
 
         #endregion Properties
 
@@ -69,10 +71,11 @@ namespace HeraclesCreatures
 
         public DoorData()
         {
-            _targetScene = new Scene();
+            _targetSceneName = "";
             _isLocked = false;
             _arrivalX = 0;
             _arrivalY = 0;
+            _mapData = new MapObjectData();
         }
 
         #endregion Methods
