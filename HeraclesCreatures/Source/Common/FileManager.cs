@@ -1,4 +1,7 @@
-﻿namespace HeraclesCreatures
+﻿using System.Reflection.Metadata.Ecma335;
+using static System.Formats.Asn1.AsnWriter;
+
+namespace HeraclesCreatures
 {
     internal class FileManager
     {
@@ -218,6 +221,50 @@
             return tilesIDs;
         }
 
+        private int[] GetWidthHeight(string[] sceneLines, int index)
+        {
+            int[] widthHeight = new int[2];
+            widthHeight[0] = sceneLines[index + 1].Count(c => c == ',');
+            int height = 0;
+            while (sceneLines[index + 1] != "")
+            {
+                height++;
+                index++;
+            }
+            widthHeight[1] = height;
+            return widthHeight;
+        }
+
+        private Cell[,] CreateCellGrid(string[] sceneLines, int index)
+        {
+            int[] widthHeight = GetWidthHeight(sceneLines, index);
+            int width = widthHeight[0];
+            int height = widthHeight[1];
+
+            Cell[,] cells = new Cell[width, height];
+            Cell cell = new();
+
+            string[,] stringGrid = new string[height, width];
+
+            for (int i = index + 1; i < index + height + 1; i++)
+            {
+                string[] values = sceneLines[index].Split(',');
+                for (int j = 0; j < width; j++)
+                {
+                    stringGrid[i, j] = values[j];
+                }
+            }
+
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    
+                }
+            }
+            return cells;
+        }
+
         private void FillTilesDictionnary(List<string[]> TilesLines)
         {
             foreach (string[] tileLines in TilesLines)
@@ -393,13 +440,12 @@
             {
 
                 Scene scene = new();
-                string name = "";
 
                 for (int i = 0; i < sceneLines.Length; i++)
                 {
                     if (sceneLines[i] == "Name:")
                     {
-                        name = sceneLines[i + 1];
+                        scene.Name = sceneLines[i + 1];
                     }
 
                     else if (sceneLines[i] == "IDs:")
@@ -409,7 +455,9 @@
 
                     else if (sceneLines[i] == "Board:")
                     {
-                        
+                        scene.Width = GetWidthHeight(sceneLines, i)[0];
+                        scene.Height = GetWidthHeight(sceneLines, i)[1];
+                        scene.Cells = CreateCellGrid(scene.Width, scene.Height);
                     }
 
                     else if (sceneLines[i] == "MapObjects:")
@@ -419,7 +467,7 @@
 
                 }
 
-                _scenes.Add(name, scene);
+                _scenes.Add(scene.Name , scene);
             }
         }
 
@@ -428,37 +476,39 @@
             Dictionary<string, List<string[]>> ressourcesLines = GetRessources();
             foreach (string key in ressourcesLines.Keys)
             {
-                switch (key)
+                bool tilesDone = false;
+                bool mapObjectsDone = false;
+                if (key == "Tiles")
                 {
-                    case "Tiles":
-                        FillTilesDictionnary(ressourcesLines[key]);
-                        break;
-                    case "MapObjects":
-                        List<string[]> charactersLines = new List<string[]> {};
-                        List<string[]> chestsLines = new List<string[]> {};
-                        List<string[]> doorsLines = new List<string[]> {};
-                        foreach (string[] mapObject in ressourcesLines[key])
+                    FillTilesDictionnary(ressourcesLines[key]);
+                }
+                else if (key == "MapObjects")
+                {
+                    List<string[]> charactersLines = new List<string[]> { };
+                    List<string[]> chestsLines = new List<string[]> { };
+                    List<string[]> doorsLines = new List<string[]> { };
+                    foreach (string[] mapObject in ressourcesLines[key])
+                    {
+                        switch (mapObject[1])
                         {
-                            switch (mapObject[1])
-                            {
-                                case "Character":
-                                    charactersLines.Add(mapObject);
-                                    break;
-                                case "Chest":
-                                    chestsLines.Add(mapObject);
-                                    break;
-                                case "Door":
-                                    doorsLines.Add(mapObject);
-                                    break;
-                            }
+                            case "Character":
+                                charactersLines.Add(mapObject);
+                                break;
+                            case "Chest":
+                                chestsLines.Add(mapObject);
+                                break;
+                            case "Door":
+                                doorsLines.Add(mapObject);
+                                break;
                         }
-                        FillCharacterDictionnary(charactersLines);
-                        FillChestDictionnary(chestsLines);
-                        FillDoorDictionnary(doorsLines);
-                        break;
-                    case "Scenes":
-                        FillSceneDictionnary(ressourcesLines[key]);
-                        break;
+                    }
+                    FillCharacterDictionnary(charactersLines);
+                    FillChestDictionnary(chestsLines);
+                    FillDoorDictionnary(doorsLines);
+                }
+                else if (key == "Scenes" && tilesDone && mapObjectsDone)
+                {
+                    FillSceneDictionnary(ressourcesLines[key]);
                 }
             }
         }

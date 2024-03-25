@@ -16,7 +16,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        string name;
+        string _name;
         int _width;
         int _height;
         Cell[,] _cells;
@@ -34,11 +34,11 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public string Name { get => name; set => name = value; }
+        public string Name { get => _name; set => _name = value; }
         public int Width { get => _width; set => _width = value; }
         public int Height { get => _height; set => _height = value; }
         public Cell[,] Cells { get => _cells; set => _cells = value; }
-        internal List<MapObject> SceneObjects { get => _sceneObjects; set => _sceneObjects = value; }
+        public List<MapObject> SceneObjects { get => _sceneObjects; set => _sceneObjects = value; }
 
         #endregion Properties
 
@@ -68,16 +68,20 @@ namespace HeraclesCreatures
 
         public Scene()
         {
+            _name = "";
             _width = 0;
             _height = 0;
             _cells = new Cell[,] {};
+            _sceneObjects = new();
         }
 
-        public Scene(int width, int height, Cell[,] cells)
+        public Scene(string name, int width, int height, Cell[,] cells, List<MapObject> sceneObjects)
         {
+            _name = name;
             _width = width;
             _height = height;
             _cells = cells;
+            _sceneObjects = sceneObjects;
         }
 
         private void SetCell(int x, int y, Cell cell)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    internal class MapObject : GameObject
+    public class MapObject : GameObject
     {
 
         /*------------------------------------------------------------------------------------------*\
