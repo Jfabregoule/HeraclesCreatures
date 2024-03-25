@@ -19,9 +19,9 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        TileData _tile;
         int _x;
         int _y;
+        TileData _tile;
 
         #endregion Fields
 
@@ -37,6 +37,7 @@ namespace HeraclesCreatures
 
         public int X { get => _x; private set => _x = value; }
         public int Y { get => _y; private set => _y = value; }
+        public TileData Tile { get => _tile; set => _tile = value; }
 
         #endregion Properties
 
@@ -66,8 +67,9 @@ namespace HeraclesCreatures
         // Constructor
         public Cell()
         {
-            X = 0;
-            Y = 0;
+            _x = 0;
+            _y = 0;
+            _tile = new();
         }
 
         #endregion Methods

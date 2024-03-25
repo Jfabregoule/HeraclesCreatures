@@ -1,4 +1,5 @@
 ﻿using HeraclesCreatures;
+using System.ComponentModel;
 
 namespace HeraclesCreatures
 {
@@ -15,10 +16,11 @@ namespace HeraclesCreatures
 
         #region Fields
 
+        string name;
         int _width;
         int _height;
         Cell[,] _cells;
-        List<MapObject> _sceneObjects; 
+        List<MapObject> _sceneObjects;
 
         #endregion Fields
 
@@ -32,7 +34,11 @@ namespace HeraclesCreatures
 
         #region Properties
 
-
+        public string Name { get => name; set => name = value; }
+        public int Width { get => _width; set => _width = value; }
+        public int Height { get => _height; set => _height = value; }
+        public Cell[,] Cells { get => _cells; set => _cells = value; }
+        internal List<MapObject> SceneObjects { get => _sceneObjects; set => _sceneObjects = value; }
 
         #endregion Properties
 
@@ -72,6 +78,11 @@ namespace HeraclesCreatures
             _width = width;
             _height = height;
             _cells = cells;
+        }
+
+        private void SetCell(int x, int y, Cell cell)
+        {
+            _cells[x, y] = cell;
         }
 
         #endregion Methods

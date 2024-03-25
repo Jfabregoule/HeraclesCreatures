@@ -18,7 +18,7 @@
         Dictionary<string, DoorData> _doorsData;
         Dictionary<string, ChestData> _chestsData;
         Dictionary<string, CharacterData> _charactersData;
-        Dictionary<string, Scene> _scenesData;
+        Dictionary<string, Scene> _scenes;
 
         #endregion Fields
 
@@ -37,7 +37,7 @@
         internal Dictionary<string, DoorData> DoorsData { get => _doorsData; set => _doorsData = value; }
         internal Dictionary<string, ChestData> ChestsData { get => _chestsData; set => _chestsData = value; }
         internal Dictionary<string, CharacterData> CharactersData { get => _charactersData; set => _charactersData = value; }
-        public Dictionary<string, Scene> ScenesData { get => _scenesData; set => _scenesData = value; }
+        public Dictionary<string, Scene> ScenesData { get => _scenes; set => _scenes = value; }
 
         #endregion Properties
 
@@ -72,37 +72,10 @@
             _doorsData = new();
             _chestsData = new();
             _charactersData = new();
-            _scenesData = new();
+            _scenes = new();
         }
 
-        string[] ReadFile(string filePath)
-        {
-            string[] empty = new string[0];
-            try
-            {
-                string solutionDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-                string relativePath = $@"{filePath}";
-                string mapObjectFilePath = Path.Combine(solutionDirectory, relativePath);
-                if (File.Exists(mapObjectFilePath))
-                {
-                    string[] mapObjectLines = File.ReadAllLines(mapObjectFilePath);
-                    return mapObjectLines;
-                }
-                else
-                {
-                    Console.WriteLine("File not found.");
-                    
-                    return empty;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred while reading the file: {ex.Message}");
-                return empty;
-            }
-        }
-
-        List<string> GetFolderBranches(string folderPath)
+        private List<string> GetFolderBranches(string folderPath)
         {
             List<string> branches = new List<string>();
 
@@ -118,7 +91,7 @@
             return branches;
         }
 
-        Dictionary<string, List<string[]>> GetRessources()
+        private Dictionary<string, List<string[]>> GetRessources()
         {
             string GetDictionnaryID(string fullPath)
             {
@@ -179,17 +152,17 @@
             return resources;
         }
 
-        bool GetBool(string line)
+        private bool GetBool(string line)
         {
             return bool.Parse(line);
         }
 
-        int GetInt(string line)
+        private int GetInt(string line)
         {
             return int.Parse(line);
         }
 
-        char[,] GetDrawing(string[] drawingLines, int index)
+        private char[,] GetDrawing(string[] drawingLines, int index)
         {
             char[,] drawing = new char[5, 10];
 
@@ -204,7 +177,7 @@
             return drawing;
         }
 
-        ConsoleColor[,] GetColor(string[] colorLines, int index)
+        private ConsoleColor[,] GetColor(string[] colorLines, int index)
         {
             ConsoleColor[,] color = new ConsoleColor[5, 10];
             string colorCode = "";
@@ -230,7 +203,22 @@
             return color;
         }
 
-        void FillTilesDictionnary(List<string[]> TilesLines)
+        private Dictionary<string, TileData> TilesIDs(string[] sceneLines, int index)
+        {
+            Dictionary<string, TileData> tilesIDs = new();
+            string separator = " = ";
+
+            while (sceneLines[index + 1] != "")
+            {
+                string[] parts = sceneLines[index + 1].Split(new[] { separator }, StringSplitOptions.None);
+                tilesIDs.Add(parts[0].Trim(), _tilesData[parts[1].Trim()]);
+                index++;
+            }
+
+            return tilesIDs;
+        }
+
+        private void FillTilesDictionnary(List<string[]> TilesLines)
         {
             foreach (string[] tileLines in TilesLines)
             {
@@ -272,7 +260,7 @@
             }
         }
 
-        void FillDoorDictionnary(List<string[]> doorsLines)
+        private void FillDoorDictionnary(List<string[]> doorsLines)
         {
             foreach (string[] doorLines in doorsLines)
             {
@@ -328,7 +316,7 @@
             }
         }
 
-        void FillChestDictionnary(List<string[]> chestsLines)
+        private void FillChestDictionnary(List<string[]> chestsLines)
         {
             foreach (string[] chestLines in chestsLines)
             {
@@ -364,7 +352,7 @@
             }
         }
 
-        void FillCharacterDictionnary(List<string[]> charactersLines)
+        private void FillCharacterDictionnary(List<string[]> charactersLines)
         {
             foreach (string[] characterLines in charactersLines)
             {
@@ -396,6 +384,42 @@
 
                 characterData.MapData = mapData;
                 _charactersData.Add(name, characterData);
+            }
+        }
+
+        private void FillSceneDictionnary(List<string[]> scenesLines)
+        {
+            foreach (string[] sceneLines in scenesLines)
+            {
+
+                Scene scene = new();
+                string name = "";
+
+                for (int i = 0; i < sceneLines.Length; i++)
+                {
+                    if (sceneLines[i] == "Name:")
+                    {
+                        name = sceneLines[i + 1];
+                    }
+
+                    else if (sceneLines[i] == "IDs:")
+                    {
+                        Dictionary<string, TileData> tilesIDs = TilesIDs(sceneLines, i);
+                    }
+
+                    else if (sceneLines[i] == "Board:")
+                    {
+                        
+                    }
+
+                    else if (sceneLines[i] == "MapObjects:")
+                    {
+                        
+                    }
+
+                }
+
+                _scenes.Add(name, scene);
             }
         }
 
@@ -431,6 +455,9 @@
                         FillCharacterDictionnary(charactersLines);
                         FillChestDictionnary(chestsLines);
                         FillDoorDictionnary(doorsLines);
+                        break;
+                    case "Scenes":
+                        FillSceneDictionnary(ressourcesLines[key]);
                         break;
                 }
             }

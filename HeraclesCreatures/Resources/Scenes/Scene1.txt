@@ -1,9 +1,13 @@
 ﻿Name:
 FirstScene
 
+IDs:
+WSD = WallStoneDefault
+GGD = GroundGrassDefault
+
+Board:
 WSD,GGD,GGD,GGD
 WSD,GGD,GGD,GGD
 GGD,GGD,GGD,WSD
 
-WallStoneDefault = WSD
-GroundGrassDefault = GGD
+MapObjects:

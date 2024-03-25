@@ -19,7 +19,9 @@ namespace HeraclesCreatures
 
         #region Fields
 
-
+        int _width;
+        int _height;
+        TileData[,] _cellsData;
 
         #endregion Fields
 
