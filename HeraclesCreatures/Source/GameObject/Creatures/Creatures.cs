@@ -7,6 +7,23 @@ using System.Threading.Tasks;
 namespace HeraclesCreatures
 {
 
+    enum CreatureState
+    {
+        ALIVE,
+        NUMB,
+        BURNED,
+        SOAKED,
+        WITHERED,
+        RUSTED,
+        DIZZY,
+        SHAKEN,
+        BLINDED,
+        ERODED,
+        POISONED,
+        SCARED,
+        DEAD
+    }
+
     #region Creatures Class
     [Serializable]
     internal class Creatures
@@ -23,7 +40,7 @@ namespace HeraclesCreatures
 
         string              _creatureName;
         List<Moves>         _moves;
-        bool                _isDead;
+        CreatureState       _state;
         CreatureStats       _stats;
 
         #endregion Fields
@@ -40,8 +57,8 @@ namespace HeraclesCreatures
 
         public string CreatureName { get => _creatureName; private set => _creatureName = value; }
         internal List<Moves> Moves { get => _moves; private set => _moves = value; }
-        public CreatureStats Stats { get => _stats; private set => _stats = value; }
-        public bool IsDead { get => _isDead; private set => _isDead = value; }
+        public CreatureStats Stats { get => _stats; set => _stats = value; }
+        public CreatureState State { get => _state; set => _state = value; }
 
         #endregion Properties
 
@@ -74,6 +91,7 @@ namespace HeraclesCreatures
             _creatureName = CreatureName;
             _stats = stats;
             _moves = moves;
+            _state = CreatureState.ALIVE;
         }
         public void AddMove(Moves move) 
         {
@@ -105,11 +123,7 @@ namespace HeraclesCreatures
         {
             if(_stats.health<= 0)
             {
-                IsDead = true;
-            }
-            else
-            {
-                IsDead = false;
+                _state = CreatureState.DEAD;
             }
         }
 

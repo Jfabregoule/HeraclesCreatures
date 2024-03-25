@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HeraclesCreatures
 {
@@ -182,7 +183,6 @@ namespace HeraclesCreatures
                     }
                 }
             }
-            
 
             if (_isPlayerTurn == false)
             {
@@ -194,11 +194,88 @@ namespace HeraclesCreatures
                 _enemy.Turn(_currentEnemyCreature, _currentPlayerCreature);
                 _isPlayerTurn = true;
             }
+            CheckForStatusEffects(_currentPlayerCreature, _currentEnemyCreature);
             CurrentTurn += 1;
             Console.WriteLine(" ");
             Console.WriteLine(_currentEnemyCreature.CreatureName + " : " + _currentEnemyCreature.Stats.health + "/" + _currentEnemyCreature.Stats.maxHealth);
             Console.WriteLine(" ");
 
+        }
+
+        public void CheckForStatusEffects(Creatures allyCreature, Creatures enemyCreature)
+        {
+            if (allyCreature.State != CreatureState.ALIVE && allyCreature.State != CreatureState.DEAD) 
+            {
+                Random random = new Random();
+                int chance = random.Next(1, 101);
+
+                if (chance > 20)
+                {
+                    if (allyCreature.Stats.health > 0)
+                    {
+                        allyCreature.State = CreatureState.ALIVE;
+                        Console.Write(allyCreature.CreatureName);
+                        Console.WriteLine(" is now cured.");
+                    }
+                    else
+                    {
+                        allyCreature.State = CreatureState.DEAD;
+                    }
+                }
+            }
+            switch (allyCreature.State)
+            {
+                case CreatureState.BURNED:
+                    CreatureStats creatureStats = allyCreature.Stats;
+                    creatureStats.health -= allyCreature.Stats.maxHealth * 0.10f;
+                    allyCreature.Stats = creatureStats;
+                    Console.Write(allyCreature.CreatureName);
+                    Console.WriteLine(" lost 10% HP due to burn.");
+                    break;
+                case CreatureState.POISONED:
+                    CreatureStats creatureStats2 = allyCreature.Stats;
+                    creatureStats2.health -= allyCreature.Stats.maxHealth * 0.10f;
+                    allyCreature.Stats = creatureStats2;
+                    Console.Write(allyCreature.CreatureName);
+                    Console.WriteLine(" lost 10% HP due to burn.");
+                    break;
+            }
+            if (enemyCreature.State != CreatureState.ALIVE && enemyCreature.State != CreatureState.DEAD)
+            {
+                Random random = new Random();
+                int chance = random.Next(1, 101);
+
+                if (chance > 20)
+                {
+                    if (enemyCreature.Stats.health > 0)
+                    {
+                        enemyCreature.State = CreatureState.ALIVE;
+                        Console.Write(enemyCreature.CreatureName);
+                        Console.WriteLine(" is now cured.");
+                    }
+                    else
+                    {
+                        enemyCreature.State = CreatureState.DEAD;
+                    }
+                }
+            }
+            switch (enemyCreature.State)
+            {
+                case CreatureState.BURNED:
+                    CreatureStats creatureStats = enemyCreature.Stats;
+                    creatureStats.health -= enemyCreature.Stats.maxHealth * 0.10f;
+                    enemyCreature.Stats = creatureStats;
+                    Console.Write(enemyCreature.CreatureName);
+                    Console.WriteLine(" lost 10% HP due to burn.");
+                    break;
+                case CreatureState.POISONED:
+                    CreatureStats creatureStats2 = enemyCreature.Stats;
+                    creatureStats2.health -= enemyCreature.Stats.maxHealth * 0.10f;
+                    enemyCreature.Stats = creatureStats2;
+                    Console.Write(enemyCreature.CreatureName);
+                    Console.WriteLine(" lost 10% HP due to burn.");
+                    break;
+            }
         }
 
         public void SwapCreature(Fighter fighter,string creatureName) 
@@ -226,7 +303,7 @@ namespace HeraclesCreatures
             for (int i = 0; i < _player.Creatures.Count(); i++)
             {
                 _player.Creatures[i].CheckIsDead();
-                if (_player.Creatures[i].IsDead)
+                if (_player.Creatures[i].State == CreatureState.DEAD)
                 {
                     playerCreatureDead += 1;
                 }
@@ -234,7 +311,7 @@ namespace HeraclesCreatures
             for (int i = 0; i < _enemy.Creatures.Count(); i++)
             {
                 _enemy.Creatures[i].CheckIsDead();
-                if (_enemy.Creatures[i].IsDead)
+                if (_enemy.Creatures[i].State == CreatureState.DEAD)
                 {
                     enemyCreatureDead += 1;
                 }
@@ -255,7 +332,7 @@ namespace HeraclesCreatures
         public void AutoSwap(Fighter fighter,Creatures currentCreature)
         {
             currentCreature.CheckIsDead();
-            if (currentCreature.IsDead)
+            if (currentCreature.State == CreatureState.DEAD)
             {
                 for (int i = 0; i < fighter.Creatures.Count(); i++)
                 {
