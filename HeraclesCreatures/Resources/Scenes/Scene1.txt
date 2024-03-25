@@ -1,3 +1,10 @@
-﻿DG,GGG,C1,GGG
-DG,C1,C1,GGG
-C1,GGG,C1,DG
+﻿Name:
+FirstScene
+
+WSD,GGD,C1,GGD
+WSD,C1,GGD,GGD
+C1,GGD,C1,WSD
+
+WallStoneDefault = WSD
+GroundGrassDefault = GGD
+Chest1 = C1

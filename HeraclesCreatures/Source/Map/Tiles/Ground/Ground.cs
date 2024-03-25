@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HeraclesCreatures;
 
-namespace HeraclesCreatures.Source.GameObject.Map_objects.Door
+namespace HeraclesCreatures
 {
-    internal struct DoorData
+    internal class Ground
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -19,8 +20,7 @@ namespace HeraclesCreatures.Source.GameObject.Map_objects.Door
 
         #region Fields
 
-        Scene _targetScene;
-        bool _isLocked;
+        GroundData _data;
 
         #endregion Fields
 
@@ -34,7 +34,7 @@ namespace HeraclesCreatures.Source.GameObject.Map_objects.Door
 
         #region Properties
 
-
+        internal GroundData Data { get => _data; set => _data = value; }
 
         #endregion Properties
 
@@ -62,7 +62,10 @@ namespace HeraclesCreatures.Source.GameObject.Map_objects.Door
 
         #region Methods
 
-
+        public Ground()
+        {
+            _data = new GroundData();
+        }
 
         #endregion Methods
 

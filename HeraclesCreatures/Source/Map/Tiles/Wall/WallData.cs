@@ -1,8 +1,12 @@
-﻿using HeraclesCreatures;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    public class Scene
+    internal struct WallData
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -15,10 +19,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        int _width;
-        int _height;
-        Cell[,] _cells;
-        List<MapObject> _sceneObjects; 
+
 
         #endregion Fields
 
@@ -60,22 +61,9 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public Scene()
-        {
-            _width = 0;
-            _height = 0;
-            _cells = new Cell[,] {};
-        }
 
-        public Scene(int width, int height, Cell[,] cells)
-        {
-            _width = width;
-            _height = height;
-            _cells = cells;
-        }
 
         #endregion Methods
-
 
     }
 }

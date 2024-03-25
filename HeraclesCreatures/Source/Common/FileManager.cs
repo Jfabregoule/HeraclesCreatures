@@ -1,6 +1,4 @@
-﻿using HeraclesCreatures;
-
-namespace HeraclesCreatures
+﻿namespace HeraclesCreatures
 {
     internal class FileManager
     {
@@ -16,7 +14,8 @@ namespace HeraclesCreatures
         #region Fields
 
         Dictionary<string, CreatureStats> _creaturesData;
-        Dictionary<string, MapObject> _tilesData;
+        Dictionary<string, TileData> _tilesData;
+        Dictionary<string, MapObject> _mapObjectsData;
         Dictionary<string, Player> _playersData;
         Dictionary<string, Scene> _scenesData;
 
@@ -33,7 +32,7 @@ namespace HeraclesCreatures
         #region Properties
 
         public Dictionary<string, CreatureStats> CreaturesData { get => _creaturesData; set => _creaturesData = value; }
-        public Dictionary<string, MapObject> TilesData { get => _tilesData; set => _tilesData = value; }
+        public Dictionary<string, TileData> TilesData { get => _tilesData; set => _tilesData = value; }
         internal Dictionary<string, Player> PlayersData { get => _playersData; set => _playersData = value; }
         public Dictionary<string, Scene> ScenesData { get => _scenesData; set => _scenesData = value; }
 
@@ -66,12 +65,12 @@ namespace HeraclesCreatures
         public FileManager()
         {
             _creaturesData = new Dictionary<string, CreatureStats>();
-            _tilesData = new Dictionary<string, MapObject>();
+            _tilesData = new Dictionary<string, TileData>();
             _playersData = new Dictionary<string, Player>();
             _scenesData = new Dictionary<string, Scene>();
         }
 
-        public string[] ReadFile(string filePath)
+        string[] ReadFile(string filePath)
         {
             string[] empty = new string[0];
             try
@@ -96,6 +95,83 @@ namespace HeraclesCreatures
                 Console.WriteLine($"An error occurred while reading the file: {ex.Message}");
                 return empty;
             }
+        }
+
+        List<string> GetFolderBranches(string folderPath)
+        {
+            List<string> branches = new List<string>();
+
+            string[] subdirectories = Directory.GetDirectories(folderPath);
+
+            branches.Add(folderPath);
+
+            foreach (string subdirectory in subdirectories)
+            {
+                branches.AddRange(GetFolderBranches(subdirectory));
+            }
+
+            return branches;
+        }
+
+        public Dictionary<string, List<string[]>> GetRessources()
+        {
+            string GetMapID(string fullPath)
+            {
+                const string resourcesIdentifier = "Resources";
+
+                char[] separators = { '\\' };
+                string[] parts = fullPath.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
+                int index = Array.IndexOf(parts, resourcesIdentifier);
+                if (index >= 0 && index < parts.Length - 1)
+                {
+                    return parts[index + 1];
+                }
+                return null;
+            }
+
+            string solutionDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            string relativePath = "Resources";
+            string rootFolderPath = Path.Combine(solutionDirectory, relativePath);
+
+            List<string> branches = GetFolderBranches(rootFolderPath);
+            Dictionary<string, List<string[]>> resources = new Dictionary<string, List<string[]>> {};
+
+            foreach (string branch in branches)
+            {
+                string[] files = Directory.GetFiles(branch, "*.txt");
+                foreach (string filePath in files)
+                {
+                    try
+                    {
+                        if (File.Exists(filePath))
+                        {
+                            string[] resource = File.ReadAllLines(filePath);
+                            string mapID = GetMapID(branch);
+                            if (resources.ContainsKey(mapID))
+                            {
+                                resources[mapID].Add(resource);
+                            }
+                            else
+                            {
+                                resources.Add(mapID, new List<string[]> { resource });
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("File not found.");
+                            return resources;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"An error occurred while reading the files: {ex.Message}");
+                        return resources;
+                    }
+                }
+
+            }
+            return resources;
         }
 
         bool GetWalkable(string[] mapObjectLines, int index)
@@ -144,11 +220,10 @@ namespace HeraclesCreatures
             return mapObjectColor;
         }
 
-        public CellData_ GetMapObjectData(string filePath)
+        public TileData GetMapObjectData(string filePath)
         {
 
-            CellData_ cellData = new CellData_();
-            cellData.CellContent = new MapObject();
+            TileData cellData = new TileData();
 
             string[] mapObjectLines = ReadFile(filePath);
             if (mapObjectLines != null)
@@ -186,10 +261,11 @@ namespace HeraclesCreatures
             else
             {
                 Console.WriteLine("Error occurred while reading the file.");
-                return new CellData_();
+                return new TileData();
             }
 
         }
+
 
 
         #endregion Methods

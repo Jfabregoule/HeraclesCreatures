@@ -1,3 +1,6 @@
+Name:
+CretanBull
+
 Stats:
 HP : 120
 MAXHP : 120

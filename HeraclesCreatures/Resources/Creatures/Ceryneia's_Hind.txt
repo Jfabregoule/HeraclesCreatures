@@ -1,3 +1,6 @@
+Name:
+CeryneiasHind
+
 Stats:
 HP : 80
 MAXHP : 80

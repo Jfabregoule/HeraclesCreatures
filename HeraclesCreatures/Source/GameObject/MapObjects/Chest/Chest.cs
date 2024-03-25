@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
-namespace HeraclesCreatures.Source.GameObject.Map_objects.Chest
+namespace HeraclesCreatures
 {
-    internal struct ChestData
+    internal class Chest : MapObject
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -19,7 +15,8 @@ namespace HeraclesCreatures.Source.GameObject.Map_objects.Chest
 
         #region Fields
 
-        
+        bool _isOpen;
+        ChestData _data;
 
         #endregion Fields
 
@@ -33,7 +30,9 @@ namespace HeraclesCreatures.Source.GameObject.Map_objects.Chest
 
         #region Properties
 
+        public bool IsOpen { get => _isOpen; set => _isOpen = value; }
 
+        internal ChestData Data { get => _data; set => _data = value; }
 
         #endregion Properties
 
@@ -61,8 +60,26 @@ namespace HeraclesCreatures.Source.GameObject.Map_objects.Chest
 
         #region Methods
 
-        public ChestData()
-        {}
+        public Chest()
+        {
+            _isOpen = false;
+            _data = new ChestData();
+        }
+
+        public void AddItem(Items item, int quantity)
+        {
+            _data.AddItem(item, quantity);
+        }
+
+        public void RemoveItem(Items item)
+        {
+            _data.RemoveItem(item);
+        }
+
+        public void EditQuantity(Items item, int newQuantity)
+        {
+            _data.EditQuantity(item, newQuantity);
+        }
 
         #endregion Methods
 

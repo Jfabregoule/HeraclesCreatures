@@ -1,3 +1,6 @@
+Name:
+Cerberus
+
 Stats:
 HP : 500
 MAXHP : 500

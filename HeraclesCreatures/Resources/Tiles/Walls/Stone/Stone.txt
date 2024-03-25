@@ -1,5 +1,5 @@
-Type:
-Ground
+Name:
+WallStoneDefault
 
 Walkable:
 true

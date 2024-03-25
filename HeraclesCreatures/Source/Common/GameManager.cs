@@ -114,6 +114,8 @@ namespace HeraclesCreatures
             while (_isRunning)
             {
                 _inputManager.Update();
+                FileManager fileManager = new FileManager();
+                fileManager.GetMapObjectData("");
 
                 if (_inputManager.IsAnyKeyPressed())
                 {

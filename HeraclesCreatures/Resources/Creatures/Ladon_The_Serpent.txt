@@ -1,3 +1,6 @@
+Name:
+LadonTheSerpent
+
 Stats:
 HP : 160
 MAXHP : 160

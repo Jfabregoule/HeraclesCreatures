@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Ressources.MapObjects.Walls
+namespace HeraclesCreatures
 {
-    internal struct WallData
+    internal struct DoorData
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -19,7 +19,10 @@ namespace HeraclesCreatures.Ressources.MapObjects.Walls
 
         #region Fields
 
-
+        Scene _targetScene;
+        bool _isLocked;
+        int _arrivalX;
+        int _arrivalY;
 
         #endregion Fields
 
@@ -33,7 +36,10 @@ namespace HeraclesCreatures.Ressources.MapObjects.Walls
 
         #region Properties
 
-
+        public Scene TargetScene { get => _targetScene; set => _targetScene = value; }
+        public bool IsLocked { get => _isLocked; set => _isLocked = value; }
+        public int ArrivalX { get => _arrivalX; set => _arrivalX = value; }
+        public int ArrivalY { get => _arrivalY; set => _arrivalY = value; }
 
         #endregion Properties
 
@@ -61,7 +67,13 @@ namespace HeraclesCreatures.Ressources.MapObjects.Walls
 
         #region Methods
 
-
+        public DoorData()
+        {
+            _targetScene = new Scene();
+            _isLocked = false;
+            _arrivalX = 0;
+            _arrivalY = 0;
+        }
 
         #endregion Methods
 

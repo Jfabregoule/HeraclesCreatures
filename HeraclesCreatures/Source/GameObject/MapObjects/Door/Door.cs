@@ -1,13 +1,8 @@
-﻿using HeraclesCreatures.Ressources.MapObjects.Grounds;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HeraclesCreatures;
 
-namespace HeraclesCreatures.Source.GameObject.Map_objects.Ground
+namespace HeraclesCreatures
 {
-    internal class Ground : MapObject
+    internal class Door : MapObject
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -20,7 +15,7 @@ namespace HeraclesCreatures.Source.GameObject.Map_objects.Ground
 
         #region Fields
 
-        GroundData _data;
+        DoorData _data;
 
         #endregion Fields
 
@@ -34,7 +29,7 @@ namespace HeraclesCreatures.Source.GameObject.Map_objects.Ground
 
         #region Properties
 
-        internal GroundData Data { get => _data; set => _data = value; }
+        internal DoorData Data { get => _data; set => _data = value; }
 
         #endregion Properties
 
@@ -62,9 +57,9 @@ namespace HeraclesCreatures.Source.GameObject.Map_objects.Ground
 
         #region Methods
 
-        public Ground()
+        public Door()
         {
-            _data = new GroundData();
+            _data = new DoorData();
         }
 
         #endregion Methods

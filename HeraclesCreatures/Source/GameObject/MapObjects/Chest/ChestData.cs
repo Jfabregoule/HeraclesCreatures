@@ -1,8 +1,12 @@
-﻿using HeraclesCreatures;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    public struct CellData_
+    internal struct ChestData
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -15,11 +19,8 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        MapObject _cellContent;
-        bool _isWalkable;
-        char[,] _drawing;
-        ConsoleColor[,] _foregroundColor;
-        ConsoleColor[,] _backgroundColor;
+        List<Items> _content;
+        List<int> _quantity;
 
         #endregion Fields
 
@@ -33,15 +34,8 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        internal MapObject CellContent { get => _cellContent; set => _cellContent = value; }
-
-        public bool IsWalkable { get => _isWalkable; set => _isWalkable = value; }
-
-        public char[,] Drawing { get => _drawing; set => _drawing = value; }
-
-        public ConsoleColor[,] ForegroundColor { get => _foregroundColor; set => _foregroundColor = value; }
-
-        public ConsoleColor[,] BackgroundColor { get => _backgroundColor; set => _backgroundColor = value; }
+        internal List<Items> Content { get => _content; set => _content = value; }
+        internal List<int> Quantity { get => _quantity; set => _quantity = value; }
 
         #endregion Properties
 
@@ -69,42 +63,44 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        // Constructors
-        public CellData_()
+        public ChestData()
         {
-            _cellContent = new MapObject();
-            _isWalkable = true;
-            _drawing = new char[4, 4];
-            _foregroundColor = new ConsoleColor[4, 4];
-            _backgroundColor = new ConsoleColor[4, 4];
-        }
-        internal CellData_(MapObject mapObejct, bool isWalkable, char[,] drawing, ConsoleColor[,] foregroundColor, ConsoleColor[,] backgroundColor)
-        {
-            _cellContent = mapObejct;
-            _isWalkable = isWalkable;
-            _drawing = drawing;
-            _foregroundColor = foregroundColor;
-            _backgroundColor = backgroundColor;
+            _content = new List<Items> {};
+            _quantity = new List<int> {};
         }
 
-        public void printCellData()
+        public void AddItem(Items item, int quantity)
         {
-            Console.WriteLine("Cell Data:");
-            Console.WriteLine($"Cell Content: {CellContent}");
-            Console.WriteLine($"Is Walkable: {IsWalkable}");
+            _content.Add(item);
+            _quantity.Add(quantity);
+        }
 
-            // Print the drawing with foreground and background colors
-            Console.WriteLine("Drawing with Colors:");
-            for (int i = 0; i < _drawing.GetLength(0); i++)
+        public void RemoveItem(Items item)
+        {
+            int index = _content.IndexOf(item);
+
+            if (index != -1)
             {
-                for (int j = 0; j < _drawing.GetLength(1); j++)
-                {
-                    Console.ForegroundColor = _foregroundColor[i, j];
-                    Console.BackgroundColor = _backgroundColor[i, j];
-                    Console.Write(_drawing[i, j]);
-                }
-                Console.ResetColor(); // Reset colors after each row
-                Console.WriteLine(); // Move to the next line
+                _content.Remove(item);
+                _quantity.RemoveAt(index);
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public void EditQuantity(Items item, int newQuantity)
+        {
+            int index = _content.IndexOf(item);
+
+            if (index != -1)
+            {
+                _quantity[index] = newQuantity;
+            }
+            else
+            {
+                return;
             }
         }
 

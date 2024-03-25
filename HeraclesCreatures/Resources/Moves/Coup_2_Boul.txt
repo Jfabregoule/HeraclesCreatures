@@ -1,3 +1,6 @@
+Name:
+Coup2Boule
+
 Stats:
 POWER: 20
 ACCURACY: 100

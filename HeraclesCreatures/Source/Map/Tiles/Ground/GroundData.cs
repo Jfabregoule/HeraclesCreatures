@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HeraclesCreatures.Ressources.MapObjects.Grounds
+namespace HeraclesCreatures
 {
     internal struct GroundData
     {
