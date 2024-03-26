@@ -239,7 +239,7 @@ namespace HeraclesCreatures
                                     switch (key)
                                     {
                                         case "POWER":
-                                            moveStats.Power = float.Parse(value);
+                                            moveStats.Power = int.Parse(value);
                                             break;
                                         case "ACCURACY":
                                             moveStats.Accuracy = float.Parse(value);

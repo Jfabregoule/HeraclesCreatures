@@ -98,33 +98,35 @@ namespace HeraclesCreatures
             Random random = new Random();
 
             int randomIndex = random.Next(0, EnemyCreature.Moves.Count);
-            float effectiveness = AllyCreature.Moves[randomIndex].GetEffectiveness(EnemyCreature.Stats.type, _types, _typeTable);
+            float effectiveness = EnemyCreature.Moves[randomIndex].GetEffectiveness(AllyCreature.Stats.type, _types, _typeTable);
             EnemyCreature.Moves[randomIndex].Use(EnemyCreature, AllyCreature, effectiveness);
         }
 
         private void MediumTurn(Creatures EnemyCreature, Creatures AllyCreature)
         {
-            Random random = new Random();
-            int randomIndex = random.Next(0, EnemyCreature.Moves.Count);
-
-            int bestMoveIndex = randomIndex;
-            float bestEffect = 0.0f;
-            string enemyType = EnemyCreature.Stats.type;
-            int j = _types.IndexOf(enemyType);
-            for (int x = 0; x < AllyCreature.Moves.Count; x++) 
+            bool canMove = false;
+            int bestMoveIndex = 0;
+            int bestPower = 0;
+            for (int i = 0; i < EnemyCreature.Moves.Count; i++)
             {
-                int i = _types.IndexOf(AllyCreature.Moves[x].Stats.Type);
-                if (_typeTable[i, j] > bestEffect)
+                int power = EnemyCreature.Moves[i].Stats.Power;
+                if (power > bestPower)
                 {
-                    bestMoveIndex = x;
-                    bestEffect = _typeTable[i, j];
-                    Console.Write("Effect :");
-                    Console.WriteLine(_typeTable[i, j]);
+                    if ((EnemyCreature.Moves[i] is Attack && EnemyCreature.Moves[i].PP > 0) || (EnemyCreature.Moves[i] is Spell && EnemyCreature.Mana > EnemyCreature.Moves[i].Stats.ManaCost))
+                    bestPower = power;
+                    bestMoveIndex = i;
+                    canMove = true;
                 }
             }
-            EnemyCreature.Moves[bestMoveIndex].Use(EnemyCreature, AllyCreature, bestEffect);
-            Console.WriteLine("Best move index :");
-            Console.WriteLine(bestMoveIndex);
+            if (canMove)
+            {
+                float effectiveness = EnemyCreature.Moves[bestMoveIndex].GetEffectiveness(EnemyCreature.Stats.type, _types, _typeTable);
+                EnemyCreature.Moves[bestMoveIndex].Use(EnemyCreature, AllyCreature, effectiveness);
+            }
+            else
+            {
+                Console.WriteLine("{0} has no PP and not enough mana remaining and couldn't move", EnemyCreature.CreatureName);
+            }
         }
 
         private void HardTurn()

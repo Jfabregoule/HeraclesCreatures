@@ -20,7 +20,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        float   _power;
+        int     _power;
         float   _accuracy;
         float   _critRate;
         int     _maxPP;
@@ -39,7 +39,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public float    Power { get => _power; set => _power = value; }
+        public int    Power { get => _power; set => _power = value; }
 
         public float    Accuracy { get => _accuracy; set => _accuracy = value; }
 
