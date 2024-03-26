@@ -207,20 +207,17 @@ namespace HeraclesCreatures
             }
         }
 
-        public void SwapCreature(Fighter fighter,string creatureName) 
+        public void SwapCreature(Fighter fighter,int index) 
         {
-            for (int i = 0; i < fighter.Creatures.Count(); i++)
+           if(index <= fighter.Creatures.Count)
             {
-                if (fighter.Creatures[i].CreatureName == creatureName)
+                if (fighter == _player)
                 {
-                    if(fighter == _player)
-                    {
-                        _currentPlayerCreature = fighter.Creatures[i];
-                    }
-                    else if(fighter == _enemy)
-                    {
-                        _currentEnemyCreature = fighter.Creatures[i];
-                    }
+                    _currentPlayerCreature = fighter.Creatures[index];
+                }
+                else if (fighter == _enemy)
+                {
+                    _currentEnemyCreature = fighter.Creatures[index];
                 }
             }
         }
@@ -315,7 +312,7 @@ namespace HeraclesCreatures
                 {
                     if (swapval == "1")
                     {
-                        SwapCreature(_player, _player.Creatures[1].CreatureName);
+                        SwapCreature(_player,1);
                         _isPlayerTurn = false;
                     }
                 }
@@ -336,9 +333,9 @@ namespace HeraclesCreatures
             {
                 for (int i = 0; i < fighter.Creatures.Count(); i++)
                 {
-                    if (currentCreature == fighter.Creatures[i] && i + 1 < fighter.Creatures.Count())
+                    if (currentCreature == fighter.Creatures[i] && i + 1 < fighter.Creatures.Count() && fighter.Creatures[i + 1].State != CreatureState.DEAD)
                     {
-                        SwapCreature(fighter, fighter.Creatures[i + 1].CreatureName);
+                        SwapCreature(fighter, i+1);
                         break;
                     }
                 }
