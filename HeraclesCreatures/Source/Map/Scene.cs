@@ -97,6 +97,22 @@ namespace HeraclesCreatures
             _cells[x, y] = cell;
         }
 
+        public void DisplayScene()
+        {
+            for (int i = 0; i < Height*5; i++)
+            {
+                for(int j = 0; j < Width*10; j++)
+                {
+                    Cell cell = Cells[(int)Math.Floor(i * 0.2), (int)Math.Floor(j * 0.1)];
+                    Console.ForegroundColor = cell.Tile.ForegroundColor[i % 5, j % 10];
+                    Console.BackgroundColor = cell.Tile.BackgroundColor[i % 5, j % 10];
+                    Console.Write(cell.Tile.Drawing[i % 5, j % 10]);
+                }
+                Console.WriteLine();
+            }
+            Console.BackgroundColor = 0;
+        }
+
         #endregion Methods
 
     }

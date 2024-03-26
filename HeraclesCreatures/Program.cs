@@ -6,7 +6,7 @@ namespace HeraclesCreatures
     {
         public static void Main(string[] args)
         {
-            
+            /*
             GameManager gameManager = new GameManager();
 
             
@@ -21,11 +21,14 @@ namespace HeraclesCreatures
                 }
                 Console.WriteLine();
             }
+             */
             
             FileManager shoukran = new FileManager();
             shoukran.FillAllDictionnaries();
-            shoukran.DisplayDictionaries();
-            gameManager.GameLoop();
+            Dictionary<string, Scene> scenes = shoukran.ScenesData;
+            scenes["FirstScene"].DisplayScene();
+
+            //gameManager.GameLoop();
         }
 
     }

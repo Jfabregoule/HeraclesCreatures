@@ -243,7 +243,7 @@ namespace HeraclesCreatures
             scene.Width = widthHeight[0];
             scene.Height = widthHeight[1];
 
-            Cell[,] cells = new Cell[scene.Width, scene.Height];
+            Cell[,] cells = new Cell[scene.Height, scene.Width];
 
             for (int i = 0; i < scene.Height; i++)
             {
@@ -254,7 +254,7 @@ namespace HeraclesCreatures
                     cell.X = i;
                     cell.Y = j;
                     cell.Tile = tilesIDs[values[j]];
-                    cells[j,i] = cell;
+                    cells[i,j] = cell;
                 }
             }
             scene.Cells = cells;
@@ -515,37 +515,6 @@ namespace HeraclesCreatures
                 }
                 */
             }
-        }
-
-        public void DisplayDictionaries()
-        {
-            void DisplayDrawingWithColors(char[,] drawing, ConsoleColor[,] foregroundColor, ConsoleColor[,] backgroundColor)
-            {
-                for (int i = 0; i < drawing.GetLength(0); i++)
-                {
-                    for (int j = 0; j < drawing.GetLength(1); j++)
-                    {
-                        Console.ForegroundColor = foregroundColor[i, j];
-                        Console.BackgroundColor = backgroundColor[i, j];
-                        Console.Write(drawing[i, j]);
-                    }
-                    Console.WriteLine();
-                }
-                Console.ResetColor();
-            }
-
-            foreach ((string key, Scene value) in _scenes)
-            {
-                foreach (Cell cell in value.Cells) {
-                    DisplayDrawingWithColors(cell.Tile.Drawing, cell.Tile.ForegroundColor, cell.Tile.BackgroundColor);
-                }
-            }
-
-        }
-
-        public void DisplayScene(string name)
-        {
-
         }
 
         #endregion Methods
