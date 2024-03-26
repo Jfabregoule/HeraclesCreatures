@@ -19,6 +19,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
+        Scene _currentScene;
         MapObjectData _mapData;
 
         #endregion Fields
@@ -33,6 +34,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
+        public Scene CurrentScene { get => _currentScene; set => _currentScene = value; }
         internal MapObjectData MapData { get => _mapData; set => _mapData = value; }
 
         #endregion Properties
@@ -63,6 +65,7 @@ namespace HeraclesCreatures
 
         public CharacterData()
         {
+            _currentScene = new Scene();
             _mapData = new MapObjectData();
         }
 

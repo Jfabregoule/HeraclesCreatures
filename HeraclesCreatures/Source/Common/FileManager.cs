@@ -224,7 +224,7 @@ namespace HeraclesCreatures
         private int[] GetWidthHeight(string[] sceneLines, int index)
         {
             int[] widthHeight = new int[2];
-            widthHeight[0] = sceneLines[index + 1].Count(c => c == ',');
+            widthHeight[0] = sceneLines[index + 1].Count(c => c == ',') + 1;
             int height = 0;
             while (sceneLines[index + 1] != "")
             {
@@ -235,34 +235,30 @@ namespace HeraclesCreatures
             return widthHeight;
         }
 
-        private Cell[,] CreateCellGrid(string[] sceneLines, int index)
+        private Scene CreateCellGrid(string[] sceneLines, int index, Dictionary<string, TileData> tilesIDs)
         {
+            Scene scene = new Scene();
+
             int[] widthHeight = GetWidthHeight(sceneLines, index);
-            int width = widthHeight[0];
-            int height = widthHeight[1];
+            scene.Width = widthHeight[0];
+            scene.Height = widthHeight[1];
 
-            Cell[,] cells = new Cell[width, height];
-            Cell cell = new();
+            Cell[,] cells = new Cell[scene.Width, scene.Height];
 
-            string[,] stringGrid = new string[height, width];
-
-            for (int i = index + 1; i < index + height + 1; i++)
+            for (int i = 0; i < scene.Height; i++)
             {
-                string[] values = sceneLines[index].Split(',');
-                for (int j = 0; j < width; j++)
+                string[] values = sceneLines[i + index + 1].Split(',');
+                for (int j = 0; j < scene.Width; j++)
                 {
-                    stringGrid[i, j] = values[j];
+                    Cell cell = new();
+                    cell.X = i;
+                    cell.Y = j;
+                    cell.Tile = tilesIDs[values[j]];
+                    cells[j,i] = cell;
                 }
             }
-
-            for (int i = 0; i < height; i++)
-            {
-                for (int j = 0; j < width; j++)
-                {
-                    
-                }
-            }
-            return cells;
+            scene.Cells = cells;
+            return scene;
         }
 
         private void FillTilesDictionnary(List<string[]> TilesLines)
@@ -440,33 +436,39 @@ namespace HeraclesCreatures
             {
 
                 Scene scene = new();
+                string name = "";
+                Dictionary<string, TileData> tilesIDs = new();
 
                 for (int i = 0; i < sceneLines.Length; i++)
                 {
                     if (sceneLines[i] == "Name:")
                     {
-                        scene.Name = sceneLines[i + 1];
+                        name = sceneLines[i + 1];
                     }
 
                     else if (sceneLines[i] == "IDs:")
                     {
-                        Dictionary<string, TileData> tilesIDs = TilesIDs(sceneLines, i);
+                        tilesIDs = TilesIDs(sceneLines, i);
                     }
 
                     else if (sceneLines[i] == "Board:")
                     {
-                        scene.Width = GetWidthHeight(sceneLines, i)[0];
-                        scene.Height = GetWidthHeight(sceneLines, i)[1];
-                       // scene.Cells = CreateCellGrid(scene.Width, scene.Height);
+                        scene = CreateCellGrid(sceneLines, i, tilesIDs);
                     }
 
-                    else if (sceneLines[i] == "MapObjects:")
+                    else if (sceneLines[i] == "DefaultX:")
                     {
-                        
+                        scene.DefaultX = GetInt(sceneLines[i + 1]);
+                    }
+
+                    else if (sceneLines[i] == "DefaultY:")
+                    {
+                        scene.DefaultY = GetInt(sceneLines[i + 1]);
                     }
 
                 }
 
+                scene.Name = name;
                 _scenes.Add(scene.Name , scene);
             }
         }
@@ -476,11 +478,10 @@ namespace HeraclesCreatures
             Dictionary<string, List<string[]>> ressourcesLines = GetRessources();
             foreach (string key in ressourcesLines.Keys)
             {
-                bool tilesDone = false;
-                bool mapObjectsDone = false;
                 if (key == "Tiles")
                 {
                     FillTilesDictionnary(ressourcesLines[key]);
+                    FillSceneDictionnary(ressourcesLines["Scenes"]);
                 }
                 else if (key == "MapObjects")
                 {
@@ -506,10 +507,13 @@ namespace HeraclesCreatures
                     FillChestDictionnary(chestsLines);
                     FillDoorDictionnary(doorsLines);
                 }
-                else if (key == "Scenes" && tilesDone && mapObjectsDone)
+                /*
+                else if (key == "Scenes" && tilesDone)
                 {
+                    Console.WriteLine("feuururuurururur");
                     FillSceneDictionnary(ressourcesLines[key]);
                 }
+                */
             }
         }
 
@@ -524,61 +528,20 @@ namespace HeraclesCreatures
                         Console.ForegroundColor = foregroundColor[i, j];
                         Console.BackgroundColor = backgroundColor[i, j];
                         Console.Write(drawing[i, j]);
+
                     }
                     Console.WriteLine();
                 }
                 Console.ResetColor();
             }
 
-            void DisplayMapObjectData(MapObjectData mapData)
+            foreach ((string key, Scene value) in _scenes)
             {
-                DisplayDrawingWithColors(mapData.Drawing, mapData.ForegroundColor, mapData.BackgroundColor);
-            }
-
-            void DisplayDictionary<T>(Dictionary<string, T> dictionary)
-            {
-                foreach (var kvp in dictionary)
-                {
-                    Console.WriteLine($"Key: {kvp.Key}");
-
-                    // If the value is a DoorData struct
-                    if (typeof(T) == typeof(DoorData))
-                    {
-                        var door = (DoorData)(object)kvp.Value;
-                        DisplayMapObjectData(door.MapData);
-                    }
-                    else if (typeof(T) == typeof(CharacterData))
-                    {
-                        var character = (CharacterData)(object)kvp.Value;
-                        DisplayMapObjectData(character.MapData);
-                    }
-                    else if (typeof(T) == typeof(ChestData))
-                    {
-                        var chest = (ChestData)(object)kvp.Value;
-                        DisplayMapObjectData(chest.MapData);
-                    }
-                    // If the value is a TileData struct
-                    else if (typeof(T) == typeof(TileData))
-                    {
-                        var tile = (TileData)(object)kvp.Value;
-                        DisplayDrawingWithColors(tile.Drawing, tile.ForegroundColor, tile.BackgroundColor);
-                    }
-
-                    Console.WriteLine();
+                foreach (Cell cell in value.Cells) {
+                    DisplayDrawingWithColors(cell.Tile.Drawing, cell.Tile.ForegroundColor, cell.Tile.BackgroundColor);
                 }
             }
 
-            Console.WriteLine("Tiles Data:");
-            DisplayDictionary(_tilesData);
-
-            Console.WriteLine("Doors Data:");
-            DisplayDictionary(_doorsData);
-
-            Console.WriteLine("Chests Data:");
-            DisplayDictionary(_chestsData);
-
-            Console.WriteLine("Characters Data:");
-            DisplayDictionary(_charactersData);
         }
 
         #endregion Methods
