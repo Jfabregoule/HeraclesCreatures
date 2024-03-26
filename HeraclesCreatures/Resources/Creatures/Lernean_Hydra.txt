@@ -13,5 +13,7 @@ SPEED : 6
 TYPE : Water
 
 MovePool :
-Charge
-Ruée
+Quick Splash
+Roaring Wave
+High Tide
+Furious Torrent

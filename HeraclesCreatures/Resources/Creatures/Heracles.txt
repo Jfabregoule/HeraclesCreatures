@@ -10,5 +10,7 @@ SPEED : 8
 TYPE : Normal
 
 MovePool :
-Charge
-Ruée
+Speed Strike
+Balanced Kick
+Frenzy
+Infinity Punch

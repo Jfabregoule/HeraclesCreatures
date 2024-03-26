@@ -13,5 +13,7 @@ SPEED : 17
 TYPE : Dark
 
 MovePool :
-Charge
-Ruée
+Quick Shadow
+Dark Haunting
+Night Frenzy
+Black Eclipse

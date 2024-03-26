@@ -13,5 +13,7 @@ SPEED : 20
 TYPE : Ghost
 
 MovePool :
-Charge
-Ruée
+Haunted Gaze
+Dark Thrill
+Deep Curse
+Veil of Dread

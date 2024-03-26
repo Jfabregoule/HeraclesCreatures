@@ -13,5 +13,7 @@ SPEED : 15
 TYPE : Ground
 
 MovePool :
-Charge
-Ruée
+Telluric Strike
+Seismic Shock
+Brutal Trampling
+Earth Eruption

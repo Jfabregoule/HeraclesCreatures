@@ -241,72 +241,77 @@ namespace HeraclesCreatures
             string folderPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\Resources\\Moves";
             if (Directory.Exists(folderPath))
             {
+                string[] subDirectories = Directory.GetDirectories(folderPath);
 
-                string[] files = Directory.GetFiles(folderPath, "*.txt");
-
-                foreach (string filePath in files)
+                foreach (string subDirectory in subDirectories)
                 {
-                    try
+                    string[] files = Directory.GetFiles(subDirectory, "*.txt");
+
+                    foreach (string filePath in files)
                     {
-                        string[] lines = File.ReadAllLines(filePath);
-
-                        MoveStats moveStats = new MoveStats();
-
-                        foreach (string line in lines)
+                        try
                         {
-                            string[] parts = line.Split(':');
-                            if (parts.Length == 2)
-                            {
-                                string key = parts[0].Trim();
-                                string value = parts[1].Trim();
+                            string[] lines = File.ReadAllLines(filePath);
 
-                                switch (key)
+                            MoveStats moveStats = new MoveStats();
+
+                            foreach (string line in lines)
+                            {
+                                string[] parts = line.Split(':');
+                                if (parts.Length == 2)
                                 {
-                                    case "POWER":
-                                        moveStats.Power = float.Parse(value);
-                                        break;
-                                    case "ACCURACY":
-                                        moveStats.Accuracy = float.Parse(value);
-                                        break;
-                                    case "CRITRATE":
-                                        moveStats.CritRate = float.Parse(value);
-                                        break;
-                                    case "MAXPP":
-                                        moveStats.MaxPP = float.Parse(value);
-                                        break;
-                                    case "PP":
-                                        moveStats.PP = float.Parse(value);
-                                        break;
-                                    case "MANACOST":
-                                        moveStats.ManaCost = float.Parse(value);
-                                        break;
-                                    case "TYPE":
-                                        moveStats.Type = value;
-                                        break;
-                                    default:
-                                        break;
+                                    string key = parts[0].Trim();
+                                    string value = parts[1].Trim();
+
+                                    switch (key)
+                                    {
+                                        case "POWER":
+                                            moveStats.Power = float.Parse(value);
+                                            break;
+                                        case "ACCURACY":
+                                            moveStats.Accuracy = float.Parse(value);
+                                            break;
+                                        case "CRITRATE":
+                                            moveStats.CritRate = float.Parse(value);
+                                            break;
+                                        case "MAXPP":
+                                            moveStats.MaxPP = float.Parse(value);
+                                            break;
+                                        case "PP":
+                                            moveStats.PP = float.Parse(value);
+                                            break;
+                                        case "MANACOST":
+                                            moveStats.ManaCost = float.Parse(value);
+                                            break;
+                                        case "TYPE":
+                                            moveStats.Type = value;
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 }
                             }
+
+                            string moveName = Path.GetFileNameWithoutExtension(filePath);
+                            moveName = moveName.Replace('_', ' ');
+
+                            _moveStats.Add(moveName, moveStats);
+                            Moves move = new Moves(moveName, moveStats);
+                            _moves.Add(moveName, move);
                         }
-
-                        string moveName = Path.GetFileNameWithoutExtension(filePath);
-                        moveName = moveName.Replace('_', ' ');
-
-                        _moveStats.Add(moveName, moveStats);
-                        Moves move = new Moves(moveName, moveStats);
-                        _moves.Add(moveName, move);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Une erreur s'est produite lors de la lecture du fichier {filePath}: {ex.Message}");
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"An error occurred while reading the file {filePath}: {ex.Message}");
+                        }
                     }
                 }
             }
             else
             {
-                Console.WriteLine($"Le dossier spécifié n'existe pas : {folderPath}");
+                Console.WriteLine($"The specified directory does not exist: {folderPath}");
             }
         }
+
 
         private void GenerateCreatures()
         {

@@ -13,5 +13,7 @@ SPEED : 10
 TYPE : Normal
 
 MovePool :
-Charge
-Ruée
+Speed Strike
+Balanced Kick
+Frenzy
+Infinity Punch
