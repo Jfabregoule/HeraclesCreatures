@@ -248,7 +248,7 @@ namespace HeraclesCreatures
                                             moveStats.Accuracy = float.Parse(value);
                                             break;
                                         case "CRITRATE":
-                                            moveStats.CritRate = float.Parse(value);
+                                            moveStats.CritRate = int.Parse(value);
                                             break;
                                         case "MAXPP":
                                             moveStats.MaxPP = int.Parse(value);
