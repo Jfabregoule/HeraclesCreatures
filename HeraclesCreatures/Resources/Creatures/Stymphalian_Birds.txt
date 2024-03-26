@@ -13,5 +13,7 @@ SPEED : 12
 TYPE : Flying
 
 MovePool :
-Charge
-Ruée
+Stinging Wind
+Aerial Diving
+Raging Tornado
+Devastating Hurricane

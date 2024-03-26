@@ -13,5 +13,7 @@ SPEED : 5
 TYPE : Plant
 
 MovePool :
-Charge
-Ruée
+Vegetal Whisk
+Enraged Root
+Plant Embrace
+Floral Storm
