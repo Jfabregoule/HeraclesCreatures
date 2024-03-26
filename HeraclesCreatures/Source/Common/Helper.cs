@@ -2,7 +2,7 @@
 
 namespace HeraclesCreatures
 {
-    internal static class Helper
+    public static class Helper
     {
 
         /*------------------------------------------------------------------------------------------*\

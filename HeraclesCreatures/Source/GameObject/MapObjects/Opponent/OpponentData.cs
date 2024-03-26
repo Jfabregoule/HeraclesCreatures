@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures.Source.GameObject.MapObjects.Opponent
 {
-    internal struct OpponentData
+    public struct OpponentData
     {
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures.Source.Common
 {
-    internal class SaveManager
+    public class SaveManager
     {
 
         /*------------------------------------------------------------------------------------------*\

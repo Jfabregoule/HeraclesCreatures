@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    internal struct CharacterData
+    public struct CharacterData
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -34,8 +34,8 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        //internal Player AttachedPlayer { get => _attachedPlayer; set => _attachedPlayer = value; }
-        internal MapObjectData MapData { get => _mapData; set => _mapData = value; }
+        //public Player AttachedPlayer { get => _attachedPlayer; set => _attachedPlayer = value; }
+        public MapObjectData MapData { get => _mapData; set => _mapData = value; }
 
         #endregion Properties
 

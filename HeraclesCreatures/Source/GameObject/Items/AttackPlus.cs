@@ -8,7 +8,7 @@ using System.Xml.Linq;
 namespace HeraclesCreatures
 {
     [Serializable]
-    internal class AttackPlus : Items
+    public class AttackPlus : Items
     {
 
         /*------------------------------------------------------------------------------------------*\

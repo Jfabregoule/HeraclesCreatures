@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HeraclesCreatures
 {
     [Serializable]
-    internal class Potion : Items
+    public class Potion : Items
     {
 
         /*------------------------------------------------------------------------------------------*\

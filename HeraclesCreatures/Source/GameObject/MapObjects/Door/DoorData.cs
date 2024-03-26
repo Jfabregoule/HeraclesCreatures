@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    internal struct DoorData
+    public struct DoorData
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -41,7 +41,7 @@ namespace HeraclesCreatures
         public bool IsLocked { get => _isLocked; set => _isLocked = value; }
         public int ArrivalX { get => _arrivalX; set => _arrivalX = value; }
         public int ArrivalY { get => _arrivalY; set => _arrivalY = value; }
-        internal MapObjectData MapData { get => _mapData; set => _mapData = value; }
+        public MapObjectData MapData { get => _mapData; set => _mapData = value; }
 
         #endregion Properties
 

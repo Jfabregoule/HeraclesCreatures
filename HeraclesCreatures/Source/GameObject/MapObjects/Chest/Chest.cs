@@ -2,7 +2,7 @@
 
 namespace HeraclesCreatures
 {
-    internal class Chest : MapObject
+    public class Chest : MapObject
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -32,7 +32,7 @@ namespace HeraclesCreatures
 
         public bool IsOpen { get => _isOpen; set => _isOpen = value; }
 
-        internal ChestData Data { get => _data; set => _data = value; }
+        public ChestData Data { get => _data; set => _data = value; }
 
         #endregion Properties
 

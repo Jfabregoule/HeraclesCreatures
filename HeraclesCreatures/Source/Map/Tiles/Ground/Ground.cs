@@ -7,7 +7,7 @@ using HeraclesCreatures;
 
 namespace HeraclesCreatures
 {
-    internal class Ground
+    public class Ground
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -34,7 +34,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        internal GroundData Data { get => _data; set => _data = value; }
+        public GroundData Data { get => _data; set => _data = value; }
 
         #endregion Properties
 

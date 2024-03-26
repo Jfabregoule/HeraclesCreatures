@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    internal class Character : MapObject
+    public class Character : MapObject
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -35,7 +35,7 @@ namespace HeraclesCreatures
         #region Properties
 
         public Scene CurrentScene { get => _currentScene; set => _currentScene = value; }
-        internal CharacterData Data { get => _data; set => _data = value; }
+        public CharacterData Data { get => _data; set => _data = value; }
 
         #endregion Properties
 

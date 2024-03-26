@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    internal struct ChestData
+    public struct ChestData
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -35,9 +35,9 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        internal List<Items> Content { get => _content; set => _content = value; }
-        internal List<int> Quantity { get => _quantity; set => _quantity = value; }
-        internal MapObjectData MapData { get => _mapData; set => _mapData = value; }
+        public List<Items> Content { get => _content; set => _content = value; }
+        public List<int> Quantity { get => _quantity; set => _quantity = value; }
+        public MapObjectData MapData { get => _mapData; set => _mapData = value; }
 
         #endregion Properties
 

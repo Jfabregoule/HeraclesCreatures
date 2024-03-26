@@ -13,7 +13,7 @@ namespace HeraclesCreatures
         Item,
         Swap
     }
-    internal class CombatManager
+    public class CombatManager
     {
 
         /*------------------------------------------------------------------------------------------*\

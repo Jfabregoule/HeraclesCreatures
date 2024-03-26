@@ -2,7 +2,7 @@
 
 namespace HeraclesCreatures
 {
-    internal class Door : MapObject
+    public class Door : MapObject
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -29,7 +29,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        internal DoorData Data { get => _data; set => _data = value; }
+        public DoorData Data { get => _data; set => _data = value; }
 
         #endregion Properties
 

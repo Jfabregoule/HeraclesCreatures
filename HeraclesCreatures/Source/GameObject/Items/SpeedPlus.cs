@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HeraclesCreatures
 {
     [Serializable]
-    internal class SpeedPlus : Items
+    public class SpeedPlus : Items
     {
 
         /*------------------------------------------------------------------------------------------*\

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HeraclesCreatures
 {
     [Serializable]
-    internal class Player : Fighter
+    public class Player : Fighter
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -34,7 +34,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        internal List<Items> Items { get => _items; set => _items = value; }
+        public List<Items> Items { get => _items; set => _items = value; }
        
 
         #endregion Properties

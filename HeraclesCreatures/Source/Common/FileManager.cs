@@ -3,7 +3,7 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace HeraclesCreatures
 {
-    internal class FileManager
+    public class FileManager
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -41,9 +41,9 @@ namespace HeraclesCreatures
 
         public Dictionary<string, CreatureStats> CreaturesData { get => _creaturesData; set => _creaturesData = value; }
         public Dictionary<string, TileData> TilesData { get => _tilesData; set => _tilesData = value; }
-        internal Dictionary<string, DoorData> DoorsData { get => _doorsData; set => _doorsData = value; }
-        internal Dictionary<string, ChestData> ChestsData { get => _chestsData; set => _chestsData = value; }
-        internal Dictionary<string, CharacterData> CharactersData { get => _charactersData; set => _charactersData = value; }
+        public Dictionary<string, DoorData> DoorsData { get => _doorsData; set => _doorsData = value; }
+        public Dictionary<string, ChestData> ChestsData { get => _chestsData; set => _chestsData = value; }
+        public Dictionary<string, CharacterData> CharactersData { get => _charactersData; set => _charactersData = value; }
         public Dictionary<string, Scene> Scenes { get => _scenes; set => _scenes = value; }
 
         #endregion Properties

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    internal class Enemy : Fighter
+    public class Enemy : Fighter
     {
 
         /*------------------------------------------------------------------------------------------*\
