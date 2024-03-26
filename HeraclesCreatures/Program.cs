@@ -6,7 +6,6 @@ namespace HeraclesCreatures
     {
         public static void Main(string[] args)
         {
-            
             GameManager gameManager = new GameManager();
 
             gameManager.GameLoop();

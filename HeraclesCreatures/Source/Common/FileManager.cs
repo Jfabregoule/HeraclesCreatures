@@ -457,7 +457,7 @@ namespace HeraclesCreatures
                     {
                         scene.Width = GetWidthHeight(sceneLines, i)[0];
                         scene.Height = GetWidthHeight(sceneLines, i)[1];
-                        scene.Cells = CreateCellGrid(scene.Width, scene.Height);
+                       // scene.Cells = CreateCellGrid(scene.Width, scene.Height);
                     }
 
                     else if (sceneLines[i] == "MapObjects:")
