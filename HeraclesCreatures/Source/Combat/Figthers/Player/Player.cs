@@ -63,6 +63,11 @@ namespace HeraclesCreatures
 
         #region Methods
 
+        public Player()
+        {
+            _items = new();
+        }
+
         public Player(string name, List<Creatures> team)
         {
             Name  = name;

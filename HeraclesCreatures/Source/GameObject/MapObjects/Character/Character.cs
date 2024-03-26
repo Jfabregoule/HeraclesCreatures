@@ -19,6 +19,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
+        Scene _currentScene;
         CharacterData _data;
 
         #endregion Fields
@@ -33,6 +34,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
+        public Scene CurrentScene { get => _currentScene; set => _currentScene = value; }
         internal CharacterData Data { get => _data; set => _data = value; }
 
         #endregion Properties
@@ -63,7 +65,8 @@ namespace HeraclesCreatures
 
         public Character()
         {
-            _data = new CharacterData();
+            _currentScene = new();
+            _data = new();
         }
 
         #endregion Methods

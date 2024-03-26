@@ -16,6 +16,10 @@ namespace HeraclesCreatures
 
         #region Fields
 
+        //Dictionary<string, CreatureStats> _creaturesStats;
+        //Dictionary<string, MoveStats> _moveStats;
+        //Dictionary<string, List<string>> _movePools;
+        //Dictionary<string, Moves> _moves;
         Dictionary<string, CreatureStats> _creaturesData;
         Dictionary<string, TileData> _tilesData;
         Dictionary<string, DoorData> _doorsData;
@@ -40,7 +44,7 @@ namespace HeraclesCreatures
         internal Dictionary<string, DoorData> DoorsData { get => _doorsData; set => _doorsData = value; }
         internal Dictionary<string, ChestData> ChestsData { get => _chestsData; set => _chestsData = value; }
         internal Dictionary<string, CharacterData> CharactersData { get => _charactersData; set => _charactersData = value; }
-        public Dictionary<string, Scene> ScenesData { get => _scenes; set => _scenes = value; }
+        public Dictionary<string, Scene> Scenes { get => _scenes; set => _scenes = value; }
 
         #endregion Properties
 
@@ -76,6 +80,7 @@ namespace HeraclesCreatures
             _chestsData = new();
             _charactersData = new();
             _scenes = new();
+            FillAllDictionnaries();
         }
 
         private List<string> GetFolderBranches(string folderPath)
@@ -260,6 +265,172 @@ namespace HeraclesCreatures
             scene.Cells = cells;
             return scene;
         }
+
+        /*
+        private void FillMovesDictionnaries()
+        {
+            string folderPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\Resources\\Moves";
+            if (Directory.Exists(folderPath))
+            {
+                string[] subDirectories = Directory.GetDirectories(folderPath);
+
+                foreach (string subDirectory in subDirectories)
+                {
+                    string[] files = Directory.GetFiles(subDirectory, "*.txt");
+
+                    foreach (string filePath in files)
+                    {
+                        try
+                        {
+                            string[] lines = File.ReadAllLines(filePath);
+
+                            MoveStats moveStats = new MoveStats();
+                            int PP = 0;
+                            foreach (string line in lines)
+                            {
+                                string[] parts = line.Split(':');
+                                if (parts.Length == 2)
+                                {
+                                    string key = parts[0].Trim();
+                                    string value = parts[1].Trim();
+
+                                    switch (key)
+                                    {
+                                        case "POWER":
+                                            moveStats.Power = int.Parse(value);
+                                            break;
+                                        case "ACCURACY":
+                                            moveStats.Accuracy = float.Parse(value);
+                                            break;
+                                        case "CRITRATE":
+                                            moveStats.CritRate = int.Parse(value);
+                                            break;
+                                        case "MAXPP":
+                                            moveStats.MaxPP = int.Parse(value);
+                                            break;
+                                        case "PP":
+                                            PP = int.Parse(value);
+                                            break;
+                                        case "MANACOST":
+                                            moveStats.ManaCost = int.Parse(value);
+                                            break;
+                                        case "TYPE":
+                                            moveStats.Type = value;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            }
+
+                            string moveName = Path.GetFileNameWithoutExtension(filePath);
+                            moveName = moveName.Replace('_', ' ');
+
+                            _moveStats.Add(moveName, moveStats);
+                            Moves move = new Moves(moveName, moveStats);
+                            _moves.Add(moveName, move);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"An error occurred while reading the file {filePath}: {ex.Message}");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine($"The specified directory does not exist: {folderPath}");
+            }
+        }
+
+        private void FillCreaturesDictionnary()
+        {
+            string folderPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\Resources\\Creatures";
+
+            if (Directory.Exists(folderPath))
+            {
+                string[] files = Directory.GetFiles(folderPath, "*.txt");
+
+                foreach (string filePath in files)
+                {
+                    try
+                    {
+                        string[] lines = File.ReadAllLines(filePath);
+
+                        CreatureStats creatureStats = new CreatureStats();
+
+                        List<string> movePool = new List<string>();
+
+                        bool inMovePoolSection = false;
+
+                        foreach (string line in lines)
+                        {
+                            if (line.Trim().Equals("MovePool :", StringComparison.OrdinalIgnoreCase))
+                            {
+                                inMovePoolSection = true;
+                            }
+                            else if (inMovePoolSection && !string.IsNullOrWhiteSpace(line))
+                            {
+                                movePool.Add(line.Trim());
+                            }
+                            else
+                            {
+                                string[] parts = line.Split(':');
+                                if (parts.Length == 2)
+                                {
+                                    string key = parts[0].Trim();
+                                    string value = parts[1].Trim();
+
+                                    switch (key)
+                                    {
+                                        case "HP":
+                                            creatureStats.health = float.Parse(value);
+                                            break;
+                                        case "MAXHP":
+                                            creatureStats.maxHealth = float.Parse(value);
+                                            break;
+                                        case "ATTACK":
+                                            creatureStats.attack = float.Parse(value);
+                                            break;
+                                        case "MAGICPOWER":
+                                            creatureStats.magicpower = float.Parse(value);
+                                            break;
+                                        case "DEFENSE":
+                                            creatureStats.defense = float.Parse(value);
+                                            break;
+                                        case "MAXMANA":
+                                            creatureStats.maxMana = int.Parse(value);
+                                            break;
+                                        case "SPEED":
+                                            creatureStats.AttackSpeed = float.Parse(value);
+                                            break;
+                                        case "TYPE":
+                                            creatureStats.type = value;
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+
+                        string creatureName = Path.GetFileNameWithoutExtension(filePath);
+                        creatureName = creatureName.Replace('_', ' ');
+
+                        _creaturesStats.Add(creatureName, creatureStats);
+
+                        _movePools.Add(creatureName, movePool);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Une erreur s'est produite lors de la lecture du fichier {filePath}: {ex.Message}");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Le dossier spécifié n'existe pas : {folderPath}");
+            }
+        }
+        */
 
         private void FillTilesDictionnary(List<string[]> TilesLines)
         {
@@ -483,6 +654,14 @@ namespace HeraclesCreatures
                     FillTilesDictionnary(ressourcesLines[key]);
                     FillSceneDictionnary(ressourcesLines["Scenes"]);
                 }
+                else if (key == "Moves")
+                {
+                    //FillMovesDictionnaries();
+                }
+                else if (key == "Creatures")
+                {
+                    //FillCreaturesDictionnary();
+                }
                 else if (key == "MapObjects")
                 {
                     List<string[]> charactersLines = new List<string[]> { };
@@ -507,13 +686,6 @@ namespace HeraclesCreatures
                     FillChestDictionnary(chestsLines);
                     FillDoorDictionnary(doorsLines);
                 }
-                /*
-                else if (key == "Scenes" && tilesDone)
-                {
-                    Console.WriteLine("feuururuurururur");
-                    FillSceneDictionnary(ressourcesLines[key]);
-                }
-                */
             }
         }
 

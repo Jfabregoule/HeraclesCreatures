@@ -8,15 +8,8 @@ namespace HeraclesCreatures
     {
         public static void Main(string[] args)
         {
-
-            FileManager shoukran = new FileManager();
-            shoukran.FillAllDictionnaries();
-            Dictionary<string, Scene> scenes = shoukran.ScenesData;
-            scenes["FirstScene"].DisplayScene();
             
-
             GameManager gameManager = new GameManager();
-
             
             Console.WriteLine();
            

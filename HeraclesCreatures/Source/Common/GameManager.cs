@@ -45,6 +45,7 @@ namespace HeraclesCreatures
         GamePhase                           _gamePhase;
 
         InputManager                        _inputManager;
+        FileManager                         _fileManager;
         CombatManager                       _currentFight;
 
         Scene                               _scene;
@@ -97,6 +98,7 @@ namespace HeraclesCreatures
             _isRunning = true;
             _gamePhase = GamePhase.Beginning;
             _inputManager = new InputManager();
+            _fileManager = new FileManager();
             _creaturesStats = new Dictionary<string, CreatureStats>();
             _moveStats = new Dictionary<string, MoveStats>();
             _movePools = new Dictionary<string, List<string>>();
@@ -123,7 +125,6 @@ namespace HeraclesCreatures
             _currentFight = test;
             test.StartFight();
 
-            int i = 0;
             //// Sauvegarder les données
             //GameData gameData = new GameData(Hercule, _gamePhase);
             //SaveManager.Save(gameData, "savegame.dat");
@@ -142,11 +143,10 @@ namespace HeraclesCreatures
 
         public void GameLoop()
         {
+            _fileManager.Scenes["FirstScene"].DisplayScene();
             while (_isRunning)
             {
                 _inputManager.Update();
-                //FileManager fileManager = new FileManager();
-                //fileManager.GetTileData("");
 
                 if (_inputManager.IsAnyKeyPressed())
                 {
@@ -287,7 +287,6 @@ namespace HeraclesCreatures
                 Console.WriteLine($"The specified directory does not exist: {folderPath}");
             }
         }
-
 
         private void GenerateCreatures()
         {

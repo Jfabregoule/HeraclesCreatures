@@ -110,7 +110,8 @@ namespace HeraclesCreatures
                 }
                 Console.WriteLine();
             }
-            Console.BackgroundColor = 0;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         #endregion Methods
