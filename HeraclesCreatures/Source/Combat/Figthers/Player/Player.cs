@@ -63,11 +63,15 @@ namespace HeraclesCreatures
 
         #region Methods
 
-        public Player(string name)
+        public Player(string name, List<Creatures> team)
         {
             Name  = name;
             _items = new List<Items>();
-            Creatures = new List<Creatures>();
+            Creatures = team;
+            if (Creatures.Count > 0)
+            {
+                CurrentCreature = Creatures[0];
+            }
         }
 
         public void AddItems(Items items)

@@ -68,7 +68,7 @@ namespace HeraclesCreatures
             name = "SpeedPlus";
             _speedBonus = 10;
         }
-        public override void Use(ref Creatures creatures)
+        public override void Use(Creatures creatures)
         {
             creatures.BoostSpeed(_speedBonus);
         }

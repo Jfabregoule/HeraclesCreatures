@@ -65,7 +65,7 @@ namespace HeraclesCreatures
         {
             name = "Revive";
         }
-        public override void Use(ref Creatures creatures)
+        public override void Use(Creatures creatures)
         {
             creatures.Heal(creatures.Stats.maxHealth);
             creatures.CheckIsDead();

@@ -107,13 +107,16 @@ namespace HeraclesCreatures
             GenerateCreatures();
 
             Enemy hydra = GenerateEnemy("Hydra");
-            Player Hercule = new Player("Hercule");
-            Potion popo = new Potion();
-            AttackPlus attP = new AttackPlus();
+            List<Creatures> creatures = new List<Creatures>();
             Creatures lion = new Creatures("Nemean Lion", _creaturesStats["Nemean Lion"], GenerateCreatureMovePool("Nemean Lion"));
             Creatures heracles = new Creatures("Heracles", _creaturesStats["Heracles"], GenerateCreatureMovePool("Heracles"));
-            Hercule.AddCreature(lion);
-            Hercule.AddCreature(heracles);
+            creatures.Add(lion);
+            creatures.Add(heracles);
+            Player Hercule = new Player("Hercule", creatures);
+            Potion popo = new Potion();
+            AttackPlus attP = new AttackPlus();
+            
+            
             Hercule.AddItems(popo);
             Hercule.AddItems(attP);
             CombatManager test = new CombatManager(Hercule, hydra, _types, _typeTable);
