@@ -106,16 +106,6 @@ namespace HeraclesCreatures
             GenerateMoves();
             GenerateCreatures();
 
-            //CreatureStats OrangOutanStats = new CreatureStats();
-            //OrangOutanStats.type = "Plant";
-            //Creatures OrangOutant = new Creatures("OrangOutant", OrangOutanStats);
-            //List<Creatures> Singe = new List<Creatures>();
-            //Attack COUPDECAILLOU = new Attack("COUPDECAILLOU");
-            //Spell COUP2TETE = new Spell("COUP2TETE");
-            //OrangOutant.AddMove(COUPDECAILLOU);
-            //Singe.Add(OrangOutant);
-            //Enemy Ougabouga = new Enemy("Ougabouga", Singe, 2, _types, _typeTable);
-            //Enemy hydra = new GenerateEnemy("Hydra");
             Enemy hydra = GenerateEnemy("Hydra");
             Player Hercule = new Player("Hercule");
             Potion popo = new Potion();
@@ -129,23 +119,6 @@ namespace HeraclesCreatures
             CombatManager test = new CombatManager(Hercule, hydra, _types, _typeTable);
             _currentFight = test;
             test.StartFight();
-            //CreatureStats TigerStats = new CreatureStats();
-            //Creatures Tiger = new Creatures("Tiger", TigerStats);
-            //Tiger.AddMove(COUPDECAILLOU);
-            //Tiger.AddMove(COUP2TETE);
-            //CreatureStats ViperStats = new CreatureStats();
-            //Creatures Viper = new Creatures("Viper", ViperStats);
-            //Viper.AddMove(COUPDECAILLOU);
-            //Potion popo = new Potion();
-            //AttackPlus attP = new AttackPlus();
-            //Player Hercule = new Player("Hercule");
-            //Hercule.AddCreature(Tiger);
-            //Hercule.AddCreature(Viper);
-            //Hercule.AddItems(popo);
-            //Hercule.AddItems(attP);
-            //CombatManager test = new CombatManager(Hercule, Ougabouga, _types, _typeTable);
-            //_currentFight = test;
-            //test.StartFight();
 
             int i = 0;
             // Sauvegarder les données
@@ -176,7 +149,7 @@ namespace HeraclesCreatures
                 {
                     Console.WriteLine("Oueoue");
                 }
-                if (_currentFight != null)
+                if (_currentFight != null && _currentFight.IsOver == false)
                 {
                     _currentFight.Fighting();
                 }
