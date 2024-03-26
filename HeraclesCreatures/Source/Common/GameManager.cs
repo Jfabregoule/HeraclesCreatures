@@ -121,7 +121,6 @@ namespace HeraclesCreatures
             Hercule.AddItems(attP);
             CombatManager test = new CombatManager(Hercule, hydra, _types, _typeTable);
             _currentFight = test;
-            test.StartFight();
 
             int i = 0;
             //// Sauvegarder les données

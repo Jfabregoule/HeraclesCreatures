@@ -124,12 +124,14 @@ namespace HeraclesCreatures
                 PP -= 1;
                 receiver.TakeDamage(damage);
                 Console.WriteLine(sender.CreatureName + " attacks " + receiver.CreatureName + " with " + MoveName);
+                Console.WriteLine();
                 Console.WriteLine(receiver.CreatureName + " HP : " + receiver.Stats.health);
+                Console.WriteLine();
                 base.Use(sender, receiver, effectiveness);
             }
             else
             {
-                Console.WriteLine("Attack missed.");
+                Console.WriteLine("{0} attack missed.", sender.CreatureName);
             }
         }
 
