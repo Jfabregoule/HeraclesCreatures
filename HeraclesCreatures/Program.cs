@@ -9,7 +9,7 @@ namespace HeraclesCreatures
             
             GameManager gameManager = new GameManager();
 
-            gameManager.GameLoop();
+            
             Console.WriteLine();
            
             static void DisplayDictionary<T>(Dictionary<string, T> dictionary)
@@ -25,7 +25,7 @@ namespace HeraclesCreatures
             FileManager shoukran = new FileManager();
             shoukran.FillAllDictionnaries();
             shoukran.DisplayDictionaries();
-
+            gameManager.GameLoop();
         }
 
     }

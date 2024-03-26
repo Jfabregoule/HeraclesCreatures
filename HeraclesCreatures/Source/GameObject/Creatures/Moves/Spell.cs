@@ -62,7 +62,7 @@ namespace HeraclesCreatures
         {
             MoveName = name;
         }
-        public Spell(string name, MoveStats stats)
+        public Spell(string name, MoveStats stats) : base(name, stats)
         {
             _stats = stats;
             _moveName = name;

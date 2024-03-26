@@ -23,8 +23,9 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        protected string      _moveName;
-        protected MoveStats   _stats;
+        protected string        _moveName;
+        protected MoveStats     _stats;
+        private int             _pp;
 
         #endregion Fields
 
@@ -41,6 +42,7 @@ namespace HeraclesCreatures
         public string MoveName { get => _moveName; protected set => _moveName = value; }
 
         public MoveStats Stats { get => _stats; private set => _stats = value; }
+        public int PP { get => _pp; set => _pp = value; }
 
         #endregion Properties
 
@@ -78,6 +80,7 @@ namespace HeraclesCreatures
         {
             _stats = stats;
             _moveName = name;
+            _pp = stats.MaxPP;
         }
 
         public virtual void Use(Creatures sender, Creatures receiver, float effectiveness)

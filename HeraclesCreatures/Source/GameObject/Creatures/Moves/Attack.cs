@@ -63,32 +63,30 @@ namespace HeraclesCreatures
             MoveName = name;
         }
 
-        public Attack(string name, MoveStats stats)
+        public Attack(string name, MoveStats stats) : base(name, stats)
         {
-            _stats = stats;
-            _moveName = name;
         }
 
         public override void Use(Creatures sender, Creatures receiver, float effectiveness)
         {
             Random random = new Random();
-            int odds;
+            float odds;
             switch (sender.State)
             {
                 case CreatureState.DIZZY:
-                    odds = 75;
+                    odds = (75.0f + Stats.Accuracy) / 2;
                     break;
                 case CreatureState.SHAKEN:
-                    odds = 75;
+                    odds = (75.0f + Stats.Accuracy) / 2;
                     break;
                 case CreatureState.BLINDED:
-                    odds = 60;
+                    odds = (60.0f + Stats.Accuracy) / 2;
                     break;
                 case CreatureState.SCARED:
-                    odds = 50;
+                    odds = (50.0f + Stats.Accuracy) / 2;
                     break;
                 default:
-                    odds = 100;
+                    odds = (100.0f + Stats.Accuracy) / 2;
                     break;
             }
             
@@ -117,6 +115,7 @@ namespace HeraclesCreatures
                         damage *= 1.25f;
                         break;
                 }
+                PP -= 1;
                 receiver.TakeDamage(damage);
                 Console.WriteLine(sender.CreatureName + " attacks " + receiver.CreatureName + " with " + MoveName);
                 Console.WriteLine(receiver.CreatureName + " HP : " + receiver.Stats.health);

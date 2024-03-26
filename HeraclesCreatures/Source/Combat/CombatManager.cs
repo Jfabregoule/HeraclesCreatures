@@ -257,9 +257,17 @@ namespace HeraclesCreatures
                 if (combatVal != null)
                 {
                     int moveID = int.Parse(combatVal);
-                    float effectiveness = _currentPlayerCreature.Moves[moveID].GetEffectiveness(_currentEnemyCreature.Stats.type, _types, _typeTable);
-                    _currentPlayerCreature.Moves[moveID].Use(_currentPlayerCreature, _currentEnemyCreature, effectiveness);
-                    _isPlayerTurn = false;
+                    if (_currentPlayerCreature.Moves[moveID].PP > 0)
+                    {
+                        float effectiveness = _currentPlayerCreature.Moves[moveID].GetEffectiveness(_currentEnemyCreature.Stats.type, _types, _typeTable);
+                        _currentPlayerCreature.Moves[moveID].Use(_currentPlayerCreature, _currentEnemyCreature, effectiveness);
+                        _isPlayerTurn = false;
+                    }
+                    else
+                    {
+                        Console.Write(_currentPlayerCreature.Moves[moveID].MoveName);
+                        Console.WriteLine(" has no PP left.");
+                    }
                 }
             }
             else if (val == "Objets")

@@ -227,7 +227,7 @@ namespace HeraclesCreatures
                             string[] lines = File.ReadAllLines(filePath);
 
                             MoveStats moveStats = new MoveStats();
-
+                            int PP = 0;
                             foreach (string line in lines)
                             {
                                 string[] parts = line.Split(':');
@@ -248,10 +248,10 @@ namespace HeraclesCreatures
                                             moveStats.CritRate = float.Parse(value);
                                             break;
                                         case "MAXPP":
-                                            moveStats.MaxPP = float.Parse(value);
+                                            moveStats.MaxPP = int.Parse(value);
                                             break;
                                         case "PP":
-                                            moveStats.PP = float.Parse(value);
+                                            PP = int.Parse(value);
                                             break;
                                         case "MANACOST":
                                             moveStats.ManaCost = float.Parse(value);
