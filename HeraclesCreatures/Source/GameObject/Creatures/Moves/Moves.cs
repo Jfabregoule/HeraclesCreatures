@@ -113,10 +113,9 @@ namespace HeraclesCreatures
                 else if (_stats.Type == "Ghost")
                     receiver.State = CreatureState.SCARED;
                 Console.Write(sender.CreatureName);
-                Console.Write(" made ");
-                Console.Write(receiver.CreatureName);
-                Console.Write(" feel ");
                 Console.WriteLine(receiver.State.ToString().ToLower());
+                Console.Write(receiver.CreatureName);
+                Console.WriteLine();
             }
         }
 

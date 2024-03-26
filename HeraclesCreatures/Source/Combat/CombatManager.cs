@@ -7,6 +7,12 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace HeraclesCreatures
 {
+    enum PlayerChoices
+    {
+        Combat,
+        Item,
+        Swap
+    }
     internal class CombatManager
     {
 
@@ -23,10 +29,11 @@ namespace HeraclesCreatures
         Player              _player;
         Enemy               _enemy;
         int                 _currentTurn;
-        bool                _isPlayerTurn;
         bool                _isOver;
         List<string>        _types;
         float[,]            _typeTable;
+        PlayerChoices       _choiceType;
+        int                 _choiceIndex;
 
 
         #endregion Fields
@@ -77,55 +84,58 @@ namespace HeraclesCreatures
             _enemy = enemy;
             _isOver = false;
             CurrentTurn = 0;
-            _isPlayerTurn = false;
             _enemy.CurrentCreature = enemy.CurrentCreature;
             _types = types;
             _typeTable = typeTable;
         }
 
-        public void StartFight()
-        {
-            if (_player.CurrentCreature.Stats.AttackSpeed > _enemy.CurrentCreature.Stats.AttackSpeed)
-            {
-                _isPlayerTurn = true;
-            }
-
-        }
-
         public void Fighting()
         {
-            
-            AutoSwap(_player, _player.CurrentCreature);
-            Console.WriteLine(" ");
-            Console.WriteLine(_player.CurrentCreature.CreatureName + " : " + _player.CurrentCreature.Stats.health + "/" + _player.CurrentCreature.Stats.maxHealth);
-            Console.WriteLine(" ");
-            if (_isOver == false)
-            {
-                if (_isPlayerTurn)
-                {
-                    PlayerTurn();
-                    
-                }
-            }
-                
-                
-            CheckForStatusEffects(_player.CurrentCreature, _enemy.CurrentCreature);
+            bool playerSwap = false;
+            bool enemySwap = false;
+            Console.WriteLine("Ally Creature :");
+            Console.WriteLine(_player.CurrentCreature.CreatureName + " : " + _player.CurrentCreature.Stats.health + "/" + _player.CurrentCreature.Stats.maxHealth + "\n");
+            Console.WriteLine("Enemy Creature :");
+            Console.WriteLine(_enemy.CurrentCreature.CreatureName + " : " + _enemy.CurrentCreature.Stats.health + "/" + _enemy.CurrentCreature.Stats.maxHealth + "\n");
             CurrentTurn += 1;
-
-            FightEnd();
-            AutoSwap(_enemy, _enemy.CurrentCreature);
-            Console.WriteLine(" ");
-            Console.WriteLine(_enemy.CurrentCreature.CreatureName + " : " + _enemy.CurrentCreature.Stats.health + "/" + _enemy.CurrentCreature.Stats.maxHealth);
-            Console.WriteLine(" ");
-            if (_isOver == false)
+            PlayerChoice();
+            if (_player.CurrentCreature.Stats.AttackSpeed > _enemy.CurrentCreature.Stats.AttackSpeed)
             {
-                if (_isPlayerTurn == false)
+                PlayerTurn();
+                if (_enemy.CurrentCreature.State == CreatureState.DEAD)
+                {
+                    Console.WriteLine("{0} is dead.", _enemy.CurrentCreature.CreatureName);
+                    Console.WriteLine();
+                    enemySwap = true;
+                }
+                else
                 {
                     EnemyTurn();
                 }
-
             }
-
+            else
+            {
+                EnemyTurn();
+                if (_player.CurrentCreature.State == CreatureState.DEAD)
+                {
+                    Console.WriteLine("{0} is dead.", _player.CurrentCreature.CreatureName);
+                    Console.WriteLine();
+                    playerSwap = true;
+                }
+                else
+                {
+                    PlayerTurn();
+                }
+            }
+            if (playerSwap == true)
+            {
+                AutoSwap(_player, _player.CurrentCreature);
+            }
+            if (enemySwap == true)
+            {
+                AutoSwap(_enemy, _enemy.CurrentCreature);
+            }
+            CheckForStatusEffects(_player.CurrentCreature, _enemy.CurrentCreature);
             FightEnd();
         }
 
@@ -141,8 +151,8 @@ namespace HeraclesCreatures
                     if (allyCreature.Stats.health > 0)
                     {
                         allyCreature.State = CreatureState.ALIVE;
-                        Console.Write(allyCreature.CreatureName);
-                        Console.WriteLine(" is now cured.");
+                        Console.WriteLine("{0} is now cured.", allyCreature.CreatureName);
+                        Console.WriteLine();
                     }
                     else
                     {
@@ -158,6 +168,7 @@ namespace HeraclesCreatures
                     allyCreature.Stats = creatureStats;
                     Console.Write(allyCreature.CreatureName);
                     Console.WriteLine(" lost 10% HP due to burn.");
+                    Console.WriteLine();
                     break;
                 case CreatureState.POISONED:
                     CreatureStats creatureStats2 = allyCreature.Stats;
@@ -165,6 +176,7 @@ namespace HeraclesCreatures
                     allyCreature.Stats = creatureStats2;
                     Console.Write(allyCreature.CreatureName);
                     Console.WriteLine(" lost 10% HP due to burn.");
+                    Console.WriteLine();
                     break;
             }
             if (enemyCreature.State != CreatureState.ALIVE && enemyCreature.State != CreatureState.DEAD)
@@ -177,8 +189,8 @@ namespace HeraclesCreatures
                     if (enemyCreature.Stats.health > 0)
                     {
                         enemyCreature.State = CreatureState.ALIVE;
-                        Console.Write(enemyCreature.CreatureName);
-                        Console.WriteLine(" is now cured.");
+                        Console.WriteLine("{0} is now cured.", enemyCreature.CreatureName);
+                        Console.WriteLine();
                     }
                     else
                     {
@@ -194,6 +206,7 @@ namespace HeraclesCreatures
                     enemyCreature.Stats = creatureStats;
                     Console.Write(enemyCreature.CreatureName);
                     Console.WriteLine(" lost 10% HP due to burn.");
+                    Console.WriteLine();
                     break;
                 case CreatureState.POISONED:
                     CreatureStats creatureStats2 = enemyCreature.Stats;
@@ -201,6 +214,7 @@ namespace HeraclesCreatures
                     enemyCreature.Stats = creatureStats2;
                     Console.Write(enemyCreature.CreatureName);
                     Console.WriteLine(" lost 10% HP due to burn.");
+                    Console.WriteLine();
                     break;
             }
         }
@@ -240,52 +254,49 @@ namespace HeraclesCreatures
             return true;
         }
 
-        public void PlayerTurn()
+        public void PlayerChoice()
         {
             Console.WriteLine("-Combat");
-            Console.WriteLine("-Objets");
+            Console.WriteLine("-Items");
             Console.WriteLine("-Swap");
+            Console.WriteLine();
             string val = Console.ReadLine();
+            Console.WriteLine();
             if (val == "Combat")
             {
-                Console.WriteLine("Choisissez votre attaque");
+                Console.WriteLine("Choisissez votre attaque \n");
                 for (int i = 0; i < _player.CurrentCreature.Moves.Count(); i++)
                 {
-                    Console.WriteLine(i + " : " + _player.CurrentCreature.Moves[i].MoveName);
+                    if (_player.CurrentCreature.Moves[i] is Attack)
+                    {
+                        Console.WriteLine(i + " : " + _player.CurrentCreature.Moves[i].MoveName + " - " + _player.CurrentCreature.Moves[i].PP + " / " + _player.CurrentCreature.Moves[i].Stats.MaxPP);
+                    }
+                    else
+                    {
+                        Console.WriteLine(i + " : " + _player.CurrentCreature.Moves[i].MoveName + " - " +  "Manacost : " + _player.CurrentCreature.Moves[i].Stats.ManaCost);
+                    }
                 }
+                Console.WriteLine();
                 string combatVal = Console.ReadLine();
+                Console.WriteLine("");
                 if (combatVal != null)
                 {
                     if (AreAllDigits(combatVal) == true && combatVal.Length > 0)
                     {
                         int moveID = int.Parse(combatVal);
-                        if (_player.CurrentCreature.Moves[moveID].PP > 0 || (_player.CurrentCreature.Moves[moveID].Stats.ManaCost != 0.0f && _player.CurrentCreature.Mana >= _player.CurrentCreature.Moves[moveID].Stats.ManaCost))
-                        {
-                            float effectiveness = Moves.GetEffectiveness(_enemy.CurrentCreature.Stats.type, _player.CurrentCreature.Moves[moveID].Stats.Type, _types, _typeTable);
-                            _player.CurrentCreature.Moves[moveID].Use(_player.CurrentCreature, _enemy.CurrentCreature, effectiveness);
-                            _isPlayerTurn = false;
-                        }
-                        else
-                        {
-                            if (_player.CurrentCreature.Moves[moveID].PP <= 0 && _player.CurrentCreature.Moves[moveID].Stats.ManaCost == 0.0f)
-                            {
-                                Console.WriteLine("{0} has no PP left.", _player.CurrentCreature.Moves[moveID].MoveName);
-                            }
-                            else
-                            {
-                                Console.WriteLine("{0} has not enough mana to cast {1}.", _player.CurrentCreature.CreatureName, _player.CurrentCreature.Moves[moveID].MoveName);
-                            }
-                        }
+
+                        _choiceType = PlayerChoices.Combat;
+                        _choiceIndex = moveID;
                     }
                     else
                     {
-                        //
+                        Console.WriteLine("{0} is not an existing move ID", combatVal);
                     }
                 }
             }
-            else if (val == "Objets")
+            else if (val == "Items")
             {
-                Console.WriteLine("Objets : ");
+                Console.WriteLine("Items : ");
                 for (int i = 0; i < _player.Items.Count(); i++)
                 {
                     Console.WriteLine(i + " : " + _player.Items[i].name);
@@ -294,15 +305,16 @@ namespace HeraclesCreatures
                 string objval = Console.ReadLine();
                 if (objval != null)
                 {
-                    if (objval == "0")
+                    if (AreAllDigits(objval) == true && objval.Length > 0)
                     {
-                        _player.Items[0].Use(_player.CurrentCreature);
-                        _isPlayerTurn = false;
+                        int objID = int.Parse(objval);
+
+                        _choiceType = PlayerChoices.Item;
+                        _choiceIndex = objID;
                     }
-                    else if (objval == "1")
+                    else
                     {
-                        _player.Items[1].Use(_player.CurrentCreature);
-                        _isPlayerTurn = false;
+                        Console.WriteLine("{0} is not an existing item ID", objval);
                     }
                 }
 
@@ -320,34 +332,69 @@ namespace HeraclesCreatures
                 string swapval = Console.ReadLine();
                 if (swapval != null)
                 {
-                    if (swapval == "1")
+                    if (AreAllDigits(swapval) == true && swapval.Length > 0)
                     {
-                        SwapCreature(_player,1);
-                        _isPlayerTurn = false;
+                        int swapID = int.Parse(swapval);
+
+                        _choiceType = PlayerChoices.Swap;
+                        _choiceIndex = swapID;
+                    }
+                    else
+                    {
+                        Console.WriteLine("{0} is not an existing creature ID", swapval);
                     }
                 }
             }
         }
 
+        public void PlayerTurn()
+        {
+            if (_choiceType == PlayerChoices.Combat)
+            {
+                
+                if (_player.CurrentCreature.Moves[_choiceIndex].PP > 0 || (_player.CurrentCreature.Moves[_choiceIndex].Stats.ManaCost != 0.0f && _player.CurrentCreature.Mana >= _player.CurrentCreature.Moves[_choiceIndex].Stats.ManaCost))
+                {
+                    float effectiveness = Moves.GetEffectiveness(_enemy.CurrentCreature.Stats.type, _player.CurrentCreature.Moves[_choiceIndex].Stats.Type, _types, _typeTable);
+                    _player.CurrentCreature.Moves[_choiceIndex].Use(_player.CurrentCreature, _enemy.CurrentCreature, effectiveness);
+                }
+                else
+                {
+                    if (_player.CurrentCreature.Moves[_choiceIndex].PP <= 0 && _player.CurrentCreature.Moves[_choiceIndex].Stats.ManaCost == 0.0f)
+                    {
+                        Console.WriteLine("{0} has no PP left.", _player.CurrentCreature.Moves[_choiceIndex].MoveName);
+                    }
+                    else
+                    {
+                        Console.WriteLine("{0} has not enough mana to cast {1}.", _player.CurrentCreature.CreatureName, _player.CurrentCreature.Moves[_choiceIndex].MoveName);
+                    }
+                }
+            }
+            else if (_choiceType == PlayerChoices.Item)
+            {
+                _player.Items[_choiceIndex].Use(_player.CurrentCreature);
+
+            }
+            else if (_choiceType == PlayerChoices.Swap)
+            {
+                SwapCreature(_player, _choiceIndex);
+            }
+        }
+
         public void EnemyTurn()
         {
-            Console.WriteLine("Au tour d'" + _enemy.CurrentCreature.CreatureName);
             _enemy.Turn(_enemy.CurrentCreature, _player.CurrentCreature);
-            _isPlayerTurn = true;
         }
 
         public void AutoSwap(Fighter fighter,Creatures currentCreature)
         {
-            currentCreature.CheckIsDead();
-            if (currentCreature.State == CreatureState.DEAD)
+            for (int i = 0; i < fighter.Creatures.Count(); i++)
             {
-                for (int i = 0; i < fighter.Creatures.Count(); i++)
+                if (currentCreature == fighter.Creatures[i] && i + 1 < fighter.Creatures.Count() && fighter.Creatures[i + 1].State != CreatureState.DEAD)
                 {
-                    if (currentCreature == fighter.Creatures[i] && i + 1 < fighter.Creatures.Count() && fighter.Creatures[i + 1].State != CreatureState.DEAD)
-                    {
-                        SwapCreature(fighter, i+1);
-                        break;
-                    }
+                    Console.WriteLine("{0} swapped {1} with {2}.", fighter.Name, currentCreature.CreatureName, fighter.Creatures[i + 1].CreatureName);
+                    Console.WriteLine();
+                    SwapCreature(fighter, i+1);
+                    break;
                 }
             }
         }

@@ -117,6 +117,7 @@ namespace HeraclesCreatures
         public void TakeDamage(float damage)
         {
             _stats.Damaged(damage);
+            CheckIsDead();
         }
 
         public void Heal(float value)
