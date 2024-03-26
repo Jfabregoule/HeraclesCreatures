@@ -67,7 +67,7 @@ namespace HeraclesCreatures
             _name = string.Empty;
         }
 
-        public virtual void Use(ref Creatures creatures)
+        public virtual void Use(Creatures creatures)
         {
 
         }

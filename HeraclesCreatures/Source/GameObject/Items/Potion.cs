@@ -68,7 +68,7 @@ namespace HeraclesCreatures
             name = "Potion";
             _health = 10;
         }
-        public override void Use(ref Creatures creatures)
+        public override void Use(Creatures creatures)
         {
             creatures.Heal(_health);
             Console.WriteLine("Vous venez de soigner" + creatures.CreatureName);

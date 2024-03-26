@@ -13,15 +13,14 @@
 
         #region Fields
 
-        float _hp;
-        float _maxhp;
-        float _attack;
-        float _magicpower;
-        float _defense;
-        float _mana;
-        float _maxmana;
-        float _attackSpeed;
-        string _type;
+        float   _hp;
+        float   _maxhp;
+        float   _attack;
+        float   _magicpower;
+        float   _defense;
+        int     _maxmana;
+        float   _attackSpeed;
+        string  _type;
 
         #endregion Fields
 
@@ -41,8 +40,7 @@
         public float attack { get { return _attack; } set { _attack = value; } }
         public float magicpower { get { return _magicpower; } set { _magicpower = value; } }
         public float defense { get { return _defense; } set { _defense = value; } }
-        public float maxMana { get => _maxmana; set => _maxmana = value; }
-        public float mana { get { return _mana; } set { _mana = value; } }
+        public int maxMana { get => _maxmana; set => _maxmana = value; }
         public float AttackSpeed { get => _attackSpeed; set => _attackSpeed = value; }
         public string type { get { return _type; } set { _type = value; } }
 
@@ -83,7 +81,6 @@
             _magicpower = 0;
             _defense = 0;
             _maxmana = 0;
-            _mana = 0;
             _attackSpeed = 0;
             _type = "Water";
         }

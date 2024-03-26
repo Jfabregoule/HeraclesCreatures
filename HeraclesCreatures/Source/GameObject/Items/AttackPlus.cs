@@ -69,7 +69,7 @@ namespace HeraclesCreatures
             name = "AttackPlus";
             _attackBonus = 10;
         }
-        public override void Use(ref Creatures creatures)
+        public override void Use(Creatures creatures)
         {
             creatures.BoostAttack(_attackBonus);
         }

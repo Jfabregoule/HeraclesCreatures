@@ -120,10 +120,10 @@ namespace HeraclesCreatures
             }
         }
 
-        public float GetEffectiveness(string enemyType, List<string> types, float[,] typeTable)
+        public static float GetEffectiveness(string enemyType, string allyType, List<string> types, float[,] typeTable)
         {
             int j = types.IndexOf(enemyType);
-            int i = types.IndexOf(_stats.Type);
+            int i = types.IndexOf(allyType);
             return typeTable[i, j];
         }
 

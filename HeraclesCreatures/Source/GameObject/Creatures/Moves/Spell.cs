@@ -44,7 +44,7 @@ namespace HeraclesCreatures
 
         #region Events
 
-
+        public event Action<int> UsedSpell;
 
         #endregion Events
 
@@ -120,6 +120,7 @@ namespace HeraclesCreatures
                 Console.WriteLine(sender.CreatureName + " attacks " + receiver.CreatureName + " with " + MoveName);
                 Console.WriteLine(receiver.CreatureName + " HP : " + receiver.Stats.health);
                 base.Use(sender, receiver, effectiveness);
+                UsedSpell?.Invoke(_stats.ManaCost);
             }
             else
             {
