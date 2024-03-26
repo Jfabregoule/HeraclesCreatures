@@ -22,7 +22,7 @@ namespace HeraclesCreatures
 
         int     _power;
         float   _accuracy;
-        float   _critRate;
+        int     _critRate;
         int     _maxPP;
         int     _manaCost;
         string  _type;
@@ -43,7 +43,7 @@ namespace HeraclesCreatures
 
         public float    Accuracy { get => _accuracy; set => _accuracy = value; }
 
-        public float    CritRate { get => _critRate; set => _critRate = value; }
+        public int    CritRate { get => _critRate; set => _critRate = value; }
 
         public int    MaxPP { get => _maxPP; set => _maxPP = value; }
 

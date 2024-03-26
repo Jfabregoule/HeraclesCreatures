@@ -115,6 +115,12 @@ namespace HeraclesCreatures
                         damage *= 1.25f;
                         break;
                 }
+                int critChance = random.Next(1, 101);
+                if (critChance < Stats.CritRate)
+                {
+                    damage *= 2;
+                    Console.WriteLine("{0} was a critical hit", MoveName);
+                }
                 PP -= 1;
                 receiver.TakeDamage(damage);
                 Console.WriteLine(sender.CreatureName + " attacks " + receiver.CreatureName + " with " + MoveName);

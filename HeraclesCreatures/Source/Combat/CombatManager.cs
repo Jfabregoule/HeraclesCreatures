@@ -94,7 +94,7 @@ namespace HeraclesCreatures
 
         public void Fighting()
         {
-            FightEnd();
+            
             AutoSwap(_player, _player.CurrentCreature);
             Console.WriteLine(" ");
             Console.WriteLine(_player.CurrentCreature.CreatureName + " : " + _player.CurrentCreature.Stats.health + "/" + _player.CurrentCreature.Stats.maxHealth);
@@ -123,9 +123,10 @@ namespace HeraclesCreatures
                 {
                     EnemyTurn();
                 }
-                
-            } 
-            
+
+            }
+
+            FightEnd();
         }
 
         public void CheckForStatusEffects(Creatures allyCreature, Creatures enemyCreature)
@@ -227,6 +228,18 @@ namespace HeraclesCreatures
 
         }
 
+        public bool AreAllDigits(string str)
+        {
+            foreach (char c in str)
+            {
+                if (!char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public void PlayerTurn()
         {
             Console.WriteLine("-Combat");
@@ -243,23 +256,30 @@ namespace HeraclesCreatures
                 string combatVal = Console.ReadLine();
                 if (combatVal != null)
                 {
-                    int moveID = int.Parse(combatVal);
-                    if (_player.CurrentCreature.Moves[moveID].PP > 0 || (_player.CurrentCreature.Moves[moveID].Stats.ManaCost != 0.0f && _player.CurrentCreature.Mana >= _player.CurrentCreature.Moves[moveID].Stats.ManaCost))
+                    if (AreAllDigits(combatVal) == true && combatVal.Length > 0)
                     {
-                        float effectiveness = Moves.GetEffectiveness(_enemy.CurrentCreature.Stats.type, _player.CurrentCreature.Moves[moveID].Stats.Type, _types, _typeTable);
-                        _player.CurrentCreature.Moves[moveID].Use(_player.CurrentCreature, _enemy.CurrentCreature, effectiveness);
-                        _isPlayerTurn = false;
-                    }
-                    else
-                    {
-                        if (_player.CurrentCreature.Moves[moveID].PP <= 0 && _player.CurrentCreature.Moves[moveID].Stats.ManaCost == 0.0f)
+                        int moveID = int.Parse(combatVal);
+                        if (_player.CurrentCreature.Moves[moveID].PP > 0 || (_player.CurrentCreature.Moves[moveID].Stats.ManaCost != 0.0f && _player.CurrentCreature.Mana >= _player.CurrentCreature.Moves[moveID].Stats.ManaCost))
                         {
-                            Console.WriteLine("{0} has no PP left.", _player.CurrentCreature.Moves[moveID].MoveName);
+                            float effectiveness = Moves.GetEffectiveness(_enemy.CurrentCreature.Stats.type, _player.CurrentCreature.Moves[moveID].Stats.Type, _types, _typeTable);
+                            _player.CurrentCreature.Moves[moveID].Use(_player.CurrentCreature, _enemy.CurrentCreature, effectiveness);
+                            _isPlayerTurn = false;
                         }
                         else
                         {
-                            Console.WriteLine("{0} has not enough mana to cast {1}.", _player.CurrentCreature.CreatureName, _player.CurrentCreature.Moves[moveID].MoveName);
+                            if (_player.CurrentCreature.Moves[moveID].PP <= 0 && _player.CurrentCreature.Moves[moveID].Stats.ManaCost == 0.0f)
+                            {
+                                Console.WriteLine("{0} has no PP left.", _player.CurrentCreature.Moves[moveID].MoveName);
+                            }
+                            else
+                            {
+                                Console.WriteLine("{0} has not enough mana to cast {1}.", _player.CurrentCreature.CreatureName, _player.CurrentCreature.Moves[moveID].MoveName);
+                            }
                         }
+                    }
+                    else
+                    {
+                        //
                     }
                 }
             }
