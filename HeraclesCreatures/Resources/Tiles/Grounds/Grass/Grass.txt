@@ -2,10 +2,10 @@ Name:
 GroundGrassDefault
 
 Walkable:
-true
+false
 
 Drawing:
-          
+b         
           
           
           

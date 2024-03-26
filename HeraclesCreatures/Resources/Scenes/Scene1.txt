@@ -6,8 +6,13 @@ WSD = WallStoneDefault
 GGD = GroundGrassDefault
 
 Board:
-WSD,GGD,GGD,GGD
-WSD,GGD,GGD,GGD
-GGD,GGD,GGD,WSD
+WSD,GGD,GGD,GGD,WSD
+WSD,GGD,GGD,GGD,WSD
+GGD,GGD,GGD,WSD,WSD
+GGD,GGD,GGD,WSD,WSD
 
-MapObjects:
+DefaultX:
+1
+
+DefaultY:
+1

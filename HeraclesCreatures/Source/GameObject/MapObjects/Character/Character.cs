@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    internal class Character
+    internal class Character : MapObject
     {
 
         /*------------------------------------------------------------------------------------------*\
