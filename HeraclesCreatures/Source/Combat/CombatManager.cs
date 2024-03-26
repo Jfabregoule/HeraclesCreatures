@@ -94,8 +94,6 @@ namespace HeraclesCreatures
 
         public void Fighting()
         {
-            
-            AutoSwap(_player, _player.CurrentCreature);
             Console.WriteLine(" ");
             Console.WriteLine(_player.CurrentCreature.CreatureName + " : " + _player.CurrentCreature.Stats.health + "/" + _player.CurrentCreature.Stats.maxHealth);
             Console.WriteLine(" ");
@@ -113,7 +111,10 @@ namespace HeraclesCreatures
             CurrentTurn += 1;
 
             FightEnd();
-            AutoSwap(_enemy, _enemy.CurrentCreature);
+            if (_enemy.CurrentCreature.State == CreatureState.DEAD)
+            {
+                AutoSwap(_enemy, _enemy.CurrentCreature);
+            }
             Console.WriteLine(" ");
             Console.WriteLine(_enemy.CurrentCreature.CreatureName + " : " + _enemy.CurrentCreature.Stats.health + "/" + _enemy.CurrentCreature.Stats.maxHealth);
             Console.WriteLine(" ");
@@ -123,7 +124,10 @@ namespace HeraclesCreatures
                 {
                     EnemyTurn();
                 }
-
+                if (_player.CurrentCreature.State == CreatureState.DEAD)
+                {
+                    AutoSwap(_player, _player.CurrentCreature);
+                }
             }
 
             FightEnd();
@@ -338,7 +342,6 @@ namespace HeraclesCreatures
 
         public void AutoSwap(Fighter fighter,Creatures currentCreature)
         {
-            currentCreature.CheckIsDead();
             if (currentCreature.State == CreatureState.DEAD)
             {
                 for (int i = 0; i < fighter.Creatures.Count(); i++)
