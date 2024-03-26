@@ -78,7 +78,6 @@
             Console.WriteLine("Cell Data:");
             Console.WriteLine($"Is Walkable: {IsWalkable}");
 
-            // Print the drawing with foreground and background colors
             Console.WriteLine("Drawing with Colors:");
             for (int i = 0; i < _drawing.GetLength(0); i++)
             {
@@ -88,8 +87,8 @@
                     Console.BackgroundColor = _backgroundColor[i, j];
                     Console.Write(_drawing[i, j]);
                 }
-                Console.ResetColor(); // Reset colors after each row
-                Console.WriteLine(); // Move to the next line
+                Console.ResetColor(); 
+                Console.WriteLine(); 
             }
         }
 
