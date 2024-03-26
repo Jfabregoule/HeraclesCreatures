@@ -24,7 +24,7 @@ namespace HeraclesCreatures
         float   _accuracy;
         float   _critRate;
         int     _maxPP;
-        float   _manaCost;
+        int     _manaCost;
         string  _type;
 
         #endregion Fields
@@ -47,7 +47,7 @@ namespace HeraclesCreatures
 
         public int    MaxPP { get => _maxPP; set => _maxPP = value; }
 
-        public float    ManaCost { get => _manaCost; set => _manaCost = value; }
+        public int    ManaCost { get => _manaCost; set => _manaCost = value; }
 
         public string   Type { get => _type; set => _type = value; }
 

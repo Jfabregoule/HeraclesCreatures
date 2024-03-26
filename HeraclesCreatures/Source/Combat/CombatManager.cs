@@ -257,7 +257,7 @@ namespace HeraclesCreatures
                 if (combatVal != null)
                 {
                     int moveID = int.Parse(combatVal);
-                    if (_currentPlayerCreature.Moves[moveID].PP > 0)
+                    if (_currentPlayerCreature.Moves[moveID].PP > 0 || (_currentPlayerCreature.Moves[moveID].Stats.ManaCost != 0.0f && _currentPlayerCreature.Mana >= _currentPlayerCreature.Moves[moveID].Stats.ManaCost))
                     {
                         float effectiveness = _currentPlayerCreature.Moves[moveID].GetEffectiveness(_currentEnemyCreature.Stats.type, _types, _typeTable);
                         _currentPlayerCreature.Moves[moveID].Use(_currentPlayerCreature, _currentEnemyCreature, effectiveness);
@@ -265,8 +265,14 @@ namespace HeraclesCreatures
                     }
                     else
                     {
-                        Console.Write(_currentPlayerCreature.Moves[moveID].MoveName);
-                        Console.WriteLine(" has no PP left.");
+                        if (_currentPlayerCreature.Moves[moveID].PP <= 0 && _currentPlayerCreature.Moves[moveID].Stats.ManaCost == 0.0f)
+                        {
+                            Console.WriteLine("{0} has no PP left.", _currentPlayerCreature.Moves[moveID].MoveName);
+                        }
+                        else
+                        {
+                            Console.WriteLine("{0} has not enough mana to cast {1}.", _currentPlayerCreature.CreatureName, _currentPlayerCreature.Moves[moveID].MoveName);
+                        }
                     }
                 }
             }

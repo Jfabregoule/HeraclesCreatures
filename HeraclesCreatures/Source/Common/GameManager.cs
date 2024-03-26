@@ -121,20 +121,20 @@ namespace HeraclesCreatures
             test.StartFight();
 
             int i = 0;
-            // Sauvegarder les données
-            GameData gameData = new GameData(Hercule, _gamePhase);
-            SaveManager.Save(gameData, "savegame.dat");
+            //// Sauvegarder les données
+            //GameData gameData = new GameData(Hercule, _gamePhase);
+            //SaveManager.Save(gameData, "savegame.dat");
 
-            Console.WriteLine("Données sauvegardées.");
+            //Console.WriteLine("Données sauvegardées.");
 
-            // Charger les données
-            GameData loadedData = SaveManager.Load("savegame.dat");
-            if (loadedData != null)
-            {
-                Console.WriteLine("Données chargées :");
-                Console.WriteLine("CheckPoint : " + loadedData.Phase.ToString());
-                Console.WriteLine("Name : " + loadedData.Player.Name);
-            }
+            //// Charger les données
+            //GameData loadedData = SaveManager.Load("savegame.dat");
+            //if (loadedData != null)
+            //{
+            //    Console.WriteLine("Données chargées :");
+            //    Console.WriteLine("CheckPoint : " + loadedData.Phase.ToString());
+            //    Console.WriteLine("Name : " + loadedData.Player.Name);
+            //}
         }
 
         public void GameLoop()
@@ -254,7 +254,7 @@ namespace HeraclesCreatures
                                             PP = int.Parse(value);
                                             break;
                                         case "MANACOST":
-                                            moveStats.ManaCost = float.Parse(value);
+                                            moveStats.ManaCost = int.Parse(value);
                                             break;
                                         case "TYPE":
                                             moveStats.Type = value;
@@ -290,12 +290,10 @@ namespace HeraclesCreatures
         {
             string folderPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\Resources\\Creatures";
 
-            // Vérifier si le dossier existe
             if (Directory.Exists(folderPath))
             {
                 string[] files = Directory.GetFiles(folderPath, "*.txt");
 
-                // Parcourir tous les fichiers
                 foreach (string filePath in files)
                 {
                     try
@@ -343,11 +341,8 @@ namespace HeraclesCreatures
                                         case "DEFENSE":
                                             creatureStats.defense = float.Parse(value);
                                             break;
-                                        case "MANA":
-                                            creatureStats.mana = float.Parse(value);
-                                            break;
                                         case "MAXMANA":
-                                            creatureStats.maxMana = float.Parse(value);
+                                            creatureStats.maxMana = int.Parse(value);
                                             break;
                                         case "SPEED":
                                             creatureStats.AttackSpeed = float.Parse(value);

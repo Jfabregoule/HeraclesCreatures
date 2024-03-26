@@ -42,6 +42,7 @@ namespace HeraclesCreatures
         List<Moves>         _moves;
         CreatureState       _state;
         CreatureStats       _stats;
+        int                 _mana;
 
         #endregion Fields
 
@@ -59,6 +60,7 @@ namespace HeraclesCreatures
         internal List<Moves> Moves { get => _moves; private set => _moves = value; }
         public CreatureStats Stats { get => _stats; set => _stats = value; }
         public CreatureState State { get => _state; set => _state = value; }
+        public int Mana { get => _mana; set => _mana = value; }
 
         #endregion Properties
 
@@ -92,10 +94,24 @@ namespace HeraclesCreatures
             _stats = stats;
             _moves = moves;
             _state = CreatureState.ALIVE;
+            Mana = stats.maxMana;
+            foreach (Moves move in moves)
+            {
+                if (move is Spell)
+                {
+                    Spell spell = (Spell)move;
+                    spell.UsedSpell += RemoveMana;
+                }
+            }
         }
         public void AddMove(Moves move) 
         {
             _moves.Add(move);
+        }
+
+        public void RemoveMana(int manaCost)
+        {
+            Mana -= manaCost;
         }
 
         public void TakeDamage(float damage)

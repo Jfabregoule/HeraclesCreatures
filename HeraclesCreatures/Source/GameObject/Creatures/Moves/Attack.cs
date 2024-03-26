@@ -74,19 +74,19 @@ namespace HeraclesCreatures
             switch (sender.State)
             {
                 case CreatureState.DIZZY:
-                    odds = (75.0f + Stats.Accuracy) / 2;
+                    odds = (75.0f / 100 * Stats.Accuracy / 100) * 100;
                     break;
                 case CreatureState.SHAKEN:
-                    odds = (75.0f + Stats.Accuracy) / 2;
+                    odds = (75.0f / 100 * Stats.Accuracy / 100) * 100;
                     break;
                 case CreatureState.BLINDED:
-                    odds = (60.0f + Stats.Accuracy) / 2;
+                    odds = (60.0f / 100 * Stats.Accuracy / 100) * 100;
                     break;
                 case CreatureState.SCARED:
-                    odds = (50.0f + Stats.Accuracy) / 2;
+                    odds = (50.0f / 100 * Stats.Accuracy / 100) * 100;
                     break;
                 default:
-                    odds = (100.0f + Stats.Accuracy) / 2;
+                    odds = (100.0f / 100 * Stats.Accuracy / 100) * 100;
                     break;
             }
             
