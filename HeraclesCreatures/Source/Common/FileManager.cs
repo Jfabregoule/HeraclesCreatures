@@ -244,21 +244,19 @@ namespace HeraclesCreatures
             scene.Height = widthHeight[1];
 
             Cell[,] cells = new Cell[scene.Width, scene.Height];
-            Cell cell = new();
 
             for (int i = 0; i < scene.Height; i++)
             {
                 string[] values = sceneLines[i + index + 1].Split(',');
                 for (int j = 0; j < scene.Width; j++)
                 {
+                    Cell cell = new();
                     cell.X = i;
                     cell.Y = j;
                     cell.Tile = tilesIDs[values[j]];
-                    Console.WriteLine(tilesIDs[values[j]].Drawing[0,0]);
                     cells[j,i] = cell;
                 }
             }
-
             scene.Cells = cells;
             return scene;
         }
@@ -530,6 +528,7 @@ namespace HeraclesCreatures
                         Console.ForegroundColor = foregroundColor[i, j];
                         Console.BackgroundColor = backgroundColor[i, j];
                         Console.Write(drawing[i, j]);
+
                     }
                     Console.WriteLine();
                 }
@@ -540,7 +539,6 @@ namespace HeraclesCreatures
             {
                 foreach (Cell cell in value.Cells) {
                     DisplayDrawingWithColors(cell.Tile.Drawing, cell.Tile.ForegroundColor, cell.Tile.BackgroundColor);
-                    Console.WriteLine("eeeee");
                 }
             }
 
