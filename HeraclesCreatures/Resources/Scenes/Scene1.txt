@@ -2,14 +2,14 @@
 FirstScene
 
 IDs:
-WSD = WallStoneDefault
-GGD = GroundGrassDefault
+W = WallStoneDefault
+G = GroundGrassDefault
 
 Board:
-WSD,GGD,GGD,GGD,WSD
-WSD,GGD,WSD,GGD,WSD
-GGD,WSD,GGD,WSD,WSD
-WSD,GGD,GGD,WSD,WSD
+W,G,G,G,W
+W,G,W,G,W
+G,W,G,W,W
+W,G,G,W,W
 
 DefaultX:
 1

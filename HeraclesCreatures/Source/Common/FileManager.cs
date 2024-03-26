@@ -528,7 +528,6 @@ namespace HeraclesCreatures
                         Console.ForegroundColor = foregroundColor[i, j];
                         Console.BackgroundColor = backgroundColor[i, j];
                         Console.Write(drawing[i, j]);
-
                     }
                     Console.WriteLine();
                 }
@@ -541,6 +540,11 @@ namespace HeraclesCreatures
                     DisplayDrawingWithColors(cell.Tile.Drawing, cell.Tile.ForegroundColor, cell.Tile.BackgroundColor);
                 }
             }
+
+        }
+
+        public void DisplayScene(string name)
+        {
 
         }
 
