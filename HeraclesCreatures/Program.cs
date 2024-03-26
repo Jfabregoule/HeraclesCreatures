@@ -1,12 +1,20 @@
 ﻿using HeraclesCreatures;
+using System;
 
 namespace HeraclesCreatures
 {
+
     class Program
     {
         public static void Main(string[] args)
         {
-            /*
+
+            FileManager shoukran = new FileManager();
+            shoukran.FillAllDictionnaries();
+            Dictionary<string, Scene> scenes = shoukran.ScenesData;
+            scenes["FirstScene"].DisplayScene();
+            
+
             GameManager gameManager = new GameManager();
 
             
@@ -21,15 +29,8 @@ namespace HeraclesCreatures
                 }
                 Console.WriteLine();
             }
-             */
-            
-            FileManager shoukran = new FileManager();
-            shoukran.FillAllDictionnaries();
-            Dictionary<string, Scene> scenes = shoukran.ScenesData;
-            scenes["FirstScene"].DisplayScene();
+            gameManager.GameLoop();
 
-            //gameManager.GameLoop();
         }
-
     }
 }
