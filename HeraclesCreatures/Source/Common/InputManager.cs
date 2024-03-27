@@ -72,6 +72,10 @@ namespace HeraclesCreatures
             }
         }
 
+        public HashSet<ConsoleKey> GetKeysPressed()
+        {
+            return pressedKeys;
+        }
         public bool GetKeyDown(ConsoleKey key)
         {
             return pressedKeys.Contains(key);

@@ -175,6 +175,21 @@ namespace HeraclesCreatures
             Console.WriteLine("Données chargées.");
         }
 
+        public void CheckMenu()
+        {
+            if (_inputManager.IsAnyKeyPressed() && _inputManager.GetKeyDown(ConsoleKey.Escape) == true)                                  
+            {
+                Console.Clear();
+                _inputManager.Update();
+                while (_inputManager.GetKeyDown(ConsoleKey.Escape) == false)
+                {
+                    _inputManager.Update();
+                }
+                _inputManager.Update();
+                _currentScene.ResetDisplay();
+            }
+        }
+
         public void CheckMove()
         {
             int dir = -1;
@@ -249,6 +264,7 @@ namespace HeraclesCreatures
                 _inputManager.Update();
                 if (_inputManager.IsAnyKeyPressed())
                 {
+                    CheckMenu();
                     CheckMove();
                 }
             }
