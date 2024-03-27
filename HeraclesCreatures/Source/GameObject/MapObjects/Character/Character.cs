@@ -70,10 +70,11 @@ namespace HeraclesCreatures
             _data = new();
         }
 
-        public Character(Scene scene, CharacterData data)
+        public Character(Scene scene, CharacterData data, Player player)
         {
             _currentScene = scene;
-            _data = data;
+            data.Player = player;
+            Data = data;
         }
 
         public MapObject Move(int dir)

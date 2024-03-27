@@ -62,6 +62,13 @@ namespace HeraclesCreatures
             _data = new DoorData();
         }
 
+        public Door(int x, int y, DoorData data)
+        {
+            X = x;
+            Y = y;
+            Data = data;
+        }
+
         #endregion Methods
 
     }

@@ -129,39 +129,19 @@ namespace HeraclesCreatures
             // Set Scene
             _currentScene = _fileManager.Scenes["FirstScene"];
 
-            // Create CHaracter
-            _heracles = new Character(_currentScene, _fileManager.CharactersData["Heracles"]);
-            CharacterData oui = new CharacterData();
-            oui.Player = Hercule;
-            oui.MapData = _fileManager.CharactersData["Heracles"].MapData;
-            _heracles.Data = oui;
+            // Create Character
+            _heracles = new Character(_currentScene, _fileManager.CharactersData["Heracles"], Hercule);
             _currentScene.AddMapObject(_heracles);
 
             // Create Opponent
-            //Opponent LaDaronneDeJulien = new Opponent(_fileManager.Scenes["FirstScene"], _fileManager.OpponentsData["LaDaronneDeJulien"]);
-            //LaDaronneDeJulien.X = 1;
-            //LaDaronneDeJulien.Y = 1;
-            //OpponentData laDaronneDeJulienData = new OpponentData();
-            //laDaronneDeJulienData.Enemy = hydra;
-            //laDaronneDeJulienData.MapData = _fileManager.OpponentsData["LaDaronneDeJulien"].MapData;
-            //LaDaronneDeJulien.Data = laDaronneDeJulienData;
-            //_currentScene.AddMapObject(LaDaronneDeJulien);
+            Opponent LaDaronneDeJulien = new Opponent(1, 1, _fileManager.Scenes["FirstScene"], _fileManager.OpponentsData["LaDaronneDeJulien"], hydra);
+            _fileManager.Scenes["FirstScene"].AddMapObject(LaDaronneDeJulien);
 
-            //Create Door
-            Door porte = new Door();
-            porte.X = 1;
-            porte.Y = 1;
-            DoorData non = new DoorData();
-            non = _fileManager.DoorsData["Door1"];
-            porte.Data = non;
-            _currentScene.AddMapObject(porte);
+            //Create Doors
+            Door porte = new Door(1, 2, _fileManager.DoorsData["Door1"]);
+            _fileManager.Scenes["FirstScene"].AddMapObject(porte);
 
-            Door porte2 = new Door();
-            porte2.X = 1;
-            porte2.Y = 1;
-            DoorData non2 = new DoorData();
-            non2 = _fileManager.DoorsData["Door2"];
-            porte2.Data = non2;
+            Door porte2 = new Door(1, 1, _fileManager.DoorsData["Door2"]);
             _fileManager.Scenes["SecondScene"].AddMapObject(porte2);
 
             Potion popo = new Potion();

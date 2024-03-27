@@ -210,7 +210,6 @@ namespace HeraclesCreatures
                 }
             }
             _toRemove = new();
-            Console.WriteLine(_sceneObjects[0, 1]);
         }
 
         public void DrawMapObject(int startX, int startY, char[,] drawing, ConsoleColor[,] fgcolor, ConsoleColor[,] bgcolor)

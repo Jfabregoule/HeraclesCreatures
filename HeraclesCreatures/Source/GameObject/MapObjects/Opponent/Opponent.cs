@@ -67,15 +67,17 @@ namespace HeraclesCreatures
         { 
             Scene = new Scene();
             Data = new OpponentData();
-        }  
-
-        public Opponent(Scene scene, OpponentData data)
+        }
+        
+        public Opponent(int x, int y, Scene scene, OpponentData data, Enemy enemy)
         {
+            X = x;
+            Y = y;
             Scene = scene;
+            data.Enemy = enemy;
             Data = data;
         }
 
-        
 
         #endregion Methods
 
