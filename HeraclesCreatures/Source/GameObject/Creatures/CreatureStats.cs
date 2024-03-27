@@ -96,7 +96,7 @@
             {
                 health = maxHealth;
             }
-            else if(amount == maxHealth)
+            else if (amount == maxHealth)
             {
                 health = amount;
             }
@@ -104,6 +104,11 @@
             {
                 health += amount;
             }
+        }
+
+        public void FullRegen()
+        {
+            health = maxHealth;
         }
 
         public void Damaged(float amount)

@@ -197,6 +197,19 @@ namespace HeraclesCreatures
             }
         }
 
+        public void Regenerate()
+        {
+            for (int i = 0; i < Creatures.Count - 1; i++)
+            {
+                Creatures[i].ResetCreature();
+                for (int j = 0; Creatures[i].Moves.Count > j; j++)
+                {
+                    Creatures[i].Moves[j].MaximizePP();
+                }
+            }
+            CurrentCreature = Creatures[0];
+        }
+
         #endregion Methods
 
     }

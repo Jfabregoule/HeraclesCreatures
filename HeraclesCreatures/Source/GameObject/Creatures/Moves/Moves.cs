@@ -122,7 +122,7 @@ namespace HeraclesCreatures
                 else if (_stats.Type == "Ghost")
                     receiver.State = CreatureState.SCARED;
                 Console.Write(sender.CreatureName);
-                Console.WriteLine(receiver.State.ToString().ToLower());
+                Console.Write(" " + receiver.State.ToString().ToLower() + " ");
                 Console.Write(receiver.CreatureName);
                 Console.WriteLine();
             }
@@ -144,6 +144,11 @@ namespace HeraclesCreatures
             data._moveName = _moveName;
 
             return data;
+        }
+
+        public void MaximizePP()
+        {
+            _pp = Stats.MaxPP;
         }
 
         #endregion Methods
