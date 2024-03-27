@@ -1,11 +1,11 @@
-﻿Type:
+Type:
 Door
 
 Name:
-Door1
+Door2
 
 TargetScene:
-SecondScene
+FirstScene
 
 IsLocked:
 false

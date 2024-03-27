@@ -134,7 +134,7 @@ namespace HeraclesCreatures
             return new();
         }
 
-        public object Interact(MapObject mapObject, List<string> types, float[,] typeTable)
+        public object Interact(MapObject mapObject, Dictionary<string, Scene> scenes, List<string> types, float[,] typeTable)
         {
             if (mapObject.IsActive)
             {
@@ -144,7 +144,10 @@ namespace HeraclesCreatures
                 }
                 else if (mapObject is Door)
                 {
-                    //Return Scene
+                    Door door = (Door)mapObject;
+                    CurrentScene.RemoveAllCharacters();
+                    ChangeScene(scenes[door.Data.TargetSceneName], door.Data.ArrivalX, door.Data.ArrivalY);
+                    return scenes[door.Data.TargetSceneName];
                 }
                 else if (mapObject is Opponent)
                 {
@@ -154,6 +157,13 @@ namespace HeraclesCreatures
                 }
             }
             return new();
+        }
+
+        public void ChangeScene(Scene newScene, int x, int y)
+        {
+            CurrentScene = newScene;
+            X = x;
+            Y = y;
         }
 
         #endregion Methods

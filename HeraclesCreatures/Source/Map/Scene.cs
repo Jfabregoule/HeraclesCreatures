@@ -112,6 +112,22 @@ namespace HeraclesCreatures
             }
         }
 
+        public void RemoveAllCharacters()
+        {
+            for (int i = 0; i < _sceneObjects.GetLength(0); i++)
+            {
+                for (int j = 0; j < _sceneObjects.GetLength(1); j++)
+                {
+                    MapObject obj = _sceneObjects[i, j];
+
+                    if (obj is Character)
+                    {
+                        _sceneObjects[i, j] = null;
+                    }
+                }
+            }
+        }
+
         public void UpdateCharacter(MapObject character)
         {
             for (int i = 0; i < _sceneObjects.GetLength(0); i++)
@@ -194,6 +210,7 @@ namespace HeraclesCreatures
                 }
             }
             _toRemove = new();
+            Console.WriteLine(_sceneObjects[0, 1]);
         }
 
         public void DrawMapObject(int startX, int startY, char[,] drawing, ConsoleColor[,] fgcolor, ConsoleColor[,] bgcolor)
