@@ -209,6 +209,9 @@ namespace HeraclesCreatures
                     }
                 }
             }
+
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
             _toRemove = new();
         }
 

@@ -141,7 +141,7 @@ namespace HeraclesCreatures
             {
                 if (mapObject is Chest)
                 {
-                    //Return Chest
+                    Chest chest = (Chest)mapObject;
                 }
                 else if (mapObject is Door)
                 {
