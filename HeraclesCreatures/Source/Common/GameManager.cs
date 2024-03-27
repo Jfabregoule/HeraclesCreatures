@@ -149,37 +149,37 @@ namespace HeraclesCreatures
 
         public void GameLoop()
         {
-            _fileManager.Scenes["FirstScene"].DisplayScene();
+            //_fileManager.Scenes["FirstScene"].DisplayScene();
             while (_isRunning)
             {
                 _inputManager.Update();
 
                 if (_inputManager.IsAnyKeyPressed())
                 {
-                    if (_inputManager.GetKeyDown(ConsoleKey.Z))
-                    {
-                        _heracles.Move(0);
-                    }
-                    else if (_inputManager.GetKeyDown(ConsoleKey.D))
-                    {
-                        _heracles.Move(1);
-                    }
-                    else if (_inputManager.GetKeyDown(ConsoleKey.S))
-                    {
-                        _heracles.Move(2);
-                    }
-                    else if (_inputManager.GetKeyDown(ConsoleKey.Q))
-                    {
-                        _heracles.Move(3);
-                    }
-                    Console.Clear();
-                    _fileManager.Scenes["FirstScene"].UpdateCharacter(_heracles);
-                    _fileManager.Scenes["FirstScene"].DisplayScene();
+                //    if (_inputManager.GetKeyDown(ConsoleKey.Z))
+                //    {
+                //        _heracles.Move(0);
+                //    }
+                //    else if (_inputManager.GetKeyDown(ConsoleKey.D))
+                //    {
+                //        _heracles.Move(1);
+                //    }
+                //    else if (_inputManager.GetKeyDown(ConsoleKey.S))
+                //    {
+                //        _heracles.Move(2);
+                //    }
+                //    else if (_inputManager.GetKeyDown(ConsoleKey.Q))
+                //    {
+                //        _heracles.Move(3);
+                //    }
+                //    Console.Clear();
+                //    _fileManager.Scenes["FirstScene"].UpdateCharacter(_heracles);
+                //    _fileManager.Scenes["FirstScene"].DisplayScene();
                 }
-                //if (_currentFight != null && _currentFight.IsOver == false)
-                //{
-                //    _currentFight.Fighting();
-                //}
+                if (_currentFight != null && _currentFight.IsOver == false)
+                {
+                    _currentFight.Fighting();
+                }
             }
 
         }
