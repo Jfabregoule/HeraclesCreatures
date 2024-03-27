@@ -48,7 +48,8 @@ namespace HeraclesCreatures
         FileManager                         _fileManager;
         CombatManager                       _currentFight;
 
-        Scene                               _currentScene;
+        Player                              _player;
+        Scene                               _scene;
 
         Dictionary<string, CreatureStats>   _creaturesStats;
         Dictionary<string, MoveStats>       _moveStats;
@@ -150,28 +151,35 @@ namespace HeraclesCreatures
             
             Hercule.AddItems(popo);
             Hercule.AddItems(attP);
-            CombatManager test = new CombatManager(Hercule, hydra, _types, _typeTable);
+            _player = Hercule;
+            
+
+            SaveGame();
+
+            LoadGame();
+            CombatManager test = new CombatManager(_player, hydra, _types, _typeTable);
             _currentFight = test;
+        }
 
-            //// Sauvegarder les données
-            //GameData gameData = new GameData(Hercule, _gamePhase);
-            //SaveManager.Save(gameData, "savegame.dat");
+        public void SaveGame()
+        {
+            GameData gameData = new GameData(_player, _gamePhase);
+            SaveManager.Save(gameData, "savegame.json");
 
-            //Console.WriteLine("Données sauvegardées.");
+            Console.WriteLine("Données sauvegardées.");
+        }
 
-            //// Charger les données
-            //GameData loadedData = SaveManager.Load("savegame.dat");
-            //if (loadedData != null)
-            //{
-            //    Console.WriteLine("Données chargées :");
-            //    Console.WriteLine("CheckPoint : " + loadedData.Phase.ToString());
-            //    Console.WriteLine("Name : " + loadedData.Player.Name);
-            //}
+        public void LoadGame()
+        {
+            GameData data = SaveManager.Load("savegame.json");
+            _player = new Player(data._playerData);
+            _gamePhase = data._phase;
+            Console.WriteLine("Données chargées.");
         }
 
         public void GameLoop()
         {
-            _fileManager.Scenes["FirstScene"].DisplayScene();
+            //_fileManager.Scenes["FirstScene"].DisplayScene();
             while (_isRunning)
             {
                 _inputManager.Update();

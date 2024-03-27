@@ -34,6 +34,12 @@ namespace HeraclesCreatures
         float[,]            _typeTable;
         PlayerChoices       _choiceType;
         int                 _choiceIndex;
+        InputManager        _inputManager;
+        List<(int, int)>    _pos;
+        List<(int, int)>    _Movespos;
+        List<(int, int)>    _Teampos;
+        List<(int, int)>    _Itemspos;
+        (int, int)          _currentMousePos;
         bool                _isWin;
 
 
@@ -89,16 +95,42 @@ namespace HeraclesCreatures
             _enemy.CurrentCreature = enemy.CurrentCreature;
             _types = types;
             _typeTable = typeTable;
+            _pos = new List<(int, int)>();
+            initPos(4,_pos);
+            _Itemspos = new List<(int, int)>();
+            initPos(_player.Items.Count,_Itemspos);
+            _Movespos = new List<(int, int)>();
+            initPos(_player.CurrentCreature.Moves.Count,_Movespos);
+            _Teampos = new List<(int, int)>();
+            initPos(_player.Creatures.Count,_Teampos);
+            _currentMousePos = _pos[0];
+            _inputManager = new InputManager();
+        }
+
+
+        public void initPos(int max,List<(int,int)> list)
+        {
+            for (int i = 1; i <= max; i++)
+            {
+                if (i % 2 == 1)
+                {
+                    list.Add((22, i + 3));
+                }
+                else if (i % 2 == 0)
+                {
+                    list.Add((71, i + 2));
+                }
+            }
         }
 
         public void Fighting()
         {
             bool playerSwap = false;
             bool enemySwap = false;
-            Console.WriteLine("Ally Creature :");
-            Console.WriteLine(_player.CurrentCreature.CreatureName + " : " + _player.CurrentCreature.Stats.health + "/" + _player.CurrentCreature.Stats.maxHealth + "\n");
-            Console.WriteLine("Enemy Creature :");
-            Console.WriteLine(_enemy.CurrentCreature.CreatureName + " : " + _enemy.CurrentCreature.Stats.health + "/" + _enemy.CurrentCreature.Stats.maxHealth + "\n");
+            //Console.WriteLine("Ally Creature :");
+            //Console.WriteLine(_player.CurrentCreature.CreatureName + " : " + _player.CurrentCreature.Stats.health + "/" + _player.CurrentCreature.Stats.maxHealth + "\n");
+            //Console.WriteLine("Enemy Creature :");
+            //Console.WriteLine(_enemy.CurrentCreature.CreatureName + " : " + _enemy.CurrentCreature.Stats.health + "/" + _enemy.CurrentCreature.Stats.maxHealth + "\n");
             CurrentTurn += 1;
             PlayerChoice();
             if (_player.CurrentCreature.Stats.AttackSpeed > _enemy.CurrentCreature.Stats.AttackSpeed)
@@ -258,104 +290,298 @@ namespace HeraclesCreatures
             return true;
         }
 
+        public void Draw((int, int) currentPos,List<string> text,List<(int,int)> pos)
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.CursorVisible = false;
+            Console.WriteLine("\\---------------------------------------------------------------------------------------------------------------/");
+            Console.WriteLine("\\                                                                                                               /");
+            Console.WriteLine("\\                                                                                                               /");
+            for (int i = 0; i < text.Count; i++)
+            {
+                Console.WriteLine("\\                                                                                                               /");
+                Console.Write("\\");
+                Console.SetCursorPosition(pos[i].Item1 + 1, pos[i].Item2);
+                Console.WriteLine(text[i]);
+            }
+            Console.WriteLine("\\                                                                                                               /");
+            Console.WriteLine("\\                                                                                                               /");
+            Console.WriteLine("\\---------------------------------------------------------------------------------------------------------------/");
+            Console.SetCursorPosition(currentPos.Item1, currentPos.Item2);
+            Console.Write(">");
+
+        }
+
+        public void CleanCursor((int, int) currentPos)
+        {
+            Console.SetCursorPosition(currentPos.Item1, currentPos.Item2);
+            Console.Write(" ");
+        }
+        public bool ChangePos(List<(int,int)> pos)
+        {
+            for (int i = 0; i < pos.Count;i++)
+            {
+                if(_inputManager.GetKeyDown(ConsoleKey.DownArrow)&& _currentMousePos == pos[i])
+                {
+                    if(i+2 < pos.Count)
+                    {
+                        CleanCursor(_currentMousePos);
+                        _currentMousePos = pos[i+2];
+                        return true;
+                    }
+                }
+                else if(_inputManager.GetKeyDown(ConsoleKey.UpArrow) && _currentMousePos == pos[i])
+                {
+                    if(i-2 >= 0)
+                    {
+                        CleanCursor(_currentMousePos);
+                        _currentMousePos = pos[i - 2];
+                        return true;
+                    }
+                }
+                else if(_inputManager.GetKeyDown(ConsoleKey.RightArrow) && _currentMousePos == pos[i])
+                {
+                    if(i+1 < pos.Count)
+                    {
+                        CleanCursor(_currentMousePos);
+                        _currentMousePos = pos[i + 1];
+                        return true;
+                    }
+                }
+                else if (_inputManager.GetKeyDown(ConsoleKey.LeftArrow) && _currentMousePos == pos[i])
+                {
+                    if (i - 1 >= 0)
+                    {
+                        CleanCursor(_currentMousePos);
+                        _currentMousePos = pos[i - 1];
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public void GetChoiceIndex()
+        {
+            _choiceIndex = _Movespos.IndexOf(_currentMousePos);
+        }
+
         public void PlayerChoice()
         {
-            Console.WriteLine("-Combat");
-            Console.WriteLine("-Items");
-            Console.WriteLine("-Swap");
-            Console.WriteLine();
-            string val = Console.ReadLine();
-            Console.WriteLine();
-            if (val == "Combat")
+            string val = string.Empty;
+            bool chosen = false;
+            _inputManager.Update();
+            List<string> FirstChoice = new List<string>();
+            FirstChoice.Add("Combat");
+            FirstChoice.Add("Items");
+            FirstChoice.Add("Swap");
+            FirstChoice.Add("Fuite");
+            List<string> Combat = new List<string>();
+            for (int i = 0; i < _player.CurrentCreature.Moves.Count(); i++)
             {
-                Console.WriteLine("Choisissez votre attaque \n");
-                for (int i = 0; i < _player.CurrentCreature.Moves.Count(); i++)
+                if (_player.CurrentCreature.Moves[i] is Attack)
                 {
-                    if (_player.CurrentCreature.Moves[i] is Attack)
-                    {
-                        Console.WriteLine(i + " : " + _player.CurrentCreature.Moves[i].MoveName + " - " + _player.CurrentCreature.Moves[i].PP + " / " + _player.CurrentCreature.Moves[i].Stats.MaxPP);
-                    }
-                    else
-                    {
-                        Console.WriteLine(i + " : " + _player.CurrentCreature.Moves[i].MoveName + " - " +  "Manacost : " + _player.CurrentCreature.Moves[i].Stats.ManaCost);
-                    }
+                    Combat.Add(_player.CurrentCreature.Moves[i].MoveName + " - " + _player.CurrentCreature.Moves[i].PP + " / " + _player.CurrentCreature.Moves[i].Stats.MaxPP);
                 }
-                Console.WriteLine();
-                string combatVal = Console.ReadLine();
-                Console.WriteLine("");
-                if (combatVal != null)
+                else
                 {
-                    if (AreAllDigits(combatVal) == true && combatVal.Length > 0)
+                    Combat.Add(_player.CurrentCreature.Moves[i].MoveName + " - " + "Manacost : " + _player.CurrentCreature.Moves[i].Stats.ManaCost);
+                }
+            }
+
+            List<string> Items = new List<string>();
+            for (int i = 0; i < _player.Items.Count; i++)
+            {
+                Items.Add(_player.Items[i].name);
+            }
+            List<string> Team = new List<string>();
+            for (int i = 0; i < _player.Creatures.Count; i++)
+            {
+                Team.Add(_player.Creatures[i].CreatureName);
+            }
+            Draw(_currentMousePos, FirstChoice,_pos);
+            while (chosen == false)
+            {
+                if(val == string.Empty)
+                {
+                    
+                    if (_inputManager.GetKeyDown(ConsoleKey.Enter) && _currentMousePos == _pos[0])
                     {
-                        int moveID = int.Parse(combatVal);
+                        val = "Combat";
+                        Console.Clear();
+                        _currentMousePos = _Movespos[0];
+                        Draw(_currentMousePos, Combat, _Movespos);
+                    }
+                    else if (_inputManager.GetKeyDown(ConsoleKey.Enter)&& _currentMousePos == _pos[1])
+                    {
+                        val = "Items";
+                        Console.Clear();
+                        _currentMousePos= _Itemspos[0];
+                        Draw(_currentMousePos, Items, _Itemspos);
+                    }
+                    else if (_inputManager.GetKeyDown(ConsoleKey.Enter) && _currentMousePos == _pos[2])
+                    {
+                        val = "Swap";
+                        Console.Clear();
+                        _currentMousePos = _Teampos[0];
+                        Draw(_currentMousePos, Team, _Teampos);
+                    }
+                    if (ChangePos(_pos))
+                        Draw(_currentMousePos,FirstChoice, _pos);
+                }
+                else if(val == "Combat")
+                {
+                    ChangePos(_Movespos);
+                    Draw(_currentMousePos, Combat,_Movespos);
+                    if(_inputManager.GetKeyDown(ConsoleKey.Escape))
+                    {
+                        val = string.Empty;
+                        Console.Clear();
+                        _currentMousePos = _pos[0];
+                        Draw(_currentMousePos, FirstChoice, _pos);
+                    }
+                    if(_inputManager.GetKeyDown(ConsoleKey.Enter))
+                    {
 
                         _choiceType = PlayerChoices.Combat;
-                        _choiceIndex = moveID;
-                    }
-                    else
-                    {
-                        Console.WriteLine("{0} is not an existing move ID", combatVal);
+                        _choiceIndex = _Movespos.IndexOf(_currentMousePos);
+                        chosen = true;
                     }
                 }
-            }
-            else if (val == "Items")
-            {
-                Console.WriteLine("Items : ");
-                for (int i = 0; i < _player.Items.Count(); i++)
+                else if(val =="Items")
                 {
-                    Console.WriteLine(i + " : " + _player.Items[i].name);
-                }
-
-                string objval = Console.ReadLine();
-                if (objval != null)
-                {
-                    if (AreAllDigits(objval) == true && objval.Length > 0)
+                    if(ChangePos(_Itemspos))
                     {
-                        int objID = int.Parse(objval);
+                        Draw(_currentMousePos, Items, _Itemspos);
+                    }
+                    if (_inputManager.GetKeyDown(ConsoleKey.Escape))
+                    {
+                        val = string.Empty;
+                        Console.Clear();
+                        _currentMousePos = _pos[0];
+                        Draw(_currentMousePos, FirstChoice, _pos);
+                    }
+                    if (_inputManager.GetKeyDown(ConsoleKey.Enter))
+                    {
 
                         _choiceType = PlayerChoices.Item;
-                        _choiceIndex = objID;
+                        _choiceIndex = _Movespos.IndexOf(_currentMousePos);
+                        chosen = true;
                     }
-                    else
-                    {
-                        Console.WriteLine("{0} is not an existing item ID", objval);
-                    }
-                }
 
-            }
-            else if (val == "Swap")
-            {
-                for (int i = 0; i < _player.Creatures.Count(); i++)
+                }
+                else if(val == "Swap")
                 {
-                    if (_player.Creatures[i] == _player.CurrentCreature) { }
-                    else
+                    if (ChangePos(_Teampos))
                     {
-                        Console.WriteLine(i + " : " + _player.Creatures[i].CreatureName);
+                        Draw(_currentMousePos, Team, _Teampos);
+                    }
+                    if (_inputManager.GetKeyDown(ConsoleKey.Escape))
+                    {
+                        val = string.Empty;
+                        Console.Clear();
+                        _currentMousePos = _pos[0];
+                        Draw(_currentMousePos, FirstChoice, _pos);
                     }
                 }
-                string swapval = Console.ReadLine();
-                if (swapval != null)
-                {
-                    if (AreAllDigits(swapval) == true && swapval.Length > 0)
-                    {
-                        int swapID = int.Parse(swapval);
+                _inputManager.Update();
+            }
+            //Console.WriteLine("-Combat");
+            //Console.WriteLine("-Items");
+            //Console.WriteLine("-Swap");
+            //Console.WriteLine();
+            //string val = Console.ReadLine();
+            //Console.WriteLine();
+            //if (val == "Combat")
+            //{
+            //    Console.WriteLine("Choisissez votre attaque \n");
+            //    for (int i = 0; i < _player.CurrentCreature.Moves.Count(); i++)
+            //    {
+            //        if (_player.CurrentCreature.Moves[i] is Attack)
+            //        {
+            //            Console.WriteLine(i + " : " + _player.CurrentCreature.Moves[i].MoveName + " - " + _player.CurrentCreature.Moves[i].PP + " / " + _player.CurrentCreature.Moves[i].Stats.MaxPP);
+            //        }
+            //        else
+            //        {
+            //            Console.WriteLine(i + " : " + _player.CurrentCreature.Moves[i].MoveName + " - " +  "Manacost : " + _player.CurrentCreature.Moves[i].Stats.ManaCost);
+            //        }
+            //    }
+            //    Console.WriteLine();
+            //    string combatVal = Console.ReadLine();
+            //    Console.WriteLine("");
+            //    if (combatVal != null)
+            //    {
+            //        if (AreAllDigits(combatVal) == true && combatVal.Length > 0)
+            //        {
+            //            int moveID = int.Parse(combatVal);
 
-                        _choiceType = PlayerChoices.Swap;
-                        _choiceIndex = swapID;
-                    }
-                    else
-                    {
-                        Console.WriteLine("{0} is not an existing creature ID", swapval);
-                    }
-                }
-            }
+            //            _choiceType = PlayerChoices.Combat;
+            //            _choiceIndex = moveID;
+            //        }
+            //        else
+            //        {
+            //            Console.WriteLine("{0} is not an existing move ID", combatVal);
+            //        }
+            //    }
+            //}
+            //else if (val == "Items")
+            //{
+            //    Console.WriteLine("Items : ");
+            //    for (int i = 0; i < _player.Items.Count(); i++)
+            //    {
+            //        Console.WriteLine(i + " : " + _player.Items[i].name);
+            //    }
+
+            //    string objval = Console.ReadLine();
+            //    if (objval != null)
+            //    {
+            //        if (AreAllDigits(objval) == true && objval.Length > 0)
+            //        {
+            //            int objID = int.Parse(objval);
+
+            //            _choiceType = PlayerChoices.Item;
+            //            _choiceIndex = objID;
+            //        }
+            //        else
+            //        {
+            //            Console.WriteLine("{0} is not an existing item ID", objval);
+            //        }
+            //    }
+
+            //}
+            //else if (val == "Swap")
+            //{
+            //    for (int i = 0; i < _player.Creatures.Count(); i++)
+            //    {
+            //        if (_player.Creatures[i] == _player.CurrentCreature) { }
+            //        else
+            //        {
+            //            Console.WriteLine(i + " : " + _player.Creatures[i].CreatureName);
+            //        }
+            //    }
+            //    string swapval = Console.ReadLine();
+            //    if (swapval != null)
+            //    {
+            //        if (AreAllDigits(swapval) == true && swapval.Length > 0)
+            //        {
+            //            int swapID = int.Parse(swapval);
+
+            //            _choiceType = PlayerChoices.Swap;
+            //            _choiceIndex = swapID;
+            //        }
+            //        else
+            //        {
+            //            Console.WriteLine("{0} is not an existing creature ID", swapval);
+            //        }
+            //    }
+            //}
         }
 
         public void PlayerTurn()
         {
             if (_choiceType == PlayerChoices.Combat)
             {
-                
+
                 if (_player.CurrentCreature.Moves[_choiceIndex].PP > 0 || (_player.CurrentCreature.Moves[_choiceIndex].Stats.ManaCost != 0.0f && _player.CurrentCreature.Mana >= _player.CurrentCreature.Moves[_choiceIndex].Stats.ManaCost))
                 {
                     float effectiveness = Moves.GetEffectiveness(_enemy.CurrentCreature.Stats.type, _player.CurrentCreature.Moves[_choiceIndex].Stats.Type, _types, _typeTable);
@@ -386,6 +612,8 @@ namespace HeraclesCreatures
 
         public void EnemyTurn()
         {
+            Console.SetCursorPosition(0, 9);
+            Console.WriteLine();
             _enemy.Turn(_enemy.CurrentCreature, _player.CurrentCreature);
         }
 
