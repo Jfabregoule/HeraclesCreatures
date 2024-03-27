@@ -220,6 +220,10 @@ namespace HeraclesCreatures
                             _currentScene.ToRemove.Add(new int[] { interaction.X, interaction.Y });
                             _currentScene.RemoveMapObject(interaction);
                         }
+                        else
+                        {
+                            // ICI MON DOUX JULIEN
+                        }
                         _currentScene.ResetDisplay();
                     }
                 }
