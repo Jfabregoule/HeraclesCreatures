@@ -247,6 +247,7 @@ namespace HeraclesCreatures
             int[] widthHeight = GetWidthHeight(sceneLines, index);
             scene.Width = widthHeight[0];
             scene.Height = widthHeight[1];
+            scene.SceneObjects = new MapObject[scene.Height, scene.Width];
 
             Cell[,] cells = new Cell[scene.Height, scene.Width];
 
@@ -625,16 +626,6 @@ namespace HeraclesCreatures
                     else if (sceneLines[i] == "Board:")
                     {
                         scene = CreateCellGrid(sceneLines, i, tilesIDs);
-                    }
-
-                    else if (sceneLines[i] == "DefaultX:")
-                    {
-                        scene.DefaultX = GetInt(sceneLines[i + 1]);
-                    }
-
-                    else if (sceneLines[i] == "DefaultY:")
-                    {
-                        scene.DefaultY = GetInt(sceneLines[i + 1]);
                     }
 
                 }

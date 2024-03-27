@@ -57,6 +57,8 @@ namespace HeraclesCreatures
         List<string>                        _types;
         float[,]                            _typeTable;
 
+        Character _heracles;
+
         #endregion Fields
 
         /*------------------------------------------------------------------------------------------*\
@@ -115,6 +117,11 @@ namespace HeraclesCreatures
             creatures.Add(lion);
             creatures.Add(heracles);
             Player Hercule = new Player("Hercule", creatures);
+
+            _heracles = new Character(_fileManager.Scenes, _fileManager.CharactersData["Heracles"]);
+            _heracles.CurrentScene = _fileManager.Scenes["FirstScene"];
+            _fileManager.Scenes["FirstScene"].AddMapObject(_heracles);
+
             Potion popo = new Potion();
             AttackPlus attP = new AttackPlus();
             
@@ -149,12 +156,30 @@ namespace HeraclesCreatures
 
                 if (_inputManager.IsAnyKeyPressed())
                 {
-                    Console.WriteLine("Oueoue");
+                    if (_inputManager.GetKeyDown(ConsoleKey.Z))
+                    {
+                        _heracles.Move(0);
+                    }
+                    else if (_inputManager.GetKeyDown(ConsoleKey.D))
+                    {
+                        _heracles.Move(1);
+                    }
+                    else if (_inputManager.GetKeyDown(ConsoleKey.S))
+                    {
+                        _heracles.Move(2);
+                    }
+                    else if (_inputManager.GetKeyDown(ConsoleKey.Q))
+                    {
+                        _heracles.Move(3);
+                    }
+                    Console.Clear();
+                    _fileManager.Scenes["FirstScene"].UpdateCharacter(_heracles);
+                    _fileManager.Scenes["FirstScene"].DisplayScene();
                 }
-                if (_currentFight != null && _currentFight.IsOver == false)
-                {
-                    _currentFight.Fighting();
-                }
+                //if (_currentFight != null && _currentFight.IsOver == false)
+                //{
+                //    _currentFight.Fighting();
+                //}
             }
 
         }

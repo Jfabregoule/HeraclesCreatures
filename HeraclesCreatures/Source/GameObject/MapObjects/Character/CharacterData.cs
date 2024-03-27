@@ -19,7 +19,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        //Player _attachedPlayer;
+        Player _player;
         MapObjectData _mapData;
 
         #endregion Fields
@@ -34,7 +34,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        //internal Player AttachedPlayer { get => _attachedPlayer; set => _attachedPlayer = value; }
+        internal Player Player { get => _player; set => _player = value; }
         internal MapObjectData MapData { get => _mapData; set => _mapData = value; }
 
         #endregion Properties
@@ -65,7 +65,7 @@ namespace HeraclesCreatures
 
         public CharacterData()
         {
-            //_attachedPlayer = new();
+            _player = new();
             _mapData = new();
         }
 

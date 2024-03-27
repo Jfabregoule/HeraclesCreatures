@@ -6,13 +6,13 @@ W = WallStoneDefault
 G = GroundGrassDefault
 
 Board:
-W,G,W,G,G
-G,G,G,G,W
-W,G,W,G,W
-W,W,G,W,W
+G,G,W,G,G,G,G,G,G,G
+G,G,G,G,W,G,G,G,G,G
+W,G,W,G,W,G,G,G,G,G
+W,G,G,W,W,G,G,G,G,G
+W,G,G,W,W,G,G,G,G,G
+W,G,G,W,W,G,G,G,G,G
+W,G,G,W,W,G,G,G,G,G
+W,G,G,W,W,G,G,G,G,G
 
-DefaultX:
-1
 
-DefaultY:
-1

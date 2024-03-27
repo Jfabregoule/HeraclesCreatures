@@ -22,7 +22,6 @@ namespace HeraclesCreatures
 
         HashSet<ConsoleKey> pressedKeys = new HashSet<ConsoleKey>();
 
-
         #endregion Fields
 
         /*------------------------------------------------------------------------------------------*\

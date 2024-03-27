@@ -2,7 +2,7 @@
 Character
 
 Name:
-DefaultCharacter
+Heracles
 
 Drawing:
     ()    
