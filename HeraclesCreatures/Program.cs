@@ -97,6 +97,7 @@ public static class PositionConsoleWindowDemo
         };
 
         SetWindowPlacement(hWnd, ref wp);
+        Console.CursorVisible = false;
         GameManager gameManager = new GameManager();
         gameManager.GameLoop();
     }

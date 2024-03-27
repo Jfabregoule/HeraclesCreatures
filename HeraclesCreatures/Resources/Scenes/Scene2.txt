@@ -5,16 +5,13 @@ IDs:
 G = GroundGrassDefault
 
 Board:
-G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G
+G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
 
 

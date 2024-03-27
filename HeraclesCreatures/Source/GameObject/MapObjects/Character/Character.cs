@@ -152,6 +152,7 @@ namespace HeraclesCreatures
                 }
                 else if (mapObject is Opponent)
                 {
+                    Console.Clear();
                     Opponent opponent = (Opponent)mapObject;
                     CombatManager combatManager = new CombatManager(Data.Player, opponent.Data.Enemy, types, typeTable);
                     return combatManager;
