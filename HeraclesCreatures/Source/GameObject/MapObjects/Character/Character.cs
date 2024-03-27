@@ -70,8 +70,10 @@ namespace HeraclesCreatures
             _data = new();
         }
 
-        public Character(Scene scene, CharacterData data, Player player)
+        public Character(int x, int y, Scene scene, CharacterData data, Player player)
         {
+            X = x;
+            Y = y;
             _currentScene = scene;
             data.Player = player;
             Data = data;

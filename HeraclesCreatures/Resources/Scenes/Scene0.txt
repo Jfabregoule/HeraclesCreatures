@@ -1,5 +1,5 @@
-﻿Name:
-Scene1
+Name:
+Scene0
 
 IDs:
 W = WallStoneDefault

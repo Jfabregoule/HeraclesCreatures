@@ -1,5 +1,5 @@
-﻿Name:
-Scene1
+Name:
+Scene3
 
 IDs:
 W = WallStoneDefault
@@ -24,6 +24,5 @@ W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
 W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
 W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
 W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W
-
 
 

@@ -1,17 +1,28 @@
 Name:
-SecondScene
+Scene2
 
 IDs:
+W = WallStoneDefault
 G = GroundGrassDefault
+T = TopStone
+TL = TopLeftStone
+TR = TopRightStone
+B = BottomStone
+BL = BottomLeftStone
+BR = BottomRightStone
+L = LeftStone
+R = RightStone
+SD = StoneDoor
 
 Board:
-G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
-G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W
+W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
+W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
+W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
+W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
+W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
+W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
+W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
+W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W
 
 

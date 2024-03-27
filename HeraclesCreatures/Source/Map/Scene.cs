@@ -79,16 +79,6 @@ namespace HeraclesCreatures
             _toRemove = new List<int[]> { };
         }
 
-        public Scene(string name, int width, int height, Cell[,] cells, MapObject[,] sceneObjects)
-        {
-            _name = name;
-            _width = width;
-            _height = height;
-            _cells = cells;
-            _sceneObjects = sceneObjects;
-            _toRemove = new List<int[]> { };
-        }
-
         public void AddMapObject(MapObject obj)
         {
             foreach (MapObject mapObject in _sceneObjects)
@@ -144,6 +134,7 @@ namespace HeraclesCreatures
                 }
             }
         }
+
         public bool IsMapObject(int x, int y)
         {
             return _sceneObjects[x,y] != null;

@@ -118,45 +118,116 @@ namespace HeraclesCreatures
             GenerateMoves();
             GenerateCreatures();
 
-            Enemy hydra = GenerateEnemy("Hydra");
+            InitializeScenes();
+
+            //SaveGame();
+
+            //LoadGame();
+        }
+
+        public void InitializeScenes()
+        {
+
+            // Set Scene
+            _currentScene = _fileManager.Scenes["Scene0"];
+
+            // Create Character
             List<Creatures> creatures = new List<Creatures>();
             Creatures lion = new Creatures("Nemean Lion", _creaturesStats["Nemean Lion"], GenerateCreatureMovePool("Nemean Lion"));
             Creatures heracles = new Creatures("Heracles", _creaturesStats["Heracles"], GenerateCreatureMovePool("Heracles"));
             creatures.Add(lion);
             creatures.Add(heracles);
-            Player Hercule = new Player("Hercule", creatures);
-
-            // Set Scene
-            _currentScene = _fileManager.Scenes["FirstScene"];
-
-            // Create Character
-            _heracles = new Character(_currentScene, _fileManager.CharactersData["Heracles"], Hercule);
+            Player Hercule = new Player("Hercule", creatures); 
+            _heracles = new Character(4, 11,_currentScene, _fileManager.CharactersData["Heracles"], Hercule);
             _currentScene.AddMapObject(_heracles);
 
-            // Create Opponent
-            Opponent LaDaronneDeJulien = new Opponent(1, 1, _fileManager.Scenes["FirstScene"], _fileManager.OpponentsData["LaDaronneDeJulien"], hydra);
-            _fileManager.Scenes["FirstScene"].AddMapObject(LaDaronneDeJulien);
+            // Default Door
+            Door door = new Door();
 
-            //Create Doors
-            Door porte = new Door(1, 2, _fileManager.DoorsData["Door1"]);
-            _fileManager.Scenes["FirstScene"].AddMapObject(porte);
+           
+            // SCENE 0
 
-            Door porte2 = new Door(1, 1, _fileManager.DoorsData["Door2"]);
-            _fileManager.Scenes["SecondScene"].AddMapObject(porte2);
+
+            //Opponent LaDaronneDeJulien = new Opponent(1, 1, _fileManager.Scenes["Scene1"], _fileManager.OpponentsData["LaDaronneDeJulien"], GenerateEnemy("Hydra"));
+            //_fileManager.Scenes["Scene1"].AddMapObject(LaDaronneDeJulien);
+
+            door = new Door(4, 1, _fileManager.DoorsData["Door0-1"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(door);
+
+            door = new Door(1, 1, _fileManager.DoorsData["Door0-2"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(door);
+
+            door = new Door(1, 6, _fileManager.DoorsData["Door0-3"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(door);
+
+            door = new Door(1, 11, _fileManager.DoorsData["Door0-4"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(door);
+
+            door = new Door(1, 16, _fileManager.DoorsData["Door0-5"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(door);
+
+            door = new Door(1, 21, _fileManager.DoorsData["Door0-6"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(door);
+
+            door = new Door(4, 21, _fileManager.DoorsData["Door0-7"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(door);
+
+
+            // SCENE 1
+
+
+            door = new Door(4, 21, _fileManager.DoorsData["Door1-0"]);
+            _fileManager.Scenes["Scene1"].AddMapObject(door);
+
+
+            // SCENE 2
+
+
+            door = new Door(7, 21, _fileManager.DoorsData["Door2-0"]);
+            _fileManager.Scenes["Scene2"].AddMapObject(door);
+
+
+            // SCENE 3
+
+
+            door = new Door(7, 6, _fileManager.DoorsData["Door3-0"]);
+            _fileManager.Scenes["Scene3"].AddMapObject(door);
+
+
+            // SCENE 4
+
+
+            door = new Door(7, 11, _fileManager.DoorsData["Door4-0"]);
+            _fileManager.Scenes["Scene4"].AddMapObject(door);
+
+
+            // SCENE 5
+
+
+            door = new Door(7, 16, _fileManager.DoorsData["Door5-0"]);
+            _fileManager.Scenes["Scene5"].AddMapObject(door);
+
+
+            // SCENE 6
+
+
+            door = new Door(7, 1, _fileManager.DoorsData["Door6-0"]);
+            _fileManager.Scenes["Scene6"].AddMapObject(door);
+
+
+            // SCENE 7
+
+
+            door = new Door(4, 1, _fileManager.DoorsData["Door7-0"]);
+            _fileManager.Scenes["Scene7"].AddMapObject(door);
+
 
             Potion popo = new Potion();
             AttackPlus attP = new AttackPlus();
-            
+
             Hercule.AddItems(popo);
             Hercule.AddItems(attP);
             _player = Hercule;
-            
-
-            //SaveGame();
-
-            //LoadGame();
-            CombatManager test = new CombatManager(_player, hydra, _types, _typeTable);
-            _currentFight = test;
         }
 
         public void SaveGame()
