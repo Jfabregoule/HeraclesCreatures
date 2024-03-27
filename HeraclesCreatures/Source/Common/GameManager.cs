@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    enum GamePhase
+    public enum GamePhase
     {
         Beginning,
         Checkpoint1,
@@ -28,7 +28,7 @@ namespace HeraclesCreatures
         Ending,
     }
 
-    internal class GameManager
+    public class GameManager
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -217,7 +217,7 @@ namespace HeraclesCreatures
 
         }
 
-        private List<Moves> GenerateCreatureMovePool(string creatureName)
+        public List<Moves> GenerateCreatureMovePool(string creatureName)
         {
             List<Moves> moves = new List<Moves>();
             for (int i = 0; i < _movePools[creatureName].Count; i++)

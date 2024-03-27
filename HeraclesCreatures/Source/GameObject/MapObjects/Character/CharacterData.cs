@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    internal struct CharacterData
+    public struct CharacterData
     {
 
         /*------------------------------------------------------------------------------------------*\

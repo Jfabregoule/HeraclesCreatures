@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HeraclesCreatures
 {
 
-    enum CreatureState
+    public enum CreatureState
     {
         ALIVE,
         NUMB,
@@ -26,7 +26,7 @@ namespace HeraclesCreatures
 
     #region Creatures Class
     [Serializable]
-    internal class Creatures
+    public class Creatures
     {
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
@@ -57,7 +57,7 @@ namespace HeraclesCreatures
         #region Properties
 
         public string CreatureName { get => _creatureName; private set => _creatureName = value; }
-        internal List<Moves> Moves { get => _moves; private set => _moves = value; }
+        public List<Moves> Moves { get => _moves; private set => _moves = value; }
         public CreatureStats Stats { get => _stats; set => _stats = value; }
         public CreatureState State { get => _state; set => _state = value; }
         public int Mana { get => _mana; set => _mana = value; }

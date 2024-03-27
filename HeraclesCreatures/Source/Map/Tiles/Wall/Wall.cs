@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeraclesCreatures
 {
-    internal class Wall
+    public class Wall
     {
 
         /*------------------------------------------------------------------------------------------*\
@@ -33,7 +33,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        internal WallData Data { get => _data; set => _data = value; }
+        public WallData Data { get => _data; set => _data = value; }
 
         #endregion Properties
 

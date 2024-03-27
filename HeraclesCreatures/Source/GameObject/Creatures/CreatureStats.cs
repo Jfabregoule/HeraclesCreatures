@@ -88,7 +88,11 @@
 
         public void Regen(float amount)
         {
-            if(health + amount > maxHealth)
+            if (amount < 0)
+            {
+                throw new ArgumentException(nameof(amount));
+            }
+            if (health + amount > maxHealth)
             {
                 health = maxHealth;
             }
@@ -104,7 +108,15 @@
 
         public void Damaged(float amount)
         {
+            if (amount < 0)
+            {
+                throw new ArgumentException(nameof(amount));
+            }
             health -= amount;
+            if (health < 0)
+            {
+                health = 0;
+            }
         }
 
         public void AttackBoost(float amount) 
