@@ -292,6 +292,7 @@ namespace HeraclesCreatures
             {
                 IsOver = true;
                 IsWin = false;
+                _enemy.Regenerate();
                 Win(_enemy, _player);
             }
 

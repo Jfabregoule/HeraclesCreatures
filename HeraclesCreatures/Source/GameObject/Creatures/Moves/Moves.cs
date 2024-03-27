@@ -146,6 +146,11 @@ namespace HeraclesCreatures
             return data;
         }
 
+        public void MaximizePP()
+        {
+            _pp = Stats.MaxPP;
+        }
+
         #endregion Methods
 
     }

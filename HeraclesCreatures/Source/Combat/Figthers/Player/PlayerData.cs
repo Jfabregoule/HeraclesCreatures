@@ -22,10 +22,10 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        [JsonInclude] public string              _name;
-        [JsonInclude] public int _currentCreatureID;
-        [JsonInclude] public List<CreatureData>  _creatures;
-        [JsonInclude] public List<Items>         _items;
+        [JsonInclude] public string                 _name;
+        [JsonInclude] public int                    _currentCreatureID;
+        [JsonInclude] public List<CreatureData>     _creatures;
+        [JsonInclude] public List<Items>            _items;
 
         #endregion Fields
 

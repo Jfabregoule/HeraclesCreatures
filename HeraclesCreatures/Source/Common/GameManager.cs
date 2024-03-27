@@ -177,68 +177,67 @@ namespace HeraclesCreatures
 
         public void CheckMove()
         {
-            _inputManager.Update();
-
-            if (_inputManager.IsAnyKeyPressed())
+            int dir = -1;
+            if (_inputManager.GetKeyDown(ConsoleKey.Z))
             {
-                int dir = -1;
-                if (_inputManager.GetKeyDown(ConsoleKey.Z))
+                dir = 0;
+            }
+            else if (_inputManager.GetKeyDown(ConsoleKey.D))
+            {
+                dir = 1;
+            }
+            else if (_inputManager.GetKeyDown(ConsoleKey.S))
+            {
+                dir = 2;
+            }
+            else if (_inputManager.GetKeyDown(ConsoleKey.Q))
+            {
+                dir = 3;
+            }
+            MapObject interaction = _heracles.Move(dir);
+            if (interaction != null)
+            {
+                object interactionResult = _heracles.Interact(interaction, _fileManager.Scenes, _types, _typeTable);
+                if (interactionResult is CombatManager && _player.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD) == false)
                 {
-                    dir = 0;
-                }
-                else if (_inputManager.GetKeyDown(ConsoleKey.D))
-                {
-                    dir = 1;
-                }
-                else if (_inputManager.GetKeyDown(ConsoleKey.S))
-                {
-                    dir = 2;
-                }
-                else if (_inputManager.GetKeyDown(ConsoleKey.Q))
-                {
-                    dir = 3;
-                }
-                MapObject interaction = _heracles.Move(dir);
-                if (interaction != new MapObject())
-                {
-                    object interactionResult = _heracles.Interact(interaction, _fileManager.Scenes, _types, _typeTable);
-                    if (interactionResult is CombatManager)
+                    Console.Clear();
+                    _currentFight = (CombatManager)interactionResult;
+                    while (_currentFight.IsOver == false)
                     {
-                        _currentFight = (CombatManager)interactionResult;
-                        while (_currentFight.IsOver == false)
-                        {
-                            _currentFight.Fighting();
-                        }
-                        bool win = _currentFight.IsWin;
+                        _currentFight.Fighting();
+                    }
+                    if (_currentFight.IsWin)
+                    {
                         _currentFight = null;
-                        if (win)
-                        {
-                            _currentScene.ToRemove.Add(new int[] { interaction.X, interaction.Y });
-                            _currentScene.RemoveMapObject(interaction);
-                        }
-                        else
-                        {
-                            // ICI MON DOUX JULIEN
-                        }
-                        _currentScene.ResetDisplay();
+                        _currentScene.ToRemove.Add(new int[] { interaction.X, interaction.Y });
+                        _currentScene.RemoveMapObject(interaction);
                     }
-                    else if(interactionResult is Scene)
-                    {
-                        _currentScene = (Scene)interactionResult;
-                        _currentScene.AddMapObject(_heracles);
-                        _currentScene.ResetDisplay();
-                    }
-                }
-                if (Console.WindowWidth != _consoleWidth || Console.WindowHeight != _consoleHeight)
-                {
-                    _consoleWidth = Console.WindowWidth;
-                    _consoleHeight = Console.WindowHeight;
                     _currentScene.ResetDisplay();
                 }
-                _currentScene.UpdateCharacter(_heracles);
-                _currentScene.DisplayMapObjects();
-                Console.SetCursorPosition(0, 0);
+                else if (interactionResult is CombatManager)
+                {
+                    int x = 0;
+                    int y = _currentScene.Height * 5 + 1;
+                    Console.SetCursorPosition(x, y);
+                    Console.WriteLine("All your team members are KO. Heal them before you try again.");
+                }    
+                else if (interactionResult is Scene)
+                {
+                    _currentScene = (Scene)interactionResult;
+                    _currentScene.AddMapObject(_heracles);
+                    _currentScene.ResetDisplay();
+                }
             }
+            if (Console.WindowWidth != _consoleWidth || Console.WindowHeight != _consoleHeight)
+            {
+                _consoleWidth = Console.WindowWidth;
+                _consoleHeight = Console.WindowHeight;
+                _currentScene.ResetDisplay();
+            }
+            _currentScene.UpdateCharacter(_heracles);
+            _currentScene.DisplayMapObjects();
+            Console.SetCursorPosition(0, 0);
+            
         }
 
         public void GameLoop()
@@ -247,7 +246,11 @@ namespace HeraclesCreatures
             _currentScene.DisplayMapObjects();
             while (_isRunning)
             {
-                CheckMove();
+                _inputManager.Update();
+                if (_inputManager.IsAnyKeyPressed())
+                {
+                    CheckMove();
+                }
             }
 
         }

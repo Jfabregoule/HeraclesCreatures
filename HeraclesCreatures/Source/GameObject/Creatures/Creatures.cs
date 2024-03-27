@@ -128,6 +128,13 @@ namespace HeraclesCreatures
             _moves = moves;
         }
 
+        public void ResetCreature()
+        {
+            State = CreatureState.ALIVE;
+            FullHeal();
+            RefillMana();
+        }
+
         public void AddMove(Moves move) 
         {
             _moves.Add(move);
@@ -136,6 +143,31 @@ namespace HeraclesCreatures
         public void RemoveMana(int manaCost)
         {
             Mana -= manaCost;
+        }
+
+        public void AddMana(int value)
+        {
+            if (value < 0)
+            {
+                throw new ArgumentException(nameof(value));
+            }
+            if (Mana + value > Stats.maxMana)
+            {
+                Mana = Stats.maxMana;
+            }
+            else if (value == Stats.maxMana)
+            {
+                Mana = value;
+            }
+            else
+            {
+                Mana += value;
+            }
+        }
+
+        private void RefillMana()
+        {
+            Mana = Stats.maxMana;
         }
 
         public void TakeDamage(int damage)
@@ -147,6 +179,11 @@ namespace HeraclesCreatures
         public void Heal(float value)
         {
             _stats.Regen(value);
+        }
+
+        private void FullHeal()
+        {
+            _stats.FullRegen();
         }
 
         public void BoostAttack(float attack)
