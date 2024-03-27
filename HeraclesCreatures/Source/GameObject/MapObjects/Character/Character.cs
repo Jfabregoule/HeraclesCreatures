@@ -78,7 +78,6 @@ namespace HeraclesCreatures
 
         public MapObject Move(int dir)
         {
-            MapObject mapObject = new MapObject();
             switch (dir)
             {
                 case 0:
@@ -89,6 +88,7 @@ namespace HeraclesCreatures
                         }
                         else
                         {
+                            CurrentScene.ToRemove.Add(new int[] { X, Y });
                             X -= 1;
                         }
                     break;
@@ -100,6 +100,7 @@ namespace HeraclesCreatures
                         }
                         else
                         {
+                            CurrentScene.ToRemove.Add(new int[] { X, Y });
                             Y += 1;
                         }
                     break;
@@ -111,6 +112,7 @@ namespace HeraclesCreatures
                         }
                         else
                         {
+                            CurrentScene.ToRemove.Add(new int[] { X, Y });
                             X += 1;
                         }
                     break;
@@ -122,6 +124,7 @@ namespace HeraclesCreatures
                         }
                         else
                         {
+                            CurrentScene.ToRemove.Add(new int[] { X, Y });
                             Y -= 1;
                         }
                     break;

@@ -1,6 +1,7 @@
 ﻿using HeraclesCreatures.Source.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Formats.Asn1;
 using System.Linq;
@@ -214,28 +215,30 @@ namespace HeraclesCreatures
                         }
                         bool win = _currentFight.IsWin;
                         _currentFight = null;
-                        Console.Clear();
                         if (win)
                         {
+                            _currentScene.ToRemove.Add(new int[] { interaction.X, interaction.Y });
                             _currentScene.RemoveMapObject(interaction);
                         }
+                        _currentScene.ResetDisplay();
                     }
                 }
                 if (Console.WindowWidth != _consoleWidth || Console.WindowHeight != _consoleHeight)
                 {
                     _consoleWidth = Console.WindowWidth;
                     _consoleHeight = Console.WindowHeight;
-                    Console.Clear();
+                    _currentScene.ResetDisplay();
                 }
                 Console.SetCursorPosition(0, 0);
-                _fileManager.Scenes["FirstScene"].UpdateCharacter(_heracles);
-                _fileManager.Scenes["FirstScene"].DisplayScene();
+                _currentScene.UpdateCharacter(_heracles);
+                _currentScene.DisplayMapObjects();
             }
         }
 
         public void GameLoop()
         {
-            _fileManager.Scenes["FirstScene"].DisplayScene();
+            _currentScene.DisplayScene();
+            _currentScene.DisplayMapObjects();
             while (_isRunning)
             {
                 CheckMove();
