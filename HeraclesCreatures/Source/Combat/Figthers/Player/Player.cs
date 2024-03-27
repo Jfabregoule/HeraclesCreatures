@@ -79,9 +79,38 @@ namespace HeraclesCreatures
             }
         }
 
+        public Player(PlayerData playerData) 
+        {
+            List<Creatures> creaturesList = new List<Creatures>();
+            for (int i = 0; i < playerData._creatures.Count; i++) 
+            {
+                Creatures creature = new Creatures(playerData._creatures[i]);
+                creaturesList.Add(creature);
+            }
+            Creatures = creaturesList;
+            CurrentCreature = Creatures[playerData._currentCreatureID];
+            Name = playerData._name;
+            Items = playerData._items;
+        }
+
         public void AddItems(Items items)
         {
             _items.Add(items);
+        }
+
+        public PlayerData GetPlayerData()
+        {
+            PlayerData playerData = new PlayerData();
+
+            playerData._name = Name;
+            playerData._currentCreatureID = Creatures.IndexOf(CurrentCreature);
+            List<CreatureData> creatureDatas = new List<CreatureData>();
+            foreach (Creatures creature in Creatures)
+            {
+                creatureDatas.Add(creature.GetCreatureData());
+            }
+            playerData._creatures = creatureDatas;
+            return playerData;
         }
 
         #endregion Methods
