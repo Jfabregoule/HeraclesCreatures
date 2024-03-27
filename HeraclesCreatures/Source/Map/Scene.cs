@@ -1,5 +1,6 @@
 ﻿using HeraclesCreatures;
 using System.ComponentModel;
+using System.Xml.Linq;
 
 namespace HeraclesCreatures
 {
@@ -95,6 +96,18 @@ namespace HeraclesCreatures
             _sceneObjects[obj.X,obj.Y] = obj;
         }
 
+        public void RemoveMapObject(MapObject obj)
+        {
+            foreach (MapObject mapObject in _sceneObjects) 
+            { 
+                if (mapObject == null) continue;
+                if (mapObject == obj)
+                {
+                    _sceneObjects[obj.X, obj.Y] = null;
+                }
+            }
+        }
+
         public void UpdateCharacter(MapObject character)
         {
             for (int i = 0; i < _sceneObjects.GetLength(0); i++)
@@ -110,6 +123,10 @@ namespace HeraclesCreatures
                     }
                 }
             }
+        }
+        public bool IsMapObject(int x, int y)
+        {
+            return _sceneObjects[x,y] != null;
         }
 
         public void DisplayScene()
@@ -128,6 +145,12 @@ namespace HeraclesCreatures
                         if (obj is Character)
                         {
                             Character child = (Character)obj;
+                            Console.ForegroundColor = child.Data.MapData.ForegroundColor[i % 5, j % 10];
+                            Console.Write(child.Data.MapData.Drawing[i % 5, j % 10]);
+                        }
+                        else if (obj is Opponent)
+                        {
+                            Opponent child = (Opponent)obj;
                             Console.ForegroundColor = child.Data.MapData.ForegroundColor[i % 5, j % 10];
                             Console.Write(child.Data.MapData.Drawing[i % 5, j % 10]);
                         }
@@ -153,7 +176,9 @@ namespace HeraclesCreatures
                         Console.ForegroundColor = cell.Tile.ForegroundColor[i % 5, j % 10];
                         Console.Write(cell.Tile.Drawing[i % 5, j % 10]);
                     }
-                    
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Black;
+
                 }
                 Console.WriteLine();
             }

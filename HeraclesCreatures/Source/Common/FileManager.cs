@@ -21,6 +21,7 @@ namespace HeraclesCreatures
         //Dictionary<string, List<string>> _movePools;
         //Dictionary<string, Moves> _moves;
         Dictionary<string, CreatureStats> _creaturesData;
+        Dictionary<string, OpponentData> _opponentsData;
         Dictionary<string, TileData> _tilesData;
         Dictionary<string, DoorData> _doorsData;
         Dictionary<string, ChestData> _chestsData;
@@ -40,6 +41,7 @@ namespace HeraclesCreatures
         #region Properties
 
         public Dictionary<string, CreatureStats> CreaturesData { get => _creaturesData; set => _creaturesData = value; }
+        public Dictionary<string, OpponentData> OpponentsData { get => _opponentsData; set => _opponentsData = value; }
         public Dictionary<string, TileData> TilesData { get => _tilesData; set => _tilesData = value; }
         public Dictionary<string, DoorData> DoorsData { get => _doorsData; set => _doorsData = value; }
         public Dictionary<string, ChestData> ChestsData { get => _chestsData; set => _chestsData = value; }
@@ -79,6 +81,7 @@ namespace HeraclesCreatures
             _doorsData = new();
             _chestsData = new();
             _charactersData = new();
+            _opponentsData = new();
             _scenes = new();
             FillAllDictionnaries();
         }
@@ -602,6 +605,41 @@ namespace HeraclesCreatures
             }
         }
 
+        private void FillOpponentsDictionnary(List<string[]> opponentsLines)
+        {
+            foreach (string[] opponentLines in opponentsLines)
+            {
+                OpponentData opponentData = new();
+                MapObjectData mapData = new();
+                string name = "";
+                for (int i = 0; i < opponentLines.Length; i++)
+                {
+                    if (opponentLines[i] == "Name:")
+                    {
+                        name = opponentLines[i + 1];
+                    }
+
+                    else if (opponentLines[i] == "Drawing:")
+                    {
+                        mapData.Drawing = GetDrawing(opponentLines, i);
+                    }
+
+                    else if (opponentLines[i] == "FGColor:")
+                    {
+                        mapData.ForegroundColor = GetColor(opponentLines, i);
+                    }
+
+                    else if (opponentLines[i] == "BGColor:")
+                    {
+                        mapData.BackgroundColor = GetColor(opponentLines, i);
+                    }
+                }
+
+                opponentData.MapData = mapData;
+                _opponentsData.Add(name, opponentData);
+            }
+        }
+
         private void FillSceneDictionnary(List<string[]> scenesLines)
         {
             foreach (string[] sceneLines in scenesLines)
@@ -658,6 +696,7 @@ namespace HeraclesCreatures
                     List<string[]> charactersLines = new List<string[]> { };
                     List<string[]> chestsLines = new List<string[]> { };
                     List<string[]> doorsLines = new List<string[]> { };
+                    List<string[]> opponentsLines = new List<string[]> { };
                     foreach (string[] mapObject in ressourcesLines[key])
                     {
                         switch (mapObject[1])
@@ -671,11 +710,15 @@ namespace HeraclesCreatures
                             case "Door":
                                 doorsLines.Add(mapObject);
                                 break;
+                            case "Opponent":
+                                opponentsLines.Add(mapObject);
+                                break;
                         }
                     }
                     FillCharacterDictionnary(charactersLines);
                     FillChestDictionnary(chestsLines);
                     FillDoorDictionnary(doorsLines);
+                    FillOpponentsDictionnary(opponentsLines);
                 }
             }
         }

@@ -31,11 +31,8 @@
         #region Properties
 
         public bool IsWalkable { get => _isWalkable; set => _isWalkable = value; }
-
         public char[,] Drawing { get => _drawing; set => _drawing = value; }
-
         public ConsoleColor[,] ForegroundColor { get => _foregroundColor; set => _foregroundColor = value; }
-
         public ConsoleColor[,] BackgroundColor { get => _backgroundColor; set => _backgroundColor = value; }
 
         #endregion Properties

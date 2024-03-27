@@ -34,6 +34,7 @@ namespace HeraclesCreatures
         float[,]            _typeTable;
         PlayerChoices       _choiceType;
         int                 _choiceIndex;
+        bool                _isWin;
 
 
         #endregion Fields
@@ -50,6 +51,7 @@ namespace HeraclesCreatures
 
         public bool IsOver { get => _isOver; private set => _isOver = value; }
         public int CurrentTurn { get => _currentTurn; private set => _currentTurn = value; }
+        public bool IsWin { get => _isWin; set => _isWin = value; }
 
 
         #endregion Properties
@@ -232,11 +234,13 @@ namespace HeraclesCreatures
             if (_enemy.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD))
             {
                 IsOver = true;
+                IsWin = true;
                 Win(_player, _enemy);
             }
             else if (_player.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD))
             {
                 IsOver = true;
+                IsWin = false;
                 Win(_enemy, _player);
             }
 
@@ -402,6 +406,7 @@ namespace HeraclesCreatures
         public void Win(Fighter Winner, Fighter Looser)
         {
             Console.WriteLine("The winner is " +  Winner.Name);
+            
             Console.WriteLine(Looser.Name + " has lost.");
         }
 

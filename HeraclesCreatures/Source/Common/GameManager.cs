@@ -48,7 +48,7 @@ namespace HeraclesCreatures
         FileManager                         _fileManager;
         CombatManager                       _currentFight;
 
-        Scene                               _scene;
+        Scene                               _currentScene;
 
         Dictionary<string, CreatureStats>   _creaturesStats;
         Dictionary<string, MoveStats>       _moveStats;
@@ -58,6 +58,9 @@ namespace HeraclesCreatures
         float[,]                            _typeTable;
 
         Character _heracles;
+
+        int _consoleHeight;
+        int _consoleWidth;
 
         #endregion Fields
 
@@ -106,6 +109,9 @@ namespace HeraclesCreatures
             _movePools = new Dictionary<string, List<string>>();
             _moves = new Dictionary<string, Moves>();
 
+            _consoleWidth = Console.WindowWidth;
+            _consoleHeight = Console.WindowHeight;
+
             GenerateTypes();
             GenerateMoves();
             GenerateCreatures();
@@ -118,13 +124,29 @@ namespace HeraclesCreatures
             creatures.Add(heracles);
             Player Hercule = new Player("Hercule", creatures);
 
-            _heracles = new Character(_fileManager.Scenes, _fileManager.CharactersData["Heracles"]);
-            _heracles.CurrentScene = _fileManager.Scenes["FirstScene"];
-            _fileManager.Scenes["FirstScene"].AddMapObject(_heracles);
+            // Set Scene
+            _currentScene = _fileManager.Scenes["FirstScene"];
+
+            // Create CHaracter
+            _heracles = new Character(_currentScene, _fileManager.CharactersData["Heracles"]);
+            CharacterData oui = new CharacterData();
+            oui.Player = Hercule;
+            oui.MapData = _fileManager.CharactersData["Heracles"].MapData;
+            _heracles.Data = oui;
+            _currentScene.AddMapObject(_heracles);
+
+            // Create Opponent
+            Opponent LaDaronneDeJulien = new Opponent(_fileManager.Scenes["FirstScene"], _fileManager.OpponentsData["LaDaronneDeJulien"]);
+            LaDaronneDeJulien.X = 1;
+            LaDaronneDeJulien.Y = 1;
+            OpponentData laDaronneDeJulienData = new OpponentData();
+            laDaronneDeJulienData.Enemy = hydra;
+            laDaronneDeJulienData.MapData = _fileManager.OpponentsData["LaDaronneDeJulien"].MapData;
+            LaDaronneDeJulien.Data = laDaronneDeJulienData;
+            _currentScene.AddMapObject(LaDaronneDeJulien);
 
             Potion popo = new Potion();
             AttackPlus attP = new AttackPlus();
-            
             
             Hercule.AddItems(popo);
             Hercule.AddItems(attP);
@@ -156,30 +178,54 @@ namespace HeraclesCreatures
 
                 if (_inputManager.IsAnyKeyPressed())
                 {
+                    int dir = -1;
                     if (_inputManager.GetKeyDown(ConsoleKey.Z))
                     {
-                        _heracles.Move(0);
+                        dir = 0;
                     }
                     else if (_inputManager.GetKeyDown(ConsoleKey.D))
                     {
-                        _heracles.Move(1);
+                        dir = 1;
                     }
                     else if (_inputManager.GetKeyDown(ConsoleKey.S))
                     {
-                        _heracles.Move(2);
+                        dir = 2;
                     }
                     else if (_inputManager.GetKeyDown(ConsoleKey.Q))
                     {
-                        _heracles.Move(3);
+                        dir = 3;
                     }
-                    Console.Clear();
+                    MapObject interaction = _heracles.Move(dir);
+                    if (interaction != new MapObject())
+                    {
+                        object interactionResult = _heracles.Interact(interaction, _types, _typeTable); 
+                        if (interactionResult is CombatManager) 
+                        {
+                            
+                            _currentFight = (CombatManager)interactionResult;
+                            while (_currentFight.IsOver == false)
+                            {
+                                _currentFight.Fighting();
+                            }
+                            bool win = _currentFight.IsWin;
+                            _currentFight = null;
+                            Console.Clear();
+                            if (win)
+                            {
+                                _currentScene.RemoveMapObject(interaction);
+                            }
+                        }
+                    }
+                    if (Console.WindowWidth != _consoleWidth || Console.WindowHeight != _consoleHeight)
+                    {
+                        _consoleWidth = Console.WindowWidth;
+                        _consoleHeight = Console.WindowHeight;
+                        Console.Clear();
+                    }
+                    Console.SetCursorPosition(0, 0);
                     _fileManager.Scenes["FirstScene"].UpdateCharacter(_heracles);
                     _fileManager.Scenes["FirstScene"].DisplayScene();
                 }
-                //if (_currentFight != null && _currentFight.IsOver == false)
-                //{
-                //    _currentFight.Fighting();
-                //}
             }
 
         }

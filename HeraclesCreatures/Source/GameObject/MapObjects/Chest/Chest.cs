@@ -15,7 +15,6 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        bool _isOpen;
         ChestData _data;
 
         #endregion Fields
@@ -29,8 +28,6 @@ namespace HeraclesCreatures
         \*------------------------------------------------------------------------------------------*/
 
         #region Properties
-
-        public bool IsOpen { get => _isOpen; set => _isOpen = value; }
 
         public ChestData Data { get => _data; set => _data = value; }
 
@@ -62,7 +59,6 @@ namespace HeraclesCreatures
 
         public Chest()
         {
-            _isOpen = false;
             _data = new ChestData();
         }
 

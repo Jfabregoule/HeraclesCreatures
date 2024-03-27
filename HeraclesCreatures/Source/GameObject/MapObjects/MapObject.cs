@@ -22,6 +22,7 @@ namespace HeraclesCreatures
 
         int _x;
         int _y;
+        bool _isActive;
 
         #endregion Fields
 
@@ -37,6 +38,7 @@ namespace HeraclesCreatures
 
         public int X { get => _x; set => _x = value; }
         public int Y { get => _y; set => _y = value; }
+        public bool IsActive { get => _isActive; set => _isActive = value; }
 
         #endregion Properties
 
@@ -68,6 +70,7 @@ namespace HeraclesCreatures
         {
             _x = 0;
             _y = 0;
+            _isActive = true;
         }
 
         #endregion Methods
