@@ -211,6 +211,7 @@ namespace HeraclesCreatures
                         {
                             
                             _currentFight = (CombatManager)interactionResult;
+                            Console.Clear();
                             while (_currentFight.IsOver == false)
                             {
                                 _currentFight.Fighting();
@@ -224,6 +225,7 @@ namespace HeraclesCreatures
                             }
                         }
                     }
+                    
                     if (Console.WindowWidth != _consoleWidth || Console.WindowHeight != _consoleHeight)
                     {
                         _consoleWidth = Console.WindowWidth;

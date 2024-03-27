@@ -138,7 +138,7 @@ namespace HeraclesCreatures
             Mana -= manaCost;
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(int damage)
         {
             _stats.Damaged(damage);
             CheckIsDead();
