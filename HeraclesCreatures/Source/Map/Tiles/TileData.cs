@@ -72,10 +72,6 @@
 
         public void printCellData()
         {
-            Console.WriteLine("Cell Data:");
-            Console.WriteLine($"Is Walkable: {IsWalkable}");
-
-            Console.WriteLine("Drawing with Colors:");
             for (int i = 0; i < _drawing.GetLength(0); i++)
             {
                 for (int j = 0; j < _drawing.GetLength(1); j++)

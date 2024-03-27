@@ -1,11 +1,9 @@
 ﻿using HeraclesCreatures;
 using System;
-using System.Runtime.InteropServices; // To enable P/Invoke signatures.
+using System.Runtime.InteropServices;
 
 public static class PositionConsoleWindowDemo
 {
-
-    // P/Invoke declarations.
 
     [DllImport("kernel32.dll")]
     static extern IntPtr GetConsoleWindow();

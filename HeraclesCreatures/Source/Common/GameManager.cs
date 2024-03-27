@@ -1,6 +1,7 @@
 ﻿using HeraclesCreatures.Source.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Formats.Asn1;
 using System.Linq;
@@ -177,65 +178,74 @@ namespace HeraclesCreatures
             Console.WriteLine("Données chargées.");
         }
 
+        public void CheckMove()
+        {
+            _inputManager.Update();
+
+            if (_inputManager.IsAnyKeyPressed())
+            {
+                int dir = -1;
+                if (_inputManager.GetKeyDown(ConsoleKey.Z))
+                {
+                    dir = 0;
+                }
+                else if (_inputManager.GetKeyDown(ConsoleKey.D))
+                {
+                    dir = 1;
+                }
+                else if (_inputManager.GetKeyDown(ConsoleKey.S))
+                {
+                    dir = 2;
+                }
+                else if (_inputManager.GetKeyDown(ConsoleKey.Q))
+                {
+                    dir = 3;
+                }
+                MapObject interaction = _heracles.Move(dir);
+                if (interaction != new MapObject())
+                {
+                    object interactionResult = _heracles.Interact(interaction, _types, _typeTable);
+                    if (interactionResult is CombatManager)
+                    {
+
+                        _currentFight = (CombatManager)interactionResult;
+                        while (_currentFight.IsOver == false)
+                        {
+                            _currentFight.Fighting();
+                        }
+                        bool win = _currentFight.IsWin;
+                        _currentFight = null;
+                        if (win)
+                        {
+                            _currentScene.ToRemove.Add(new int[] { interaction.X, interaction.Y });
+                            _currentScene.RemoveMapObject(interaction);
+                        }
+                        else
+                        {
+                            // ICI MON DOUX JULIEN
+                        }
+                        _currentScene.ResetDisplay();
+                    }
+                }
+                if (Console.WindowWidth != _consoleWidth || Console.WindowHeight != _consoleHeight)
+                {
+                    _consoleWidth = Console.WindowWidth;
+                    _consoleHeight = Console.WindowHeight;
+                    _currentScene.ResetDisplay();
+                }
+                Console.SetCursorPosition(0, 0);
+                _currentScene.UpdateCharacter(_heracles);
+                _currentScene.DisplayMapObjects();
+            }
+        }
+
         public void GameLoop()
         {
-            _fileManager.Scenes["FirstScene"].DisplayScene();
+            _currentScene.DisplayScene();
+            _currentScene.DisplayMapObjects();
             while (_isRunning)
             {
-                _inputManager.Update();
-
-                if (_inputManager.IsAnyKeyPressed())
-                {
-                    int dir = -1;
-                    if (_inputManager.GetKeyDown(ConsoleKey.Z))
-                    {
-                        dir = 0;
-                    }
-                    else if (_inputManager.GetKeyDown(ConsoleKey.D))
-                    {
-                        dir = 1;
-                    }
-                    else if (_inputManager.GetKeyDown(ConsoleKey.S))
-                    {
-                        dir = 2;
-                    }
-                    else if (_inputManager.GetKeyDown(ConsoleKey.Q))
-                    {
-                        dir = 3;
-                    }
-                    MapObject interaction = _heracles.Move(dir);
-                    if (interaction != new MapObject())
-                    {
-                        object interactionResult = _heracles.Interact(interaction, _types, _typeTable); 
-                        if (interactionResult is CombatManager) 
-                        {
-                            
-                            _currentFight = (CombatManager)interactionResult;
-                            Console.Clear();
-                            while (_currentFight.IsOver == false)
-                            {
-                                _currentFight.Fighting();
-                            }
-                            bool win = _currentFight.IsWin;
-                            _currentFight = null;
-                            Console.Clear();
-                            if (win)
-                            {
-                                _currentScene.RemoveMapObject(interaction);
-                            }
-                        }
-                    }
-                    
-                    if (Console.WindowWidth != _consoleWidth || Console.WindowHeight != _consoleHeight)
-                    {
-                        _consoleWidth = Console.WindowWidth;
-                        _consoleHeight = Console.WindowHeight;
-                        Console.Clear();
-                    }
-                    Console.SetCursorPosition(0, 0);
-                    _fileManager.Scenes["FirstScene"].UpdateCharacter(_heracles);
-                    _fileManager.Scenes["FirstScene"].DisplayScene();
-                }
+                CheckMove();
             }
 
         }
