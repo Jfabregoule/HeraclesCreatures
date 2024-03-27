@@ -177,63 +177,68 @@ namespace HeraclesCreatures
             Console.WriteLine("Données chargées.");
         }
 
+        public void CheckMove()
+        {
+            _inputManager.Update();
+
+            if (_inputManager.IsAnyKeyPressed())
+            {
+                int dir = -1;
+                if (_inputManager.GetKeyDown(ConsoleKey.Z))
+                {
+                    dir = 0;
+                }
+                else if (_inputManager.GetKeyDown(ConsoleKey.D))
+                {
+                    dir = 1;
+                }
+                else if (_inputManager.GetKeyDown(ConsoleKey.S))
+                {
+                    dir = 2;
+                }
+                else if (_inputManager.GetKeyDown(ConsoleKey.Q))
+                {
+                    dir = 3;
+                }
+                MapObject interaction = _heracles.Move(dir);
+                if (interaction != new MapObject())
+                {
+                    object interactionResult = _heracles.Interact(interaction, _types, _typeTable);
+                    if (interactionResult is CombatManager)
+                    {
+
+                        _currentFight = (CombatManager)interactionResult;
+                        while (_currentFight.IsOver == false)
+                        {
+                            _currentFight.Fighting();
+                        }
+                        bool win = _currentFight.IsWin;
+                        _currentFight = null;
+                        Console.Clear();
+                        if (win)
+                        {
+                            _currentScene.RemoveMapObject(interaction);
+                        }
+                    }
+                }
+                if (Console.WindowWidth != _consoleWidth || Console.WindowHeight != _consoleHeight)
+                {
+                    _consoleWidth = Console.WindowWidth;
+                    _consoleHeight = Console.WindowHeight;
+                    Console.Clear();
+                }
+                Console.SetCursorPosition(0, 0);
+                _fileManager.Scenes["FirstScene"].UpdateCharacter(_heracles);
+                _fileManager.Scenes["FirstScene"].DisplayScene();
+            }
+        }
+
         public void GameLoop()
         {
             _fileManager.Scenes["FirstScene"].DisplayScene();
             while (_isRunning)
             {
-                _inputManager.Update();
-
-                if (_inputManager.IsAnyKeyPressed())
-                {
-                    int dir = -1;
-                    if (_inputManager.GetKeyDown(ConsoleKey.Z))
-                    {
-                        dir = 0;
-                    }
-                    else if (_inputManager.GetKeyDown(ConsoleKey.D))
-                    {
-                        dir = 1;
-                    }
-                    else if (_inputManager.GetKeyDown(ConsoleKey.S))
-                    {
-                        dir = 2;
-                    }
-                    else if (_inputManager.GetKeyDown(ConsoleKey.Q))
-                    {
-                        dir = 3;
-                    }
-                    MapObject interaction = _heracles.Move(dir);
-                    if (interaction != new MapObject())
-                    {
-                        object interactionResult = _heracles.Interact(interaction, _types, _typeTable); 
-                        if (interactionResult is CombatManager) 
-                        {
-                            
-                            _currentFight = (CombatManager)interactionResult;
-                            while (_currentFight.IsOver == false)
-                            {
-                                _currentFight.Fighting();
-                            }
-                            bool win = _currentFight.IsWin;
-                            _currentFight = null;
-                            Console.Clear();
-                            if (win)
-                            {
-                                _currentScene.RemoveMapObject(interaction);
-                            }
-                        }
-                    }
-                    if (Console.WindowWidth != _consoleWidth || Console.WindowHeight != _consoleHeight)
-                    {
-                        _consoleWidth = Console.WindowWidth;
-                        _consoleHeight = Console.WindowHeight;
-                        Console.Clear();
-                    }
-                    Console.SetCursorPosition(0, 0);
-                    _fileManager.Scenes["FirstScene"].UpdateCharacter(_heracles);
-                    _fileManager.Scenes["FirstScene"].DisplayScene();
-                }
+                CheckMove();
             }
 
         }

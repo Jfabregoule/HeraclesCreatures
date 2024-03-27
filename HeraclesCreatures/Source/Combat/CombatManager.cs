@@ -96,19 +96,19 @@ namespace HeraclesCreatures
             _types = types;
             _typeTable = typeTable;
             _pos = new List<(int, int)>();
-            initPos(4,_pos);
+            InitPos(4,_pos);
             _Itemspos = new List<(int, int)>();
-            initPos(_player.Items.Count,_Itemspos);
+            InitPos(_player.Items.Count,_Itemspos);
             _Movespos = new List<(int, int)>();
-            initPos(_player.CurrentCreature.Moves.Count,_Movespos);
+            InitPos(_player.CurrentCreature.Moves.Count,_Movespos);
             _Teampos = new List<(int, int)>();
-            initPos(_player.Creatures.Count,_Teampos);
+            InitPos(_player.Creatures.Count,_Teampos);
             _currentMousePos = _pos[0];
             _inputManager = new InputManager();
         }
 
 
-        public void initPos(int max,List<(int,int)> list)
+        public void InitPos(int max,List<(int,int)> list)
         {
             for (int i = 1; i <= max; i++)
             {

@@ -6,13 +6,13 @@ W = WallStoneDefault
 G = GroundGrassDefault
 
 Board:
-G,G,W,G,G,G,G,G,G,G
-G,G,G,G,W,G,G,G,G,G
-W,G,W,G,W,G,G,G,G,G
-W,G,G,W,W,G,G,G,G,G
-W,G,G,W,W,G,G,G,G,G
-W,G,G,W,W,G,G,G,G,G
-W,G,G,W,W,G,G,G,G,G
-W,G,G,W,W,G,G,G,G,G
+G,G,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+G,G,G,G,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+W,G,W,G,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+W,G,G,W,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+W,G,G,W,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+W,G,G,W,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+W,G,G,W,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+W,G,G,W,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
 
 
