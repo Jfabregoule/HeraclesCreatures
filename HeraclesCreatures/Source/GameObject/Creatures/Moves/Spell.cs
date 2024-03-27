@@ -122,7 +122,7 @@ namespace HeraclesCreatures
                         damage *= 1.25f;
                         break;
                 }
-                receiver.TakeDamage(damage);
+                receiver.TakeDamage((int)(damage));
                 Console.WriteLine(sender.CreatureName + " attacks " + receiver.CreatureName + " with " + MoveName);
                 Console.WriteLine(receiver.CreatureName + " HP : " + receiver.Stats.health);
                 base.Use(sender, receiver, effectiveness);

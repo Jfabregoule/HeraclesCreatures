@@ -4,13 +4,22 @@ FirstScene
 IDs:
 W = WallStoneDefault
 G = GroundGrassDefault
+T = TopStone
+TL = TopLeftStone
+TR = TopRightStone
+B = BottomStone
+BL = BottomLeftStone
+BR = BottomRightStone
+L = LeftStone
+R = RightStone
+SD = StoneDoor
 
 Board:
 G,G,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
 G,G,G,G,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
 W,G,W,G,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
-W,G,G,W,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
-W,G,G,W,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
+W,G,G,W,W,G,G,G,G,G,G,G,G,G,G,G,TL,T,TR,G,G,G,G
+W,G,G,W,W,G,G,G,G,G,G,G,G,G,G,G,L,SD,R,G,G,G,G
 W,G,G,W,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
 W,G,G,W,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G
 W,G,G,W,W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G

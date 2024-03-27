@@ -99,7 +99,7 @@ namespace HeraclesCreatures
             int chance = random.Next(1, 100 + 1);
             if (chance <= odds)
             {
-                float damage = (sender.Stats.attack + Stats.Power * 2) * effectiveness;
+                float damage = ((sender.Stats.attack + Stats.Power * 2) * effectiveness) / 7;
                 switch (sender.State)
                 {
                     case CreatureState.NUMB:
@@ -128,7 +128,7 @@ namespace HeraclesCreatures
                     Console.WriteLine("{0} was a critical hit", MoveName);
                 }
                 PP -= 1;
-                receiver.TakeDamage(damage);
+                receiver.TakeDamage((int)(damage));
                 Console.WriteLine(sender.CreatureName + " attacks " + receiver.CreatureName + " with " + MoveName);
                 Console.WriteLine();
                 Console.WriteLine(receiver.CreatureName + " HP : " + receiver.Stats.health);
