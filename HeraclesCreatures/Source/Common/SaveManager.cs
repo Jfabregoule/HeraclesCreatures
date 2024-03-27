@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace HeraclesCreatures.Source.Common
@@ -67,11 +68,9 @@ namespace HeraclesCreatures.Source.Common
             string saveFolderPath = Path.Combine("..", "..", "..", "Resources", "Save");
             string fullPath = Path.Combine(saveFolderPath, filename);
 
-            BinaryFormatter formatter = new BinaryFormatter();
-            using (FileStream stream = new FileStream(fullPath, FileMode.Create))
-            {
-                formatter.Serialize(stream, data);
-            }
+            var content = JsonSerializer.Serialize(data);
+
+            File.WriteAllText(fullPath, content);
         }
 
         public static GameData Load(string filename)
@@ -79,19 +78,18 @@ namespace HeraclesCreatures.Source.Common
             string saveFolderPath = Path.Combine("..", "..", "..", "Resources", "Save");
             string fullPath = Path.Combine(saveFolderPath, filename);
 
-            if (File.Exists(fullPath))
+            if (!File.Exists(fullPath))
             {
-                BinaryFormatter formatter = new BinaryFormatter();
-                using (FileStream stream = new FileStream(fullPath, FileMode.Open))
-                {
-                    return (GameData)formatter.Deserialize(stream);
-                }
+                throw new ArgumentException("There is no file named as {0}.", filename);
             }
-            else
-            {
-                Console.WriteLine("Aucun fichier de sauvegarde trouvé.");
-                return null;
-            }
+
+            // Lire le contenu JSON du fichier
+            string content = File.ReadAllText(fullPath);
+
+            // Désérialiser le contenu JSON en un objet GameData
+            GameData data = JsonSerializer.Deserialize<GameData>(content);
+
+            return data;
         }
 
         #endregion Methods

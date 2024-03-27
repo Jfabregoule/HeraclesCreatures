@@ -25,7 +25,6 @@ namespace HeraclesCreatures
     }
 
     #region Creatures Class
-    [Serializable]
     public class Creatures
     {
         /*------------------------------------------------------------------------------------------*\
@@ -104,6 +103,31 @@ namespace HeraclesCreatures
                 }
             }
         }
+
+        public Creatures(CreatureData creatureData)
+        {
+            _creatureName = creatureData._creatureName;
+            _stats = creatureData._stats;
+            _state= creatureData._state;
+            _mana = creatureData._mana;
+            List<Moves> moves = new List<Moves>();
+            for (int i = 0; i < creatureData._moveData.Count; i++)
+            {
+                Moves move;
+                if (creatureData._moveData[i]._stats.ManaCost != 0)
+                {
+                    move = new Spell(creatureData._moveData[i]);
+                }
+                else
+                {
+                    move = new Attack(creatureData._moveData[i]);
+                }
+                
+                moves.Add(move);
+            }
+            _moves = moves;
+        }
+
         public void AddMove(Moves move) 
         {
             _moves.Add(move);
@@ -144,6 +168,22 @@ namespace HeraclesCreatures
             }
         }
 
+        public CreatureData GetCreatureData()
+        {
+            CreatureData data = new CreatureData();
+
+            data._creatureName = _creatureName;
+            data._mana = _mana;
+            data._stats = _stats;
+            data._state = _state;
+            List<MoveData> movesData = new List<MoveData>();
+            foreach(Moves move in _moves)
+            {
+                movesData.Add(move.GetMoveData());
+            }
+            data._moveData = movesData;
+            return data;
+        }
 
         #endregion Methods
 

@@ -67,6 +67,12 @@ namespace HeraclesCreatures
         {
         }
 
+        public Attack(MoveData moveData) : base(moveData)
+        {
+            Stats = moveData._stats;
+            MoveName = moveData._moveName;
+        }
+
         public override void Use(Creatures sender, Creatures receiver, float effectiveness)
         {
             Random random = new Random();

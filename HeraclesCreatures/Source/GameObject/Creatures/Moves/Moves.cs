@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace HeraclesCreatures
 {
@@ -23,9 +26,9 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        protected string        _moveName;
-        protected MoveStats     _stats;
-        private int             _pp;
+        [JsonInclude] protected string _moveName;
+        protected MoveStats _stats;
+        private int _pp;
 
         #endregion Fields
 
@@ -40,8 +43,7 @@ namespace HeraclesCreatures
         #region Properties
 
         public string MoveName { get => _moveName; protected set => _moveName = value; }
-
-        public MoveStats Stats { get => _stats; private set => _stats = value; }
+        public MoveStats Stats { get => _stats; protected set => _stats = value; }
         public int PP { get => _pp; set => _pp = value; }
 
         #endregion Properties
@@ -81,6 +83,13 @@ namespace HeraclesCreatures
             _stats = stats;
             _moveName = name;
             _pp = stats.MaxPP;
+        }
+
+        public Moves(MoveData moveData)
+        {
+            _stats = moveData._stats;
+            _moveName = moveData._moveName;
+            _pp = moveData._pp;
         }
 
         public virtual void Use(Creatures sender, Creatures receiver, float effectiveness)
@@ -124,6 +133,17 @@ namespace HeraclesCreatures
             int j = types.IndexOf(enemyType);
             int i = types.IndexOf(allyType);
             return typeTable[i, j];
+        }
+
+        public MoveData GetMoveData()
+        {
+            MoveData data = new MoveData();
+
+            data._stats = _stats;
+            data._pp = _pp;
+            data._moveName = _moveName;
+
+            return data;
         }
 
         #endregion Methods
