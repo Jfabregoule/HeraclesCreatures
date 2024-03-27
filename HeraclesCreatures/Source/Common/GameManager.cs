@@ -49,7 +49,7 @@ namespace HeraclesCreatures
         CombatManager                       _currentFight;
 
         Player                              _player;
-        Scene                               _scene;
+        Scene                               _currentScene;
 
         Dictionary<string, CreatureStats>   _creaturesStats;
         Dictionary<string, MoveStats>       _moveStats;
@@ -154,9 +154,9 @@ namespace HeraclesCreatures
             _player = Hercule;
             
 
-            SaveGame();
+            //SaveGame();
 
-            LoadGame();
+            //LoadGame();
             CombatManager test = new CombatManager(_player, hydra, _types, _typeTable);
             _currentFight = test;
         }
@@ -179,7 +179,7 @@ namespace HeraclesCreatures
 
         public void GameLoop()
         {
-            //_fileManager.Scenes["FirstScene"].DisplayScene();
+            _fileManager.Scenes["FirstScene"].DisplayScene();
             while (_isRunning)
             {
                 _inputManager.Update();
