@@ -349,7 +349,6 @@ namespace HeraclesCreatures
             if (interaction != null)
             {
                 interaction.PlayDialogue(_currentScene);
-                if (interaction is Chest) { while (!_inputManager.GetKeyDown(ConsoleKey.Enter)) {} }
                 object interactionResult = _heracles.Interact(interaction, _fileManager.Scenes, _types, _typeTable);
                 if ((interactionResult is CombatManager || interactionResult is Grass ) && _player.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD) == false)
                 {
