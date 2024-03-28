@@ -134,7 +134,7 @@ namespace HeraclesCreatures
 
         public void XpGain(int gain)
         {
-            Stats.GetXp(gain);
+            _stats.GetXp(gain);
             Console.WriteLine(CreatureName + " has gained " + gain + " XP");
             Console.WriteLine(Stats.CurrentXp + " / " + Stats.XpNeeded);
             CheckLvlUp();
