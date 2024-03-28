@@ -430,6 +430,10 @@ namespace HeraclesCreatures
                     foreach (Creatures creature in _heracles.Data.Player.Creatures) {
                         creature.State = CreatureState.ALIVE;
                         creature.FullHeal();
+                        for (int i = 0; creature.Moves.Count - 1 > i; i++)
+                        {
+                            creature.Moves[i].MaximizePP();
+                        }
                     }
                     _player.CurrentCreature = _player.Creatures[0];
                 }
