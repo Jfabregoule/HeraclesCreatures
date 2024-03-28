@@ -16,10 +16,10 @@ SD = StoneDoor
 
 Board:
 W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W
+W,SD,G,G,G,G,SD,G,G,G,G,SD,G,G,G,G,SD,G,G,G,G,SD,W
 W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
 W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
-W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
-W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
+W,SD,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,SD,W
 W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
 W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W
 W,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,G,W

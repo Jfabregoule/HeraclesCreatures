@@ -26,7 +26,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        [JsonInclude] protected string _moveName;
+        protected string _moveName;
         protected MoveStats _stats;
         private int _pp;
 
