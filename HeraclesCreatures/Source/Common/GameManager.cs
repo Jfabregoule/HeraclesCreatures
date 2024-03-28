@@ -152,7 +152,7 @@ namespace HeraclesCreatures
             // SCENE 0
 
 
-            Opponent LaDaronneDeJulien = new Opponent(1, 1, _fileManager.Scenes["Scene1"], _fileManager.OpponentsData["LaDaronneDeJulien"], GenerateEnemy("Hydra"));
+            Opponent LaDaronneDeJulien = new Opponent(5, 5, _fileManager.Scenes["Scene1"], _fileManager.OpponentsData["LaDaronneDeJulien"], GenerateEnemy("Hydra"));
             _fileManager.Scenes["Scene0"].AddMapObject(LaDaronneDeJulien);
 
             door = new Door(4, 1, _fileManager.DoorsData["Door0-1"]);
