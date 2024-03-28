@@ -1,5 +1,4 @@
-﻿using HeraclesCreatures.Source.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
@@ -429,9 +428,10 @@ namespace HeraclesCreatures
                 else if (interactionResult is HealingStand)
                 {
                     foreach (Creatures creature in _heracles.Data.Player.Creatures) {
-
+                        creature.State = CreatureState.ALIVE;
                         creature.FullHeal();
                     }
+                    _player.CurrentCreature = _player.Creatures[0];
                 }
             }
             else
