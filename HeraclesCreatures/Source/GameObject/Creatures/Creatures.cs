@@ -198,7 +198,7 @@ namespace HeraclesCreatures
             _stats.Regen(value);
         }
 
-        private void FullHeal()
+        public void FullHeal()
         {
             _stats.FullRegen();
         }

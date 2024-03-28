@@ -105,14 +105,19 @@ namespace HeraclesCreatures
             }
         }
 
+        public void RemoveMapObjectAtIndex(int x, int y)
+        {
+            RemoveMapObject(_sceneObjects[x,y]);
+        }
+
         public void TryAddGrass()
         {
-            foreach (Grass obj in _toAdd)
+            for (int i = 0; i <_toAdd.Count; i++)
             {
-                if (_sceneObjects[obj.X,obj.Y] == null)
+                if (_sceneObjects[_toAdd[i].X, _toAdd[i].Y] == null)
                 {
-                    _sceneObjects[obj.X, obj.Y] = obj;
-                    _toAdd.Remove(obj);
+                    _sceneObjects[_toAdd[i].X, _toAdd[i].Y] = _toAdd[i];
+                    _toAdd.Remove(_toAdd[i]);
                 }
             }
         }
@@ -126,6 +131,22 @@ namespace HeraclesCreatures
                     MapObject obj = _sceneObjects[i, j];
 
                     if (obj is Character)
+                    {
+                        _sceneObjects[i, j] = null;
+                    }
+                }
+            }
+        }
+
+        public void RemoveAllCharactersExcept(Character character)
+        {
+            for (int i = 0; i < _sceneObjects.GetLength(0); i++)
+            {
+                for (int j = 0; j < _sceneObjects.GetLength(1); j++)
+                {
+                    MapObject obj = _sceneObjects[i, j];
+
+                    if (obj is Character && obj != character)
                     {
                         _sceneObjects[i, j] = null;
                     }
@@ -148,6 +169,7 @@ namespace HeraclesCreatures
                     }
                 }
             }
+            TryAddGrass();
         }
 
         public bool IsMapObject(int x, int y)
@@ -181,6 +203,7 @@ namespace HeraclesCreatures
             {
                 DrawMapObject(coords[0] * 5, coords[1] * 10, Cells[coords[0], coords[1]].Tile.Drawing, Cells[coords[0], coords[1]].Tile.ForegroundColor, Cells[coords[0], coords[1]].Tile.BackgroundColor);
             }
+
             for (int i = 0; i < _sceneObjects.GetLength(0); i++)
             {
                 for (int j = 0; j < _sceneObjects.GetLength(1); j++)

@@ -5,7 +5,7 @@ Name:
 Grass1
 
 Rate:
-0
+10
 
 Drawing:
 **********

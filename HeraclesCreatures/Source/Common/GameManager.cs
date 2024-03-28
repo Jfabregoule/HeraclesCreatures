@@ -147,6 +147,7 @@ namespace HeraclesCreatures
             // Default Game Objects
             Door door = new Door();
             Grass grass = new Grass();
+            Chest chest = new Chest();
 
 
             // SCENE 0
@@ -172,8 +173,17 @@ namespace HeraclesCreatures
             door = new Door(4, 21, _fileManager.DoorsData["Door0-7"]);
             _fileManager.Scenes["Scene0"].AddMapObject(door);
 
-            grass = new Grass(2, 2,new List<string> {"GrassHydra", "GrassLion"}, _fileManager.GrassesData["Grass1"]);
+            grass = new Grass(2, 2,new List<string> {"GrassLion", "GrassHydra"}, _fileManager.GrassesData["Grass1"]);
             _fileManager.Scenes["Scene0"].AddMapObject(grass);
+            grass = new Grass(2, 3, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(grass);
+            grass = new Grass(3, 2, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(grass);
+            grass = new Grass(3, 3, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(grass);
+
+            chest = new Chest(5, 20, new List<Items> { new Potion(), new Revive() }, new List<int> { 2, 4 }, _fileManager.ChestsData["Chest1"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(chest);
 
 
             // SCENE 1
@@ -334,16 +344,22 @@ namespace HeraclesCreatures
                 dir = 3;
             }
             MapObject interaction = _heracles.Move(dir);
+            _currentScene.UpdateCharacter(_heracles);
+            _currentScene.DisplayMapObjects();
             if (interaction != null)
             {
+                interaction.PlayDialogue(_currentScene);
+                if (interaction is Chest) { while (!_inputManager.GetKeyDown(ConsoleKey.Enter)) {} }
                 object interactionResult = _heracles.Interact(interaction, _fileManager.Scenes, _types, _typeTable);
                 if ((interactionResult is CombatManager || interactionResult is Grass ) && _player.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD) == false)
                 {
                     Console.Clear();
+                    Enemy enemy = new();
                     if (interactionResult is Grass)
                     {
                         Grass grass = (Grass)interactionResult;
-                        CombatManager combatManager = new CombatManager(_heracles.Data.Player, GenerateEnemy(grass.GetRandomCreature()), _types, _typeTable);
+                        enemy = GenerateEnemy(grass.GetRandomCreature());
+                        CombatManager combatManager = new CombatManager(_heracles.Data.Player, enemy, _types, _typeTable);
                         _currentFight = combatManager;
                     }
                     else
@@ -359,8 +375,12 @@ namespace HeraclesCreatures
                         _currentFight = null;
                         if (interaction is Opponent)
                         {
-                        _currentScene.ToRemove.Add(new int[] { interaction.X, interaction.Y });
-                        _currentScene.RemoveMapObject(interaction);
+                            _currentScene.ToRemove.Add(new int[] { interaction.X, interaction.Y });
+                            _currentScene.RemoveMapObject(interaction);
+                        }
+                        else
+                        {
+                            enemy.CurrentCreature.FullHeal();
                         }
                     }
                     _currentScene.ResetDisplay();

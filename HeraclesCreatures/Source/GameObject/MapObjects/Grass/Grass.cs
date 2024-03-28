@@ -88,9 +88,14 @@ namespace HeraclesCreatures
         public string GetRandomCreature()
         {
             Random rand = new Random();
-            int index = rand.Next(0, Encounters.Count - 1);
+            int index = rand.Next(0, Encounters.Count);
 
             return Encounters[index];
+        }
+        public override void PlayDialogue(Scene currentScene)
+        {
+            base.PlayDialogue(currentScene);
+            Console.Write("You Are On Grass");
         }
 
         #endregion Methods

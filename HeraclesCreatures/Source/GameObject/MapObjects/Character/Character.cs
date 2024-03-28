@@ -88,7 +88,8 @@ namespace HeraclesCreatures
                     if (X - 1 >= 0 && CurrentScene.Cells[X - 1, Y].Tile.IsWalkable)
                         if (CurrentScene.IsMapObject(X-1, Y))
                         {
-                            return CurrentScene.SceneObjects[X-1, Y];
+                            MapObject mapObject = CurrentScene.SceneObjects[X - 1, Y];
+                            return mapObject;
                         }
                         else
                         {
@@ -100,7 +101,8 @@ namespace HeraclesCreatures
                     if (Y + 1 < CurrentScene.Width && CurrentScene.Cells[X,Y + 1].Tile.IsWalkable)
                         if (CurrentScene.IsMapObject(X, Y + 1))
                         {
-                            return CurrentScene.SceneObjects[X, Y + 1];
+                            MapObject mapObject = CurrentScene.SceneObjects[X, Y + 1];
+                            return mapObject;
                         }
                         else
                         {
@@ -112,7 +114,8 @@ namespace HeraclesCreatures
                     if (X + 1 < CurrentScene.Height && CurrentScene.Cells[X + 1, Y].Tile.IsWalkable)
                         if (CurrentScene.IsMapObject(X + 1, Y))
                         {
-                            return CurrentScene.SceneObjects[X + 1, Y];
+                            MapObject mapObject = CurrentScene.SceneObjects[X + 1, Y];
+                            return mapObject;
                         }
                         else
                         {
@@ -124,7 +127,8 @@ namespace HeraclesCreatures
                     if (Y - 1 >= 0 && CurrentScene.Cells[X, Y - 1].Tile.IsWalkable)
                         if (CurrentScene.IsMapObject(X, Y - 1))
                         {
-                            return CurrentScene.SceneObjects[X, Y - 1];
+                            MapObject mapObject = CurrentScene.SceneObjects[X, Y - 1];
+                            return mapObject;
                         }
                         else
                         {
@@ -145,6 +149,9 @@ namespace HeraclesCreatures
                 if (mapObject is Chest)
                 {
                     Chest chest = (Chest)mapObject;
+                    Data.Player.Items.AddRange(chest.GetItems());
+                    chest.OpenChest();
+                    return chest;
                 }
                 else if (mapObject is Door)
                 {
@@ -164,6 +171,9 @@ namespace HeraclesCreatures
                     Grass grass = (Grass)mapObject;
                     bool triggerFight = grass.IsEncounter();
                     CurrentScene.ToAdd.Add(grass);
+                    CurrentScene.ToRemove.Add(new int[] { X, Y });
+                    X = grass.X; 
+                    Y = grass.Y;
                     if (triggerFight)
                     {
                         return grass;
