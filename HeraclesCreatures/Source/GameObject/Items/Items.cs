@@ -72,6 +72,13 @@ namespace HeraclesCreatures
 
         }
 
+        public ItemData GetItemsData()
+        {
+            ItemData data = new ItemData();
+            data._itemName = _name;
+            return data;
+        }
+
         #endregion Methods
     }
 }

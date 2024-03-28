@@ -9,6 +9,7 @@ using System.Reflection.Metadata;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HeraclesCreatures
 {
@@ -46,6 +47,7 @@ namespace HeraclesCreatures
         GamePhase                           _gamePhase;
 
         InputManager                        _inputManager;
+        Menu                                _menu;
         FileManager                         _fileManager;
         CombatManager                       _currentFight;
 
@@ -105,6 +107,7 @@ namespace HeraclesCreatures
             _isRunning = true;
             _gamePhase = GamePhase.Beginning;
             _inputManager = new InputManager();
+            _menu = new Menu(_inputManager);
             _fileManager = new FileManager();
             _creaturesStats = new Dictionary<string, CreatureStats>();
             _moveStats = new Dictionary<string, MoveStats>();
@@ -250,19 +253,32 @@ namespace HeraclesCreatures
             Console.WriteLine("Données chargées.");
         }
 
-        public void CheckMenu()
+        public void CallMenu()
         {
-            if (_inputManager.IsAnyKeyPressed() && _inputManager.GetKeyDown(ConsoleKey.Escape) == true)                                  
+            int currentOption = _menu.CheckMenu();
+            if (currentOption != -1)
             {
-                Console.Clear();
-                _inputManager.Update();
-                while (_inputManager.GetKeyDown(ConsoleKey.Escape) == false)
+                switch (currentOption)
                 {
-                    _inputManager.Update();
+                    case 0:
+                        break;
+                    case 1:
+                        SaveGame();
+                        break;
+                    case 2:
+                        LoadGame();
+                        break;
+                    case 3:
+                        _isRunning = false;
+                        break;
+
                 }
-                _inputManager.Update();
-                _currentScene.ResetDisplay();
+                if (_isRunning == true)
+                {
+                    _currentScene.ResetDisplay();
+                }
             }
+            _inputManager.Update();
         }
 
         public void CheckMove()
@@ -339,11 +355,17 @@ namespace HeraclesCreatures
                 _inputManager.Update();
                 if (_inputManager.IsAnyKeyPressed())
                 {
-                    CheckMenu();
                     CheckMove();
+                    CallMenu();
                 }
             }
-
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Thanks for playing our demo");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
         }
 
         private void GenerateTypes()
