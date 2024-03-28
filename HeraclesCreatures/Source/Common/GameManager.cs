@@ -554,6 +554,18 @@ namespace HeraclesCreatures
                                         case "MAXMANA":
                                             creatureStats.maxMana = int.Parse(value);
                                             break;
+                                        case "MANA":
+                                            creatureStats.Mana = int.Parse(value);
+                                            break;
+                                        case "LVL":
+                                            creatureStats.Level= int.Parse(value);
+                                            break;
+                                        case "CURRENTXP":
+                                            creatureStats.CurrentXp = int.Parse(value);
+                                            break;
+                                        case "XPNEEDED":
+                                            creatureStats.XpNeeded = int.Parse(value);
+                                            break;
                                         case "SPEED":
                                             creatureStats.AttackSpeed = float.Parse(value);
                                             break;

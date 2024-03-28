@@ -287,6 +287,7 @@ namespace HeraclesCreatures
                 IsOver = true;
                 IsWin = true;
                 Win(_player, _enemy);
+                _player.CurrentCreature.XpGain((int)(_enemy.CurrentCreature.Stats.health * 0.8));
             }
             else if (_player.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD))
             {
@@ -551,7 +552,7 @@ namespace HeraclesCreatures
             if (_choiceType == PlayerChoices.Combat)
             {
 
-                if (_player.CurrentCreature.Moves[_choiceIndex].PP > 0 || (_player.CurrentCreature.Moves[_choiceIndex].Stats.ManaCost != 0.0f && _player.CurrentCreature.Mana >= _player.CurrentCreature.Moves[_choiceIndex].Stats.ManaCost))
+                if (_player.CurrentCreature.Moves[_choiceIndex].PP > 0 || (_player.CurrentCreature.Moves[_choiceIndex].Stats.ManaCost != 0.0f && _player.CurrentCreature.Stats.Mana >= _player.CurrentCreature.Moves[_choiceIndex].Stats.ManaCost))
                 {
                     float effectiveness = Moves.GetEffectiveness(_enemy.CurrentCreature.Stats.type, _player.CurrentCreature.Moves[_choiceIndex].Stats.Type, _types, _typeTable);
                     _player.CurrentCreature.Moves[_choiceIndex].Use(_player.CurrentCreature, _enemy.CurrentCreature, effectiveness);
