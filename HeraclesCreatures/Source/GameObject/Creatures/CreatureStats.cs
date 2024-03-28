@@ -1,7 +1,7 @@
 ﻿namespace HeraclesCreatures
 {
     [Serializable]
-    public struct CreatureStats
+    public class CreatureStats
     {
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
@@ -142,7 +142,7 @@
             {
                 throw new ArgumentException(nameof(amount));
             }
-            _currentXp += amount;
+            CurrentXp += amount;
         }
         public void ResetCurrentXp()
         {

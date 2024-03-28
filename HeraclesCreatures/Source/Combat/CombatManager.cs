@@ -130,10 +130,10 @@ namespace HeraclesCreatures
             bool playerSwap = false;
             bool enemySwap = false;
             Console.SetCursorPosition(8,3);
-            Console.WriteLine("Ally Creature :" + _player.CurrentCreature.Stats.health + " / " + _player.CurrentCreature.Stats.maxHealth);
+            Console.WriteLine(_player.CurrentCreature.CreatureName + " : " + _player.CurrentCreature.Stats.health + " / " + _player.CurrentCreature.Stats.maxHealth);
             HealthBar(_player,(9,4));
             Console.SetCursorPosition(73, 3);
-            Console.WriteLine("Enemy Creature :" + _enemy.CurrentCreature.Stats.health + " / " + _enemy.CurrentCreature.Stats.maxHealth);
+            Console.WriteLine(_enemy.CurrentCreature.CreatureName + " : " + _enemy.CurrentCreature.Stats.health + " / " + _enemy.CurrentCreature.Stats.maxHealth);
             HealthBar(_enemy, (74, 4));
             CurrentTurn += 1;
             PlayerChoice();
@@ -284,10 +284,12 @@ namespace HeraclesCreatures
         {
             if (_enemy.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD))
             {
-                IsOver = true;
                 IsWin = true;
                 Win(_player, _enemy);
-                _player.CurrentCreature.XpGain((int)(_enemy.CurrentCreature.Stats.health * 0.8));
+                Console.Clear();
+                _player.CurrentCreature.XpGain((int)(_enemy.CurrentCreature.Stats.maxHealth * 3));
+                System.Threading.Thread.Sleep(3000);
+                IsOver = true;
             }
             else if (_player.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD))
             {
