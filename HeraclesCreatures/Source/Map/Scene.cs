@@ -105,6 +105,18 @@ namespace HeraclesCreatures
             }
         }
 
+        public void TryAddGrass()
+        {
+            foreach (Grass obj in _toAdd)
+            {
+                if (_sceneObjects[obj.X,obj.Y] == null)
+                {
+                    _sceneObjects[obj.X, obj.Y] = obj;
+                    _toAdd.Remove(obj);
+                }
+            }
+        }
+
         public void RemoveAllCharacters()
         {
             for (int i = 0; i < _sceneObjects.GetLength(0); i++)
