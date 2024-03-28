@@ -177,13 +177,13 @@ namespace HeraclesCreatures
             door = new Door(4, 21, _fileManager.DoorsData["Door0-7"]);
             _scenes["Scene0"].AddMapObject(door);
 
-            grass = new Grass(2, 2,new List<string> {"GrassLion", "GrassHydra"}, _fileManager.GrassesData["Grass1"]);
+            grass = new Grass(5, 7,new List<string> {"GrassLion", "GrassHydra"}, _fileManager.GrassesData["Grass1"]);
             _scenes["Scene0"].AddMapObject(grass);
-            grass = new Grass(2, 3, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
+            grass = new Grass(6, 8, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
             _scenes["Scene0"].AddMapObject(grass);
-            grass = new Grass(3, 2, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
+            grass = new Grass(6, 7, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
             _scenes["Scene0"].AddMapObject(grass);
-            grass = new Grass(3, 3, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
+            grass = new Grass(5, 8, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
             _scenes["Scene0"].AddMapObject(grass);
 
             chest = new Chest(5, 20, new List<Items> { new Potion(), new Revive() }, new List<int> { 2, 4 }, new List<Creatures> { }, _fileManager.ChestsData["Chest1"]);
