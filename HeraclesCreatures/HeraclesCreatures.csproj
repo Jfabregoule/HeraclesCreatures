@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\MapObjects\Grasses\" />
-    <Folder Include="Resources\MapObjects\Opponents\" />
   </ItemGroup>
 
 </Project>

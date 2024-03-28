@@ -151,10 +151,6 @@ namespace HeraclesCreatures
 
             // SCENE 0
 
-
-            Opponent LaDaronneDeJulien = new Opponent(5, 5, _fileManager.Scenes["Scene1"], _fileManager.OpponentsData["LaDaronneDeJulien"], GenerateEnemy("Hydra"));
-            _fileManager.Scenes["Scene0"].AddMapObject(LaDaronneDeJulien);
-
             door = new Door(4, 1, _fileManager.DoorsData["Door0-1"]);
             _fileManager.Scenes["Scene0"].AddMapObject(door);
 
@@ -185,6 +181,8 @@ namespace HeraclesCreatures
 
             door = new Door(4, 21, _fileManager.DoorsData["Door1-0"]);
             _fileManager.Scenes["Scene1"].AddMapObject(door);
+            Opponent NemeanLion = new Opponent(4, 11, _fileManager.Scenes["Scene1"], _fileManager.OpponentsData["Nemean Lion"], GenerateEnemy("Nemean Lion"));
+            _fileManager.Scenes["Scene1"].AddMapObject(NemeanLion);
 
 
             // SCENE 2
@@ -192,6 +190,8 @@ namespace HeraclesCreatures
 
             door = new Door(7, 21, _fileManager.DoorsData["Door2-0"]);
             _fileManager.Scenes["Scene2"].AddMapObject(door);
+            Opponent LerneanHydra = new Opponent(4, 11, _fileManager.Scenes["Scene2"], _fileManager.OpponentsData["Lernean Hydra"], GenerateEnemy("Lernean Hydra"));
+            _fileManager.Scenes["Scene2"].AddMapObject(LerneanHydra);
 
 
             // SCENE 3
@@ -199,6 +199,8 @@ namespace HeraclesCreatures
 
             door = new Door(7, 6, _fileManager.DoorsData["Door3-0"]);
             _fileManager.Scenes["Scene3"].AddMapObject(door);
+            Opponent ErymantheanBoar = new Opponent(4, 11, _fileManager.Scenes["Scene3"], _fileManager.OpponentsData["Erymanthean Boar"], GenerateEnemy("Erymanthean Boar"));
+            _fileManager.Scenes["Scene3"].AddMapObject(ErymantheanBoar);
 
 
             // SCENE 4
@@ -206,6 +208,8 @@ namespace HeraclesCreatures
 
             door = new Door(7, 11, _fileManager.DoorsData["Door4-0"]);
             _fileManager.Scenes["Scene4"].AddMapObject(door);
+            Opponent CeryneiasHind = new Opponent(4, 11, _fileManager.Scenes["Scene4"], _fileManager.OpponentsData["Ceryneia's Hind"], GenerateEnemy("Ceryneia's Hind"));
+            _fileManager.Scenes["Scene4"].AddMapObject(CeryneiasHind);
 
 
             // SCENE 5
@@ -213,6 +217,8 @@ namespace HeraclesCreatures
 
             door = new Door(7, 16, _fileManager.DoorsData["Door5-0"]);
             _fileManager.Scenes["Scene5"].AddMapObject(door);
+            Opponent StymphalianBirds = new Opponent(4, 11, _fileManager.Scenes["Scene5"], _fileManager.OpponentsData["Stymphalian Birds"], GenerateEnemy("Stymphalian Birds"));
+            _fileManager.Scenes["Scene5"].AddMapObject(StymphalianBirds);
 
 
             // SCENE 6
@@ -220,6 +226,8 @@ namespace HeraclesCreatures
 
             door = new Door(7, 1, _fileManager.DoorsData["Door6-0"]);
             _fileManager.Scenes["Scene6"].AddMapObject(door);
+            Opponent CretanBull = new Opponent(4, 11, _fileManager.Scenes["Scene6"], _fileManager.OpponentsData["Cretan Bull"], GenerateEnemy("Cretan Bull"));
+            _fileManager.Scenes["Scene6"].AddMapObject(CretanBull);
 
 
             // SCENE 7
@@ -227,6 +235,8 @@ namespace HeraclesCreatures
 
             door = new Door(4, 1, _fileManager.DoorsData["Door7-0"]);
             _fileManager.Scenes["Scene7"].AddMapObject(door);
+            Opponent DiomedesHorses = new Opponent(4, 11, _fileManager.Scenes["Scene7"], _fileManager.OpponentsData["Diomedes Horse"], GenerateEnemy("Diomedes Horse"));
+            _fileManager.Scenes["Scene7"].AddMapObject(DiomedesHorses);
 
 
             Potion popo = new Potion();
@@ -309,7 +319,6 @@ namespace HeraclesCreatures
                     Console.Clear();
                     if (interactionResult is Grass)
                     {
-                        Console.Write("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                         Grass grass = (Grass)interactionResult;
                         CombatManager combatManager = new CombatManager(_heracles.Data.Player, GenerateEnemy(grass.GetRandomCreature()), _types, _typeTable);
                         _currentFight = combatManager;

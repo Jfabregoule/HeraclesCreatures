@@ -1,0 +1,18 @@
+﻿Difficulty :
+
+3
+
+Creatures :
+
+Nemean Lion
+Lernean Hydra
+Erymanthean Boar
+Ceryneia's Hind
+Stymphalian Birds
+Cretan Bull
+Diomedes Horse
+Geryons The Giant
+Ladon The Serpent
+Cerberus
+
+Items :
