@@ -189,6 +189,10 @@ namespace HeraclesCreatures
                 {
                     return currentOption;
                 }
+                else if (_inputManager.GetKeyDown(ConsoleKey.Escape))
+                {
+                    return -2;
+                }
             }
             return -1;
         }
