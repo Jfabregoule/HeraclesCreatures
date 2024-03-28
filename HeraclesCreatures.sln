@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeraclesCreatures", "HeraclesCreatures\HeraclesCreatures.csproj", "{FFC1C498-C8CF-426C-94E1-81603159F50A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeraclesCreaturesTest", "HeraclesCreaturesTest\HeraclesCreaturesTest.csproj", "{BD453A45-D6FC-49A0-A655-CD5A22C4CF84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FFC1C498-C8CF-426C-94E1-81603159F50A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFC1C498-C8CF-426C-94E1-81603159F50A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFC1C498-C8CF-426C-94E1-81603159F50A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD453A45-D6FC-49A0-A655-CD5A22C4CF84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD453A45-D6FC-49A0-A655-CD5A22C4CF84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD453A45-D6FC-49A0-A655-CD5A22C4CF84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD453A45-D6FC-49A0-A655-CD5A22C4CF84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
