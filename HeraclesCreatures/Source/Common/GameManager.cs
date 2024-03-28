@@ -256,11 +256,13 @@ namespace HeraclesCreatures
         public void CallMenu()
         {
             int currentOption = _menu.CheckMenu();
+            
             if (currentOption != -1)
             {
                 switch (currentOption)
                 {
                     case 0:
+                        CallInventory();
                         break;
                     case 1:
                         SaveGame();
@@ -272,6 +274,27 @@ namespace HeraclesCreatures
                         _isRunning = false;
                         break;
 
+                }
+                if (_isRunning == true)
+                {
+                    _currentScene.ResetDisplay();
+                }
+            }
+            _inputManager.Update();
+        }
+
+        public void CallInventory()
+        {
+            int inventoryOption = _menu.Checkinventory();
+            if (inventoryOption != -1)
+            {
+                switch (inventoryOption)
+                {
+                    case 0:
+                        _menu.Creatures(_player);
+                        break;
+                    case 1:
+                        break;
                 }
                 if (_isRunning == true)
                 {
