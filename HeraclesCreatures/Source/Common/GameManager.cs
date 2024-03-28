@@ -317,14 +317,32 @@ namespace HeraclesCreatures
         public void CallInventory()
         {
             int inventoryOption = _menu.Checkinventory();
+            bool back = false;
             if (inventoryOption != -1)
             {
                 switch (inventoryOption)
                 {
                     case 0:
-                        _menu.Creatures(_player);
+                        while(back == false)
+                        {
+                            _menu.Creatures(_heracles.Data.Player);
+                            if(_inputManager.GetKeyDown(ConsoleKey.Escape))
+                            {
+                                back = true;
+                            }
+                            _inputManager.Update();
+                        }
                         break;
                     case 1:
+                        while (back == false)
+                        {
+                            _menu.Items(_heracles.Data.Player);
+                            if (_inputManager.GetKeyDown(ConsoleKey.Escape))
+                            {
+                                back = true;
+                            }
+                            _inputManager.Update();
+                        }
                         break;
                 }
                 if (_isRunning == true)
