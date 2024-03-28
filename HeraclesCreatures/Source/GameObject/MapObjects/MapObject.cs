@@ -23,7 +23,6 @@ namespace HeraclesCreatures
         int _x;
         int _y;
         bool _isActive;
-        string[] _dialogue;
 
         #endregion Fields
 
