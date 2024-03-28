@@ -19,7 +19,7 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        List<Creatures> _encounters;
+        List<string> _possibleEnemies;
         GrassData _data;
 
         #endregion Fields
@@ -34,7 +34,7 @@ namespace HeraclesCreatures
 
         #region Properties
 
-        public List<Creatures> Encounters { get => _encounters; set => _encounters = value; }
+        public List<string> Encounters { get => _possibleEnemies; set => _possibleEnemies = value; }
         public GrassData Data { get => _data; set => _data = value; }
 
         #endregion Properties
@@ -65,16 +65,32 @@ namespace HeraclesCreatures
 
         public Grass()
         {
-            _encounters = new();
+            _possibleEnemies = new();
             _data = new GrassData();
         }
 
-        public Grass(int x, int y, List<Creatures> encounters, GrassData data)
+        public Grass(int x, int y, List<string> possibleEnemies, GrassData data)
         {
             X = x;
             Y = y;
-            _encounters = encounters;
+            _possibleEnemies = possibleEnemies;
             Data = data;
+        }
+
+        public bool IsEncounter()
+        {
+            Random rand = new Random();
+            int randomNumber = rand.Next(0, 100);
+
+            return randomNumber < _data.EncounterRate;
+        }
+
+        public string GetRandomCreature()
+        {
+            Random rand = new Random();
+            int index = rand.Next(0, Encounters.Count - 1);
+
+            return Encounters[index];
         }
 
         #endregion Methods

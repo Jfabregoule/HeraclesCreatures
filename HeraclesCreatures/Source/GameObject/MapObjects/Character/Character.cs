@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -134,7 +135,7 @@ namespace HeraclesCreatures
                 default:
                     break;
             }
-            return new();
+            return null;
         }
 
         public object Interact(MapObject mapObject, Dictionary<string, Scene> scenes, List<string> types, float[,] typeTable)
@@ -161,7 +162,12 @@ namespace HeraclesCreatures
                 else if (mapObject is Grass)
                 {
                     Grass grass = (Grass)mapObject;
-                    //CurrentScene.ToAdd(grass);
+                    bool triggerFight = grass.IsEncounter();
+                    CurrentScene.ToAdd.Add(grass);
+                    if (triggerFight)
+                    {
+                        return grass;
+                    }
                 }
             }
             return new();
