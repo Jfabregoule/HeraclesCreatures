@@ -217,7 +217,7 @@ namespace HeraclesCreatures
             {
                 case CreatureState.BURNED:
                     CreatureStats creatureStats = allyCreature.Stats;
-                    creatureStats.health -= allyCreature.Stats.maxHealth * 0.10f;
+                    creatureStats.Damaged(allyCreature.Stats.maxHealth * 0.10f);
                     allyCreature.Stats = creatureStats;
                     Console.Write(allyCreature.CreatureName);
                     Console.WriteLine(" lost 10% HP due to burn.");
@@ -225,7 +225,7 @@ namespace HeraclesCreatures
                     break;
                 case CreatureState.POISONED:
                     CreatureStats creatureStats2 = allyCreature.Stats;
-                    creatureStats2.health -= allyCreature.Stats.maxHealth * 0.10f;
+                    creatureStats2.Damaged(allyCreature.Stats.maxHealth * 0.10f);
                     allyCreature.Stats = creatureStats2;
                     Console.Write(allyCreature.CreatureName);
                     Console.WriteLine(" lost 10% HP due to burn.");

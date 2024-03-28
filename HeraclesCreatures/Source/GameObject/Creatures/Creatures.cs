@@ -144,10 +144,10 @@ namespace HeraclesCreatures
         {
             if(Stats.CurrentXp >= Stats.XpNeeded)
             {
-                Stats.LevelUp();
+                _stats.LevelUp();
                 Console.WriteLine(CreatureName + " has leveled up");
                 Console.WriteLine(CreatureName + "Current level : " + Stats.Level);
-                Stats.ResetCurrentXp();
+                _stats.ResetCurrentXp();
                 Console.WriteLine("Xp needed :" + Stats.CurrentXp + " / " + Stats.XpNeeded);
             }
         }
