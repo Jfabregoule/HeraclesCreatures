@@ -21,6 +21,7 @@ namespace HeraclesCreatures
 
         List<Items> _content;
         List<int> _quantity;
+        List<Creatures> _creatures;
         MapObjectData _mapData;
 
         #endregion Fields
@@ -37,6 +38,7 @@ namespace HeraclesCreatures
 
         public List<Items> Content { get => _content; set => _content = value; }
         public List<int> Quantity { get => _quantity; set => _quantity = value; }
+        public List<Creatures> Creatures { get => _creatures; set => _creatures = value; }
         public MapObjectData MapData { get => _mapData; set => _mapData = value; }
 
         #endregion Properties
@@ -70,6 +72,7 @@ namespace HeraclesCreatures
             _content = new List<Items> {};
             _quantity = new List<int> {};
             _mapData = new MapObjectData();
+            _creatures = new();
         }
 
         public void AddItem(Items item, int quantity)

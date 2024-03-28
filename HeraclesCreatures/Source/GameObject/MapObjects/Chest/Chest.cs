@@ -62,12 +62,13 @@ namespace HeraclesCreatures
             _data = new ChestData();
         }
 
-        public Chest(int x, int y, List<Items> content, List<int> quantities, ChestData chestData)
+        public Chest(int x, int y, List<Items> content, List<int> quantities, List<Creatures> creatures, ChestData chestData)
         {
             X = x;
             Y = y;
             chestData.Content = content;
             chestData.Quantity = quantities;
+            chestData.Creatures = creatures;
             _data = chestData;
         }
 
@@ -118,6 +119,7 @@ namespace HeraclesCreatures
         {
             Data.Content.Clear();
             Data.Quantity.Clear();
+            Data.Creatures.Clear();
             IsActive = false;
         }
 
@@ -128,7 +130,18 @@ namespace HeraclesCreatures
             for (int i = 0;i < Data.Content.Count; i++)
             {
                 bool check = false;
-                Console.Write("You Obtained : " + Data.Content[i].name + " X " + Data.Quantity[i]+"\n");
+                Console.Write("You Obtained : " + Data.Content[i].name + " X " + Data.Quantity[i] + "!");
+                do
+                {
+                    inputManager.Update();
+                    check = inputManager.GetKeyDown(ConsoleKey.Enter);
+                } while (check == false);
+                ClearDialogue(currentScene);
+            }
+            for (int i = 0; i < Data.Creatures.Count; i++)
+            {
+                bool check = false;
+                Console.Write(Data.Creatures[i].CreatureName + " joined your team !");
                 do
                 {
                     inputManager.Update();

@@ -150,6 +150,7 @@ namespace HeraclesCreatures
                 {
                     Chest chest = (Chest)mapObject;
                     Data.Player.Items.AddRange(chest.GetItems());
+                    Data.Player.Creatures.AddRange(chest.Data.Creatures);
                     chest.OpenChest();
                     return chest;
                 }

@@ -186,7 +186,7 @@ namespace HeraclesCreatures
             grass = new Grass(3, 3, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
             _scenes["Scene0"].AddMapObject(grass);
 
-            chest = new Chest(5, 20, new List<Items> { new Potion(), new Revive() }, new List<int> { 2, 4 }, _fileManager.ChestsData["Chest1"]);
+            chest = new Chest(5, 20, new List<Items> { new Potion(), new Revive() }, new List<int> { 2, 4 }, new List<Creatures> { }, _fileManager.ChestsData["Chest1"]);
             _scenes["Scene0"].AddMapObject(chest);
 
             npc = new Npc(7, 10, _fileManager.NpcsData["OlympusBird"]);
@@ -239,6 +239,9 @@ namespace HeraclesCreatures
             _scenes["Scene5"].AddMapObject(door);
             Opponent StymphalianBirds = new Opponent(4, 11, _scenes["Scene5"], _fileManager.OpponentsData["Stymphalian Birds"], GenerateEnemy("Stymphalian Birds"));
             _scenes["Scene5"].AddMapObject(StymphalianBirds);
+
+            chest = new Chest(7, 21, new List<Items> {}, new List<int> {}, new List<Creatures> { new Creatures("Ceryneia's Hind", _creaturesStats["Ceryneia's Hind"], GenerateCreatureMovePool("Ceryneia's Hind")) }, _fileManager.ChestsData["Chest2"]);
+            _scenes["Scene5"].AddMapObject(chest);
 
 
             // SCENE 6
