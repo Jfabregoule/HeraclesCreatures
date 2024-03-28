@@ -213,6 +213,38 @@ namespace HeraclesCreatures
             Console.WriteLine("\\                                                                                                               /");
             Console.WriteLine("\\                                                                                                               /");
             Console.WriteLine("\\---------------------------------------------------------------------------------------------------------------/");
+            
+        }
+
+        public void Items(Player player)
+        {
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine("\\---------------------------------------------------------------------------------------------------------------/");
+            Console.WriteLine("\\                                                                                                               /");
+            Console.WriteLine("\\                                                                                                               /");
+            Console.WriteLine("\\                                                                                                               /");
+            Console.WriteLine("\\                                                                                                               /");
+            Console.Write("\\");
+            for (int i = 0; i < player.Items.Count / 2; i++)
+            {
+                Console.Write(new string(' ', 21));
+                Console.Write("-");
+                Console.Write(player.Items[i].name);
+                Console.Write(new string(' ', 44));
+                if (i + 1 < player.Items.Count)
+                {
+                    Console.Write('-');
+                    Console.Write(player.Items[i + 1].name);
+                }
+                Console.Write("                            /");
+                Console.WriteLine(new string(' ', 20));
+
+            }
+
+            Console.WriteLine("\\                                                                                                               /");
+            Console.WriteLine("\\                                                                                                               /");
+            Console.WriteLine("\\                                                                                                               /");
+            Console.WriteLine("\\---------------------------------------------------------------------------------------------------------------/");
         }
         public int Checkinventory()
         {

@@ -1,7 +1,7 @@
 ﻿namespace HeraclesCreatures
 {
     [Serializable]
-    public class CreatureStats
+    public struct CreatureStats
     {
         /*------------------------------------------------------------------------------------------*\
         |                                                                                            |
@@ -49,7 +49,7 @@
         public string type { get { return _type; } set { _type = value; } }
         public int Level { get => _level; set => _level = value; }
         public int XpNeeded { get => _xpNeeded; set => _xpNeeded = value; }
-        public int CurrentXp { get => _currentXp; set => _currentXp = value; }
+        public int CurrentXp { get { return _currentXp; } set { _currentXp = value; } }
         public int Mana { get => _mana; set => _mana = value; }
 
 
@@ -96,7 +96,6 @@
             _xpNeeded = 0;
             _type = "Water";
         }
-
 
         public void Regen(float amount)
         {

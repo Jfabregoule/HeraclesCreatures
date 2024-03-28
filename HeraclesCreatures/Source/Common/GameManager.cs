@@ -319,14 +319,32 @@ namespace HeraclesCreatures
         public void CallInventory()
         {
             int inventoryOption = _menu.Checkinventory();
+            bool back = false;
             if (inventoryOption != -1)
             {
                 switch (inventoryOption)
                 {
                     case 0:
-                        _menu.Creatures(_player);
+                        while(back == false)
+                        {
+                            _menu.Creatures(_heracles.Data.Player);
+                            if(_inputManager.GetKeyDown(ConsoleKey.Escape))
+                            {
+                                back = true;
+                            }
+                            _inputManager.Update();
+                        }
                         break;
                     case 1:
+                        while (back == false)
+                        {
+                            _menu.Items(_heracles.Data.Player);
+                            if (_inputManager.GetKeyDown(ConsoleKey.Escape))
+                            {
+                                back = true;
+                            }
+                            _inputManager.Update();
+                        }
                         break;
                 }
                 if (_isRunning == true)
@@ -415,6 +433,10 @@ namespace HeraclesCreatures
                     foreach (Creatures creature in _heracles.Data.Player.Creatures) {
                         creature.State = CreatureState.ALIVE;
                         creature.FullHeal();
+                        for (int i = 0; creature.Moves.Count - 1 > i; i++)
+                        {
+                            creature.Moves[i].MaximizePP();
+                        }
                     }
                     _player.CurrentCreature = _player.Creatures[0];
                 }
