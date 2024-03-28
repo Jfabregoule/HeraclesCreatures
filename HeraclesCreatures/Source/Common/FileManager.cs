@@ -16,16 +16,13 @@ namespace HeraclesCreatures
 
         #region Fields
 
-        //Dictionary<string, CreatureStats> _creaturesStats;
-        //Dictionary<string, MoveStats> _moveStats;
-        //Dictionary<string, List<string>> _movePools;
-        //Dictionary<string, Moves> _moves;
         Dictionary<string, CreatureStats> _creaturesData;
         Dictionary<string, OpponentData> _opponentsData;
         Dictionary<string, TileData> _tilesData;
         Dictionary<string, DoorData> _doorsData;
         Dictionary<string, ChestData> _chestsData;
         Dictionary<string, GrassData> _grassesData;
+        Dictionary<string, NpcData> _npcsData;
         Dictionary<string, CharacterData> _charactersData;
         Dictionary<string, Scene> _scenes;
 
@@ -47,6 +44,7 @@ namespace HeraclesCreatures
         public Dictionary<string, DoorData> DoorsData { get => _doorsData; set => _doorsData = value; }
         public Dictionary<string, ChestData> ChestsData { get => _chestsData; set => _chestsData = value; }
         public Dictionary<string, GrassData> GrassesData { get => _grassesData; set => _grassesData = value; }
+        public Dictionary<string, NpcData> NpcsData { get => _npcsData; set => _npcsData = value; }
         public Dictionary<string, CharacterData> CharactersData { get => _charactersData; set => _charactersData = value; }
         public Dictionary<string, Scene> Scenes { get => _scenes; set => _scenes = value; }
 
@@ -85,6 +83,7 @@ namespace HeraclesCreatures
             _charactersData = new();
             _opponentsData = new();
             _grassesData = new();
+            _npcsData = new();
             _scenes = new();
             FillAllDictionnaries();
         }
@@ -217,6 +216,17 @@ namespace HeraclesCreatures
             return color;
         }
 
+        private List<string> GetDialogue(string[] dialogueLines, int index)
+        {
+            List<string> dialogue = new List<string> {};
+            while (dialogueLines[index] != "")
+            {
+                dialogue.Add(dialogueLines[index]);
+                index++;
+            }
+            return dialogue;
+        }
+
         private Dictionary<string, TileData> TilesIDs(string[] sceneLines, int index)
         {
             Dictionary<string, TileData> tilesIDs = new();
@@ -272,172 +282,6 @@ namespace HeraclesCreatures
             scene.Cells = cells;
             return scene;
         }
-
-        /*
-        private void FillMovesDictionnaries()
-        {
-            string folderPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\Resources\\Moves";
-            if (Directory.Exists(folderPath))
-            {
-                string[] subDirectories = Directory.GetDirectories(folderPath);
-
-                foreach (string subDirectory in subDirectories)
-                {
-                    string[] files = Directory.GetFiles(subDirectory, "*.txt");
-
-                    foreach (string filePath in files)
-                    {
-                        try
-                        {
-                            string[] lines = File.ReadAllLines(filePath);
-
-                            MoveStats moveStats = new MoveStats();
-                            int PP = 0;
-                            foreach (string line in lines)
-                            {
-                                string[] parts = line.Split(':');
-                                if (parts.Length == 2)
-                                {
-                                    string key = parts[0].Trim();
-                                    string value = parts[1].Trim();
-
-                                    switch (key)
-                                    {
-                                        case "POWER":
-                                            moveStats.Power = int.Parse(value);
-                                            break;
-                                        case "ACCURACY":
-                                            moveStats.Accuracy = float.Parse(value);
-                                            break;
-                                        case "CRITRATE":
-                                            moveStats.CritRate = int.Parse(value);
-                                            break;
-                                        case "MAXPP":
-                                            moveStats.MaxPP = int.Parse(value);
-                                            break;
-                                        case "PP":
-                                            PP = int.Parse(value);
-                                            break;
-                                        case "MANACOST":
-                                            moveStats.ManaCost = int.Parse(value);
-                                            break;
-                                        case "TYPE":
-                                            moveStats.Type = value;
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                            }
-
-                            string moveName = Path.GetFileNameWithoutExtension(filePath);
-                            moveName = moveName.Replace('_', ' ');
-
-                            _moveStats.Add(moveName, moveStats);
-                            Moves move = new Moves(moveName, moveStats);
-                            _moves.Add(moveName, move);
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine($"An error occurred while reading the file {filePath}: {ex.Message}");
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine($"The specified directory does not exist: {folderPath}");
-            }
-        }
-
-        private void FillCreaturesDictionnary()
-        {
-            string folderPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\Resources\\Creatures";
-
-            if (Directory.Exists(folderPath))
-            {
-                string[] files = Directory.GetFiles(folderPath, "*.txt");
-
-                foreach (string filePath in files)
-                {
-                    try
-                    {
-                        string[] lines = File.ReadAllLines(filePath);
-
-                        CreatureStats creatureStats = new CreatureStats();
-
-                        List<string> movePool = new List<string>();
-
-                        bool inMovePoolSection = false;
-
-                        foreach (string line in lines)
-                        {
-                            if (line.Trim().Equals("MovePool :", StringComparison.OrdinalIgnoreCase))
-                            {
-                                inMovePoolSection = true;
-                            }
-                            else if (inMovePoolSection && !string.IsNullOrWhiteSpace(line))
-                            {
-                                movePool.Add(line.Trim());
-                            }
-                            else
-                            {
-                                string[] parts = line.Split(':');
-                                if (parts.Length == 2)
-                                {
-                                    string key = parts[0].Trim();
-                                    string value = parts[1].Trim();
-
-                                    switch (key)
-                                    {
-                                        case "HP":
-                                            creatureStats.health = float.Parse(value);
-                                            break;
-                                        case "MAXHP":
-                                            creatureStats.maxHealth = float.Parse(value);
-                                            break;
-                                        case "ATTACK":
-                                            creatureStats.attack = float.Parse(value);
-                                            break;
-                                        case "MAGICPOWER":
-                                            creatureStats.magicpower = float.Parse(value);
-                                            break;
-                                        case "DEFENSE":
-                                            creatureStats.defense = float.Parse(value);
-                                            break;
-                                        case "MAXMANA":
-                                            creatureStats.maxMana = int.Parse(value);
-                                            break;
-                                        case "SPEED":
-                                            creatureStats.AttackSpeed = float.Parse(value);
-                                            break;
-                                        case "TYPE":
-                                            creatureStats.type = value;
-                                            break;
-                                    }
-                                }
-                            }
-                        }
-
-                        string creatureName = Path.GetFileNameWithoutExtension(filePath);
-                        creatureName = creatureName.Replace('_', ' ');
-
-                        _creaturesStats.Add(creatureName, creatureStats);
-
-                        _movePools.Add(creatureName, movePool);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Une erreur s'est produite lors de la lecture du fichier {filePath}: {ex.Message}");
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine($"Le dossier spécifié n'existe pas : {folderPath}");
-            }
-        }
-        */
 
         private void FillTilesDictionnary(List<string[]> TilesLines)
         {
@@ -614,6 +458,46 @@ namespace HeraclesCreatures
             }
         }
 
+        private void FillNpcDictionnary(List<string[]> npcsLines)
+        {
+            foreach (string[] npcLines in npcsLines)
+            {
+                NpcData npcData = new();
+                MapObjectData mapData = new();
+                string name = "";
+                for (int i = 0; i < npcLines.Length; i++)
+                {
+                    if (npcLines[i] == "Name:")
+                    {
+                        name = npcLines[i + 1];
+                    }
+
+                    else if (npcLines[i] == "Dialogue:")
+                    {
+                        npcData.Dialogue = GetDialogue(npcLines, i + 1);
+                    }
+
+                    else if (npcLines[i] == "Drawing:")
+                    {
+                        mapData.Drawing = GetDrawing(npcLines, i);
+                    }
+
+                    else if (npcLines[i] == "FGColor:")
+                    {
+                        mapData.ForegroundColor = GetColor(npcLines, i);
+                    }
+
+                    else if (npcLines[i] == "BGColor:")
+                    {
+                        mapData.BackgroundColor = GetColor(npcLines, i);
+                    }
+                }
+
+                npcData.MapData = mapData;
+                _npcsData.Add(name, npcData);
+            }
+        }
+
         private void FillCharacterDictionnary(List<string[]> charactersLines)
         {
             foreach (string[] characterLines in charactersLines)
@@ -742,6 +626,7 @@ namespace HeraclesCreatures
                     List<string[]> doorsLines = new List<string[]> { };
                     List<string[]> opponentsLines = new List<string[]> { };
                     List<string[]> grassesLines = new List<string[]> { };
+                    List<string[]> npcsLines = new List<string[]> { };
                     foreach (string[] mapObject in ressourcesLines[key])
                     {
                         switch (mapObject[1])
@@ -761,6 +646,9 @@ namespace HeraclesCreatures
                             case "Grass":
                                 grassesLines.Add(mapObject);
                                 break;
+                            case "Npc":
+                                npcsLines.Add(mapObject);
+                                break;
                         }
                     }
                     FillCharacterDictionnary(charactersLines);
@@ -768,6 +656,7 @@ namespace HeraclesCreatures
                     FillDoorDictionnary(doorsLines);
                     FillOpponentsDictionnary(opponentsLines);
                     FillGrassDictionnary(grassesLines);
+                    FillNpcDictionnary(npcsLines);
                 }
             }
         }

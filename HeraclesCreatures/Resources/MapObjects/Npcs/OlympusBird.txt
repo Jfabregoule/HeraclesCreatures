@@ -1,0 +1,35 @@
+Type:
+Npc
+
+Name:
+OlympusBird
+
+Dialogue:
+Hello, Heracles
+Do you know why you are here ?
+You have work to acomplish
+To be more precise, you need to acomplish 12 miracles
+You are the only being able to realize these achievements, son of Zeus
+Each door will lead you to a challenge that you must overcome
+Good Luck, if you need me to explain your mission again, come back to me, and I will tell you
+
+Drawing:
+     \\   
+     (o>  
+  \\_//)  
+   \_/_)  
+    _|_   
+
+FGColor:
+15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,
+
+BGColor:
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,

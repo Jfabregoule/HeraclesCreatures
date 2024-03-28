@@ -148,6 +148,7 @@ namespace HeraclesCreatures
             Door door = new Door();
             Grass grass = new Grass();
             Chest chest = new Chest();
+            Npc npc = new Npc();
 
 
             // SCENE 0
@@ -184,6 +185,9 @@ namespace HeraclesCreatures
 
             chest = new Chest(5, 20, new List<Items> { new Potion(), new Revive() }, new List<int> { 2, 4 }, _fileManager.ChestsData["Chest1"]);
             _fileManager.Scenes["Scene0"].AddMapObject(chest);
+
+            npc = new Npc(7, 10, _fileManager.NpcsData["OlympusBird"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(npc);
 
 
             // SCENE 1
@@ -400,7 +404,7 @@ namespace HeraclesCreatures
             }
             else
             {
-                
+                _heracles.ClearDialogue(_currentScene);
             }
             if (Console.WindowWidth != _consoleWidth || Console.WindowHeight != _consoleHeight)
             {

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\MapObjects\Grasses\" />
+    <Folder Include="Source\GameObject\MapObjects\Npc\" />
   </ItemGroup>
 
 </Project>
