@@ -398,6 +398,10 @@ namespace HeraclesCreatures
                     _currentScene.ResetDisplay();
                 }
             }
+            else
+            {
+                
+            }
             if (Console.WindowWidth != _consoleWidth || Console.WindowHeight != _consoleHeight)
             {
                 _consoleWidth = Console.WindowWidth;

@@ -80,6 +80,18 @@ namespace HeraclesCreatures
             Console.SetCursorPosition(0, currentScene.Height * 5 + 5);
         }
 
+        public virtual void ClearDialogue(Scene currentScene)
+        {
+            Console.SetCursorPosition(0, currentScene.Height * 5 + 5);
+            for (int i = 0; i < 150; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.Write(' ');
+            }
+            Console.SetCursorPosition(0, currentScene.Height * 5 + 5);
+        }
+
         #endregion Methods
 
     }

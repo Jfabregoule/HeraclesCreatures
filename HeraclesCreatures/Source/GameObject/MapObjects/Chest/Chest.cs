@@ -125,12 +125,19 @@ namespace HeraclesCreatures
 
         public override void PlayDialogue(Scene currentScene)
         {
+            InputManager inputManager = new InputManager();
             base.PlayDialogue(currentScene);
             for (int i = 0;i < Data.Content.Count; i++)
             {
-                Console.Write("You Obtained : " + Data.Content[i].Name + " X " + Data.Quantity[i]+"\n");
+                bool check = false;
+                Console.Write("You Obtained : " + Data.Content[i].name + " X " + Data.Quantity[i]+"\n");
+                do
+                {
+                    inputManager.Update();
+                    check = inputManager.GetKeyDown(ConsoleKey.Enter);
+                } while (check == false);
+                ClearDialogue(currentScene);
             }
-
         }
 
 
