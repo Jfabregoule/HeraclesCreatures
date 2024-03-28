@@ -112,7 +112,7 @@ namespace HeraclesCreatures
                 Random random = new Random();
 
                 randomIndex = random.Next(0, EnemyCreature.Moves.Count);
-                if ((EnemyCreature.Moves[randomIndex] is Attack && EnemyCreature.Moves[randomIndex].PP > 0) || (EnemyCreature.Moves[randomIndex] is Spell && EnemyCreature.Mana > EnemyCreature.Moves[randomIndex].Stats.ManaCost))
+                if ((EnemyCreature.Moves[randomIndex] is Attack && EnemyCreature.Moves[randomIndex].PP > 0) || (EnemyCreature.Moves[randomIndex] is Spell && EnemyCreature.Stats.Mana > EnemyCreature.Moves[randomIndex].Stats.ManaCost))
                 {
                     moveIsAvailable = true;
                 }
@@ -131,7 +131,7 @@ namespace HeraclesCreatures
                 int power = EnemyCreature.Moves[i].Stats.Power;
                 if (power > bestPower)
                 {
-                    if ((EnemyCreature.Moves[i] is Attack && EnemyCreature.Moves[i].PP > 0) || (EnemyCreature.Moves[i] is Spell && EnemyCreature.Mana > EnemyCreature.Moves[i].Stats.ManaCost))
+                    if ((EnemyCreature.Moves[i] is Attack && EnemyCreature.Moves[i].PP > 0) || (EnemyCreature.Moves[i] is Spell && EnemyCreature.Stats.Mana > EnemyCreature.Moves[i].Stats.ManaCost))
                     bestPower = power;
                     bestMoveIndex = i;
                     canMove = true;
@@ -167,7 +167,7 @@ namespace HeraclesCreatures
                 int power = EnemyCreature.Moves[i].Stats.Power;
                 if (power > bestPower)
                 {
-                    if ((EnemyCreature.Moves[i] is Attack && EnemyCreature.Moves[i].PP > 0) || (EnemyCreature.Moves[i] is Spell && EnemyCreature.Mana > EnemyCreature.Moves[i].Stats.ManaCost))
+                    if ((EnemyCreature.Moves[i] is Attack && EnemyCreature.Moves[i].PP > 0) || (EnemyCreature.Moves[i] is Spell && EnemyCreature.Stats.Mana > EnemyCreature.Moves[i].Stats.ManaCost))
                         bestPower = power;
                     bestMoveIndex = i;
                     canMove = true;

@@ -41,7 +41,6 @@ namespace HeraclesCreatures
         List<Moves>         _moves;
         CreatureState       _state;
         CreatureStats       _stats;
-        int                 _mana;
 
         #endregion Fields
 
@@ -59,7 +58,6 @@ namespace HeraclesCreatures
         public List<Moves> Moves { get => _moves; private set => _moves = value; }
         public CreatureStats Stats { get => _stats; set => _stats = value; }
         public CreatureState State { get => _state; set => _state = value; }
-        public int Mana { get => _mana; set => _mana = value; }
 
         #endregion Properties
 
@@ -93,7 +91,7 @@ namespace HeraclesCreatures
             _stats = stats;
             _moves = moves;
             _state = CreatureState.ALIVE;
-            Mana = stats.maxMana;
+            Stats.SetMana(stats.maxMana);
             foreach (Moves move in moves)
             {
                 if (move is Spell)
@@ -109,7 +107,6 @@ namespace HeraclesCreatures
             _creatureName = creatureData._creatureName;
             _stats = creatureData._stats;
             _state= creatureData._state;
-            _mana = creatureData._mana;
             List<Moves> moves = new List<Moves>();
             for (int i = 0; i < creatureData._moveData.Count; i++)
             {
@@ -135,6 +132,21 @@ namespace HeraclesCreatures
             RefillMana();
         }
 
+        public void XpGain(int gain)
+        {
+            Stats.GetXp(gain);
+            CheckLvlUp();
+        }
+
+        public void CheckLvlUp()
+        {
+            if(Stats.CurrentXp >= Stats.XpNeeded)
+            {
+                Stats.LevelUp();
+                Stats.ResetCurrentXp();
+            }
+        }
+
         public void AddMove(Moves move) 
         {
             _moves.Add(move);
@@ -142,7 +154,7 @@ namespace HeraclesCreatures
 
         public void RemoveMana(int manaCost)
         {
-            Mana -= manaCost;
+            Stats.RemoveMana(manaCost);
         }
 
         public void AddMana(int value)
@@ -151,23 +163,23 @@ namespace HeraclesCreatures
             {
                 throw new ArgumentException(nameof(value));
             }
-            if (Mana + value > Stats.maxMana)
+            if (Stats.Mana + value > Stats.maxMana)
             {
-                Mana = Stats.maxMana;
+                Stats.SetMana(Stats.maxMana);
             }
             else if (value == Stats.maxMana)
             {
-                Mana = value;
+                Stats.SetMana(value);
             }
             else
             {
-                Mana += value;
+                Stats.SetMana(Stats.Mana + value);
             }
         }
 
         private void RefillMana()
         {
-            Mana = Stats.maxMana;
+            Stats.SetMana(Stats.maxMana);
         }
 
         public void TakeDamage(int damage)
@@ -210,7 +222,6 @@ namespace HeraclesCreatures
             CreatureData data = new CreatureData();
 
             data._creatureName = _creatureName;
-            data._mana = _mana;
             data._stats = _stats;
             data._state = _state;
             List<MoveData> movesData = new List<MoveData>();
