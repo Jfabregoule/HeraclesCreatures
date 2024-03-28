@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <Folder Include="Resources\MapObjects\Grasses\" />
+    <Folder Include="Resources\MapObjects\HealingStand\" />
+    <Folder Include="Source\GameObject\MapObjects\HealingStand\" />
     <Folder Include="Source\GameObject\MapObjects\Npc\" />
   </ItemGroup>
 

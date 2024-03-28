@@ -51,6 +51,8 @@ namespace HeraclesCreatures
         FileManager                         _fileManager;
         CombatManager                       _currentFight;
 
+        Dictionary<string, Scene>           _scenes;
+
         Player                              _player;
         Scene                               _currentScene;
 
@@ -61,10 +63,10 @@ namespace HeraclesCreatures
         List<string>                        _types;
         float[,]                            _typeTable;
 
-        Character _heracles;
+        Character                           _heracles;
 
-        int _consoleHeight;
-        int _consoleWidth;
+        int                                 _consoleHeight;
+        int                                 _consoleWidth;
 
         #endregion Fields
 
@@ -113,6 +115,7 @@ namespace HeraclesCreatures
             _moveStats = new Dictionary<string, MoveStats>();
             _movePools = new Dictionary<string, List<string>>();
             _moves = new Dictionary<string, Moves>();
+            _scenes = _fileManager.Scenes;
 
             _consoleWidth = Console.WindowWidth;
             _consoleHeight = Console.WindowHeight;
@@ -132,7 +135,7 @@ namespace HeraclesCreatures
         {
 
             // Set Scene
-            _currentScene = _fileManager.Scenes["Scene0"];
+            _currentScene = _scenes["Scene0"];
 
             // Create Character
             List<Creatures> creatures = new List<Creatures>();
@@ -149,108 +152,112 @@ namespace HeraclesCreatures
             Grass grass = new Grass();
             Chest chest = new Chest();
             Npc npc = new Npc();
+            HealingStand healingStand = new HealingStand();
 
 
             // SCENE 0
 
             door = new Door(4, 1, _fileManager.DoorsData["Door0-1"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(door);
+            _scenes["Scene0"].AddMapObject(door);
 
             door = new Door(1, 1, _fileManager.DoorsData["Door0-2"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(door);
+            _scenes["Scene0"].AddMapObject(door);
 
             door = new Door(1, 6, _fileManager.DoorsData["Door0-3"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(door);
+            _scenes["Scene0"].AddMapObject(door);
 
             door = new Door(1, 11, _fileManager.DoorsData["Door0-4"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(door);
+            _scenes["Scene0"].AddMapObject(door);
 
             door = new Door(1, 16, _fileManager.DoorsData["Door0-5"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(door);
+            _scenes["Scene0"].AddMapObject(door);
 
             door = new Door(1, 21, _fileManager.DoorsData["Door0-6"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(door);
+            _scenes["Scene0"].AddMapObject(door);
 
             door = new Door(4, 21, _fileManager.DoorsData["Door0-7"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(door);
+            _scenes["Scene0"].AddMapObject(door);
 
             grass = new Grass(2, 2,new List<string> {"GrassLion", "GrassHydra"}, _fileManager.GrassesData["Grass1"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(grass);
+            _scenes["Scene0"].AddMapObject(grass);
             grass = new Grass(2, 3, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(grass);
+            _scenes["Scene0"].AddMapObject(grass);
             grass = new Grass(3, 2, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(grass);
+            _scenes["Scene0"].AddMapObject(grass);
             grass = new Grass(3, 3, new List<string> { "GrassLion", "GrassHydra" }, _fileManager.GrassesData["Grass1"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(grass);
+            _scenes["Scene0"].AddMapObject(grass);
 
             chest = new Chest(5, 20, new List<Items> { new Potion(), new Revive() }, new List<int> { 2, 4 }, _fileManager.ChestsData["Chest1"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(chest);
+            _scenes["Scene0"].AddMapObject(chest);
 
             npc = new Npc(7, 10, _fileManager.NpcsData["OlympusBird"]);
-            _fileManager.Scenes["Scene0"].AddMapObject(npc);
+            _scenes["Scene0"].AddMapObject(npc);
+
+            healingStand = new HealingStand(7, 15, _fileManager.HealingStandsData["HealingStand1"]);
+            _scenes["Scene0"].AddMapObject(healingStand);
 
 
             // SCENE 1
 
 
             door = new Door(4, 21, _fileManager.DoorsData["Door1-0"]);
-            _fileManager.Scenes["Scene1"].AddMapObject(door);
-            Opponent NemeanLion = new Opponent(4, 11, _fileManager.Scenes["Scene1"], _fileManager.OpponentsData["Nemean Lion"], GenerateEnemy("Nemean Lion"));
-            _fileManager.Scenes["Scene1"].AddMapObject(NemeanLion);
+            _scenes["Scene1"].AddMapObject(door);
+            Opponent NemeanLion = new Opponent(4, 11, _scenes["Scene1"], _fileManager.OpponentsData["Nemean Lion"], GenerateEnemy("Nemean Lion"));
+            _scenes["Scene1"].AddMapObject(NemeanLion);
 
 
             // SCENE 2
 
 
             door = new Door(7, 21, _fileManager.DoorsData["Door2-0"]);
-            _fileManager.Scenes["Scene2"].AddMapObject(door);
-            Opponent LerneanHydra = new Opponent(4, 11, _fileManager.Scenes["Scene2"], _fileManager.OpponentsData["Lernean Hydra"], GenerateEnemy("Lernean Hydra"));
-            _fileManager.Scenes["Scene2"].AddMapObject(LerneanHydra);
+            _scenes["Scene2"].AddMapObject(door);
+            Opponent LerneanHydra = new Opponent(4, 11, _scenes["Scene2"], _fileManager.OpponentsData["Lernean Hydra"], GenerateEnemy("Lernean Hydra"));
+            _scenes["Scene2"].AddMapObject(LerneanHydra);
 
 
             // SCENE 3
 
 
             door = new Door(7, 6, _fileManager.DoorsData["Door3-0"]);
-            _fileManager.Scenes["Scene3"].AddMapObject(door);
-            Opponent ErymantheanBoar = new Opponent(4, 11, _fileManager.Scenes["Scene3"], _fileManager.OpponentsData["Erymanthean Boar"], GenerateEnemy("Erymanthean Boar"));
-            _fileManager.Scenes["Scene3"].AddMapObject(ErymantheanBoar);
+            _scenes["Scene3"].AddMapObject(door);
+            Opponent ErymantheanBoar = new Opponent(4, 11, _scenes["Scene3"], _fileManager.OpponentsData["Erymanthean Boar"], GenerateEnemy("Erymanthean Boar"));
+            _scenes["Scene3"].AddMapObject(ErymantheanBoar);
 
 
             // SCENE 4
 
 
             door = new Door(7, 11, _fileManager.DoorsData["Door4-0"]);
-            _fileManager.Scenes["Scene4"].AddMapObject(door);
-            Opponent CeryneiasHind = new Opponent(4, 11, _fileManager.Scenes["Scene4"], _fileManager.OpponentsData["Ceryneia's Hind"], GenerateEnemy("Ceryneia's Hind"));
-            _fileManager.Scenes["Scene4"].AddMapObject(CeryneiasHind);
+            _scenes["Scene4"].AddMapObject(door);
+            Opponent CeryneiasHind = new Opponent(4, 11, _scenes["Scene4"], _fileManager.OpponentsData["Ceryneia's Hind"], GenerateEnemy("Ceryneia's Hind"));
+            _scenes["Scene4"].AddMapObject(CeryneiasHind);
 
 
             // SCENE 5
 
 
             door = new Door(7, 16, _fileManager.DoorsData["Door5-0"]);
-            _fileManager.Scenes["Scene5"].AddMapObject(door);
-            Opponent StymphalianBirds = new Opponent(4, 11, _fileManager.Scenes["Scene5"], _fileManager.OpponentsData["Stymphalian Birds"], GenerateEnemy("Stymphalian Birds"));
-            _fileManager.Scenes["Scene5"].AddMapObject(StymphalianBirds);
+            _scenes["Scene5"].AddMapObject(door);
+            Opponent StymphalianBirds = new Opponent(4, 11, _scenes["Scene5"], _fileManager.OpponentsData["Stymphalian Birds"], GenerateEnemy("Stymphalian Birds"));
+            _scenes["Scene5"].AddMapObject(StymphalianBirds);
 
 
             // SCENE 6
 
 
             door = new Door(7, 1, _fileManager.DoorsData["Door6-0"]);
-            _fileManager.Scenes["Scene6"].AddMapObject(door);
-            Opponent CretanBull = new Opponent(4, 11, _fileManager.Scenes["Scene6"], _fileManager.OpponentsData["Cretan Bull"], GenerateEnemy("Cretan Bull"));
-            _fileManager.Scenes["Scene6"].AddMapObject(CretanBull);
+            _scenes["Scene6"].AddMapObject(door);
+            Opponent CretanBull = new Opponent(4, 11, _scenes["Scene6"], _fileManager.OpponentsData["Cretan Bull"], GenerateEnemy("Cretan Bull"));
+            _scenes["Scene6"].AddMapObject(CretanBull);
 
 
             // SCENE 7
 
 
             door = new Door(4, 1, _fileManager.DoorsData["Door7-0"]);
-            _fileManager.Scenes["Scene7"].AddMapObject(door);
-            Opponent DiomedesHorses = new Opponent(4, 11, _fileManager.Scenes["Scene7"], _fileManager.OpponentsData["Diomedes Horse"], GenerateEnemy("Diomedes Horse"));
-            _fileManager.Scenes["Scene7"].AddMapObject(DiomedesHorses);
+            _scenes["Scene7"].AddMapObject(door);
+            Opponent DiomedesHorses = new Opponent(4, 11, _scenes["Scene7"], _fileManager.OpponentsData["Diomedes Horse"], GenerateEnemy("Diomedes Horse"));
+            _scenes["Scene7"].AddMapObject(DiomedesHorses);
 
 
             Potion popo = new Potion();
@@ -353,7 +360,7 @@ namespace HeraclesCreatures
             if (interaction != null)
             {
                 interaction.PlayDialogue(_currentScene);
-                object interactionResult = _heracles.Interact(interaction, _fileManager.Scenes, _types, _typeTable);
+                object interactionResult = _heracles.Interact(interaction, _scenes, _types, _typeTable);
                 if ((interactionResult is CombatManager || interactionResult is Grass ) && _player.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD) == false)
                 {
                     Console.Clear();
@@ -400,6 +407,13 @@ namespace HeraclesCreatures
                     _currentScene = (Scene)interactionResult;
                     _currentScene.AddMapObject(_heracles);
                     _currentScene.ResetDisplay();
+                }
+                else if (interactionResult is HealingStand)
+                {
+                    foreach (Creatures creature in _heracles.Data.Player.Creatures) {
+
+                        creature.FullHeal();
+                    }
                 }
             }
             else

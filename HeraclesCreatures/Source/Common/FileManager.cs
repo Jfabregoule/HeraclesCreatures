@@ -23,6 +23,7 @@ namespace HeraclesCreatures
         Dictionary<string, ChestData> _chestsData;
         Dictionary<string, GrassData> _grassesData;
         Dictionary<string, NpcData> _npcsData;
+        Dictionary<string, HealingStandData> _healingStandsData;
         Dictionary<string, CharacterData> _charactersData;
         Dictionary<string, Scene> _scenes;
 
@@ -45,6 +46,7 @@ namespace HeraclesCreatures
         public Dictionary<string, ChestData> ChestsData { get => _chestsData; set => _chestsData = value; }
         public Dictionary<string, GrassData> GrassesData { get => _grassesData; set => _grassesData = value; }
         public Dictionary<string, NpcData> NpcsData { get => _npcsData; set => _npcsData = value; }
+        public Dictionary<string, HealingStandData> HealingStandsData { get => _healingStandsData; set => _healingStandsData = value; }
         public Dictionary<string, CharacterData> CharactersData { get => _charactersData; set => _charactersData = value; }
         public Dictionary<string, Scene> Scenes { get => _scenes; set => _scenes = value; }
 
@@ -84,6 +86,7 @@ namespace HeraclesCreatures
             _opponentsData = new();
             _grassesData = new();
             _npcsData = new();
+            _healingStandsData = new();
             _scenes = new();
             FillAllDictionnaries();
         }
@@ -498,6 +501,41 @@ namespace HeraclesCreatures
             }
         }
 
+        private void FillHealingStandDictionnary(List<string[]> healingStandsLines)
+        {
+            foreach (string[] healingStandLines in healingStandsLines)
+            {
+                HealingStandData healingStandData = new();
+                MapObjectData mapData = new();
+                string name = "";
+                for (int i = 0; i < healingStandLines.Length; i++)
+                {
+                    if (healingStandLines[i] == "Name:")
+                    {
+                        name = healingStandLines[i + 1];
+                    }
+
+                    else if (healingStandLines[i] == "Drawing:")
+                    {
+                        mapData.Drawing = GetDrawing(healingStandLines, i);
+                    }
+
+                    else if (healingStandLines[i] == "FGColor:")
+                    {
+                        mapData.ForegroundColor = GetColor(healingStandLines, i);
+                    }
+
+                    else if (healingStandLines[i] == "BGColor:")
+                    {
+                        mapData.BackgroundColor = GetColor(healingStandLines, i);
+                    }
+                }
+
+                healingStandData.MapData = mapData;
+                _healingStandsData.Add(name, healingStandData);
+            }
+        }
+
         private void FillCharacterDictionnary(List<string[]> charactersLines)
         {
             foreach (string[] characterLines in charactersLines)
@@ -627,6 +665,7 @@ namespace HeraclesCreatures
                     List<string[]> opponentsLines = new List<string[]> { };
                     List<string[]> grassesLines = new List<string[]> { };
                     List<string[]> npcsLines = new List<string[]> { };
+                    List<string[]> healingStandsLines = new List<string[]> { };
                     foreach (string[] mapObject in ressourcesLines[key])
                     {
                         switch (mapObject[1])
@@ -649,6 +688,9 @@ namespace HeraclesCreatures
                             case "Npc":
                                 npcsLines.Add(mapObject);
                                 break;
+                            case "HealingStand":
+                                healingStandsLines.Add(mapObject);
+                                break;
                         }
                     }
                     FillCharacterDictionnary(charactersLines);
@@ -657,6 +699,7 @@ namespace HeraclesCreatures
                     FillOpponentsDictionnary(opponentsLines);
                     FillGrassDictionnary(grassesLines);
                     FillNpcDictionnary(npcsLines);
+                    FillHealingStandDictionnary(healingStandsLines);
                 }
             }
         }

@@ -241,6 +241,11 @@ namespace HeraclesCreatures
                             Npc child = (Npc)obj;
                             DrawMapObject(i * 5, j * 10, child.Data.MapData.Drawing, child.Data.MapData.ForegroundColor, Cells[i, j].Tile.BackgroundColor);
                         }
+                        else if (obj is HealingStand)
+                        {
+                            HealingStand child = (HealingStand)obj;
+                            DrawMapObject(i * 5, j * 10, child.Data.MapData.Drawing, child.Data.MapData.ForegroundColor, Cells[i, j].Tile.BackgroundColor);
+                        }
                         else
                         {
                             Console.WriteLine("This object is not a child class.");
