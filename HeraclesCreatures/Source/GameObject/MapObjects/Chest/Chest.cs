@@ -60,7 +60,6 @@ namespace HeraclesCreatures
         public Chest()
         {
             _data = new ChestData();
-            Dialogue = new string[_data.Content.Count];
         }
 
         public Chest(int x, int y, List<Items> content, List<int> quantities, ChestData chestData)
@@ -70,7 +69,6 @@ namespace HeraclesCreatures
             chestData.Content = content;
             chestData.Quantity = quantities;
             _data = chestData;
-            Dialogue = new string[_data.Content.Count];
         }
 
         public void AddItem(Items item, int quantity)
