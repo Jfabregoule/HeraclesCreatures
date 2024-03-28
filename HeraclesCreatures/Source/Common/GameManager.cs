@@ -269,12 +269,12 @@ namespace HeraclesCreatures
                         break;
 
                 }
+                if (_isRunning == true)
+                {
+                    _currentScene.ResetDisplay();
+                }
             }
             _inputManager.Update();
-            if (_isRunning == true)
-            {
-                _currentScene.ResetDisplay();
-            }
         }
 
         public void CheckMove()

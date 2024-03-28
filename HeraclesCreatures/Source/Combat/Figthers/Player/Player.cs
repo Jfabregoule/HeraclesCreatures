@@ -87,10 +87,17 @@ namespace HeraclesCreatures
                 Creatures creature = new Creatures(playerData._creatures[i]);
                 creaturesList.Add(creature);
             }
+            List<Items> itemsList = new List<Items>();
+            for (int i = 0;i < playerData._items.Count;i++)
+            {
+                Type t = Type.GetType("HeraclesCreatures." + playerData._items[i]._itemName);
+                Items item = (Items)Activator.CreateInstance(t);
+                itemsList.Add(item);
+            }
             Creatures = creaturesList;
+            Items = itemsList;
             CurrentCreature = Creatures[playerData._currentCreatureID];
             Name = playerData._name;
-            Items = playerData._items;
         }
 
         public void AddItems(Items items)
@@ -109,7 +116,13 @@ namespace HeraclesCreatures
             {
                 creatureDatas.Add(creature.GetCreatureData());
             }
+            List<ItemData> itemDatas = new List<ItemData>();
+            foreach(Items item in Items)
+            {
+                itemDatas.Add(item.GetItemsData());
+            }
             playerData._creatures = creatureDatas;
+            playerData._items = itemDatas;
             return playerData;
         }
 
