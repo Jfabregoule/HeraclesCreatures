@@ -47,6 +47,7 @@ namespace HeraclesCreatures
         GamePhase                           _gamePhase;
 
         InputManager                        _inputManager;
+        Menu                                _menu;
         FileManager                         _fileManager;
         CombatManager                       _currentFight;
 
@@ -106,6 +107,7 @@ namespace HeraclesCreatures
             _isRunning = true;
             _gamePhase = GamePhase.Beginning;
             _inputManager = new InputManager();
+            _menu = new Menu(_inputManager);
             _fileManager = new FileManager();
             _creaturesStats = new Dictionary<string, CreatureStats>();
             _moveStats = new Dictionary<string, MoveStats>();
@@ -247,154 +249,33 @@ namespace HeraclesCreatures
             Console.WriteLine("Données chargées.");
         }
 
-        public static void DrawMenu(int selectedOption)
+        public void CallMenu()
         {
-            Console.Clear();
-            Console.CursorVisible = false;
-
-            Console.WriteLine("\\---------------------------------------------------------------------------------------------------------------/");
-            Console.WriteLine("\\                                                                                                               /");
-            Console.WriteLine("\\                                                                                                               /");
-            Console.WriteLine("\\                                                                                                               /");
-            Console.WriteLine("\\                                                                                                               /");
-
-            Console.Write("\\");
-            Console.Write(new string(' ', 24));
-            if (selectedOption == 0)
+            int currentOption = _menu.CheckMenu();
+            if (currentOption != -1)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(">");
-            }
-            else
-            {
-                Console.Write(" ");
-            }
-            Console.Write("    Team");
-            Console.ResetColor();
-            Console.Write(new string(' ', 40));
-            if (selectedOption == 2)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(">");
-            }
-            else
-            {
-                Console.Write(" ");
-            }
-            Console.Write("    Load");
-            Console.Write("                             /");
-            Console.ResetColor();
-            Console.WriteLine(new string(' ', 24));
-
-            Console.WriteLine("\\                                                                                                               /");
-            Console.WriteLine("\\                                                                                                               /");
-            Console.WriteLine("\\                                                                                                               /");
-
-            Console.Write("\\");
-            Console.Write(new string(' ', 24));
-            if (selectedOption == 1)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(">");
-            }
-            else
-            {
-                Console.Write(" ");
-            }
-            Console.Write("    Save");
-            Console.ResetColor();
-            Console.Write(new string(' ', 40));
-            if (selectedOption == 3)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(">");
-            }
-            else
-            {
-                Console.Write(" ");
-            }
-            Console.Write("    Leave");
-            Console.Write("                            /");
-            Console.ResetColor();
-            Console.WriteLine(new string(' ', 15));
-            
-            Console.WriteLine("\\                                                                                                               /");
-            Console.WriteLine("\\                                                                                                               /");
-            Console.WriteLine("\\                                                                                                               /");
-            Console.WriteLine("\\---------------------------------------------------------------------------------------------------------------/");
-        }
-
-
-        public void CheckMenu()
-        {
-            if (_inputManager.IsAnyKeyPressed() && _inputManager.GetKeyDown(ConsoleKey.Escape))
-            {
-                Console.Clear();
-                _inputManager.Update();
-                int currentOption = 0;
-                DrawMenu(0);
-                while (!_inputManager.GetKeyDown(ConsoleKey.Escape) && !_inputManager.GetKeyDown(ConsoleKey.Enter))
+                switch (currentOption)
                 {
-                    _inputManager.Update();
-                    if (_inputManager.IsAnyKeyPressed())
-                    {
-                        if (_inputManager.GetKeyDown(ConsoleKey.DownArrow))
-                        {
-                            if (currentOption == 0 || currentOption == 2)
-                            {
-                                currentOption += 1;
-                            }
-                        }
-                        else if (_inputManager.GetKeyDown(ConsoleKey.UpArrow))
-                        {
-                            if (currentOption == 1 || currentOption == 3)
-                            {
-                                currentOption -= 1;
-                            }
-                        }
-                        else if (_inputManager.GetKeyDown(ConsoleKey.RightArrow))
-                        {
-                            if (currentOption == 0 || currentOption == 1)
-                            {
-                                currentOption += 2;
-                            }
-                        }
-                        else if (_inputManager.GetKeyDown(ConsoleKey.LeftArrow))
-                        {
-                            if (currentOption == 2 || currentOption == 3)
-                            {
-                                currentOption -= 2;
-                            }
-                        }
-                        DrawMenu(currentOption);
-                    }
-                }
-                if (_inputManager.GetKeyDown(ConsoleKey.Enter))
-                {
-                    switch(currentOption)
-                    {
-                        case 0:
-                            break;
-                        case 1:
-                            SaveGame();
-                            break;
-                        case 2:
-                            LoadGame();
-                            break;
-                        case 3:
-                            _isRunning = false;
-                            break;
+                    case 0:
+                        break;
+                    case 1:
+                        SaveGame();
+                        break;
+                    case 2:
+                        LoadGame();
+                        break;
+                    case 3:
+                        _isRunning = false;
+                        break;
 
-                    }
                 }
-                _inputManager.Update();
-                if (_isRunning == true)
-                {
-                    _currentScene.ResetDisplay();
-                }
+            }
+            _inputManager.Update();
+            if (_isRunning == true)
+            {
+                _currentScene.ResetDisplay();
             }
         }
-
 
         public void CheckMove()
         {
@@ -471,7 +352,7 @@ namespace HeraclesCreatures
                 if (_inputManager.IsAnyKeyPressed())
                 {
                     CheckMove();
-                    CheckMenu();
+                    CallMenu();
                 }
             }
             Console.Clear();
