@@ -39,7 +39,6 @@ namespace HeraclesCreatures
         public int X { get => _x; set => _x = value; }
         public int Y { get => _y; set => _y = value; }
         public bool IsActive { get => _isActive; set => _isActive = value; }
-        public string[] Dialogue { get => _dialogue; set => _dialogue = value; }
 
         #endregion Properties
 
@@ -72,7 +71,6 @@ namespace HeraclesCreatures
             _x = 0;
             _y = 0;
             _isActive = true;
-            _dialogue = new string[0];
         }
 
         public virtual void PlayDialogue(Scene currentScene) {
