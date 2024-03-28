@@ -1,0 +1,10 @@
+﻿Difficulty :
+
+1
+
+Creatures :
+
+Nemean Lion
+Erymanthean Boar
+
+Items :

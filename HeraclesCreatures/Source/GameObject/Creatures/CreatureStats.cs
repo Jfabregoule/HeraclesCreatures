@@ -158,8 +158,8 @@
                 _defense *= 1.2f;
                 _maxhp *= 1.3f;
                 _hp = maxHealth;
-                _xpNeeded *= 2;
-                _maxmana *= 2;
+                _xpNeeded = (int)(_xpNeeded * 1.5f);
+                _maxmana = (int)(_maxmana * 1.5f);
                 _mana = maxMana;
                 _magicpower *= 1.3f;
             }

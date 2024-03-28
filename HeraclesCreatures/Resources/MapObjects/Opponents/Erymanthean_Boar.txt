@@ -2,13 +2,13 @@ Type:
 Opponent
 
 Name:
-LaDaronneDeJulien
+Erymanthean Boar
 
 Drawing:
-++++La++++
-+Daronne++
-++++De++++
-++Julien++
+++++++++++
+++++++++++
++++Boar+++
+++++++++++
 ++++++++++
 
 FGColor:
