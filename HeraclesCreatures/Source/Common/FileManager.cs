@@ -590,7 +590,7 @@ namespace HeraclesCreatures
 
                     else if (grassLines[i] == "Rate:")
                     {
-                        grassData.EncounterRate = 50;
+                        grassData.EncounterRate = GetInt(grassLines[i + 1]);
                     }
 
                     else if (grassLines[i] == "Drawing:")

@@ -176,7 +176,7 @@ namespace HeraclesCreatures
             door = new Door(4, 21, _fileManager.DoorsData["Door0-7"]);
             _fileManager.Scenes["Scene0"].AddMapObject(door);
 
-            grass = new Grass(2, 2,new List<Creatures> { }, _fileManager.GrassesData["Grass1"]);
+            grass = new Grass(2, 2,new List<string> {"GrassHydra", "GrassLion"}, _fileManager.GrassesData["Grass1"]);
             _fileManager.Scenes["Scene0"].AddMapObject(grass);
 
 
@@ -304,10 +304,20 @@ namespace HeraclesCreatures
             if (interaction != null)
             {
                 object interactionResult = _heracles.Interact(interaction, _fileManager.Scenes, _types, _typeTable);
-                if (interactionResult is CombatManager && _player.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD) == false)
+                if ((interactionResult is CombatManager || interactionResult is Grass ) && _player.Creatures.All(Creatures => Creatures.State == CreatureState.DEAD) == false)
                 {
                     Console.Clear();
-                    _currentFight = (CombatManager)interactionResult;
+                    if (interactionResult is Grass)
+                    {
+                        Console.Write("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                        Grass grass = (Grass)interactionResult;
+                        CombatManager combatManager = new CombatManager(_heracles.Data.Player, GenerateEnemy(grass.GetRandomCreature()), _types, _typeTable);
+                        _currentFight = combatManager;
+                    }
+                    else
+                    {
+                        _currentFight = (CombatManager)interactionResult;
+                    }
                     while (_currentFight.IsOver == false)
                     {
                         _currentFight.Fighting();
@@ -315,8 +325,11 @@ namespace HeraclesCreatures
                     if (_currentFight.IsWin)
                     {
                         _currentFight = null;
+                        if (interaction is Opponent)
+                        {
                         _currentScene.ToRemove.Add(new int[] { interaction.X, interaction.Y });
                         _currentScene.RemoveMapObject(interaction);
+                        }
                     }
                     _currentScene.ResetDisplay();
                 }
