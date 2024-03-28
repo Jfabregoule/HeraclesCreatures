@@ -158,6 +158,11 @@ namespace HeraclesCreatures
                     CombatManager combatManager = new CombatManager(Data.Player, opponent.Data.Enemy, types, typeTable);
                     return combatManager;
                 }
+                else if (mapObject is Grass)
+                {
+                    Grass grass = (Grass)mapObject;
+                    //CurrentScene.ToAdd(grass);
+                }
             }
             return new();
         }

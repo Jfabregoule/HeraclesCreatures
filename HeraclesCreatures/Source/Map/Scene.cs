@@ -23,6 +23,7 @@ namespace HeraclesCreatures
         Cell[,] _cells;
         MapObject[,] _sceneObjects;
         List<int[]> _toRemove;
+        List<Grass> _toAdd;
 
         #endregion Fields
 
@@ -42,6 +43,7 @@ namespace HeraclesCreatures
         public Cell[,] Cells { get => _cells; set => _cells = value; }
         public MapObject[,] SceneObjects { get => _sceneObjects; set => _sceneObjects = value; }
         public List<int[]> ToRemove { get => _toRemove; set => _toRemove = value; }
+        internal List<Grass> ToAdd { get => _toAdd; set => _toAdd = value; }
 
         #endregion Properties
 
@@ -77,6 +79,7 @@ namespace HeraclesCreatures
             _cells = new Cell[,] {};
             _sceneObjects = new MapObject[,] {};
             _toRemove = new List<int[]> { };
+            _toAdd = new List<Grass> { };
         }
 
         public void AddMapObject(MapObject obj)
@@ -191,6 +194,11 @@ namespace HeraclesCreatures
                         else if (obj is Door)
                         {
                             Door child = (Door)obj;
+                            DrawMapObject(i * 5, j * 10, child.Data.MapData.Drawing, child.Data.MapData.ForegroundColor, Cells[i, j].Tile.BackgroundColor);
+                        }
+                        else if (obj is Grass)
+                        {
+                            Grass child = (Grass)obj;
                             DrawMapObject(i * 5, j * 10, child.Data.MapData.Drawing, child.Data.MapData.ForegroundColor, Cells[i, j].Tile.BackgroundColor);
                         }
                         else

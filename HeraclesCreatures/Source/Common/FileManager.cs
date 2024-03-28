@@ -25,6 +25,7 @@ namespace HeraclesCreatures
         Dictionary<string, TileData> _tilesData;
         Dictionary<string, DoorData> _doorsData;
         Dictionary<string, ChestData> _chestsData;
+        Dictionary<string, GrassData> _grassesData;
         Dictionary<string, CharacterData> _charactersData;
         Dictionary<string, Scene> _scenes;
 
@@ -45,6 +46,7 @@ namespace HeraclesCreatures
         public Dictionary<string, TileData> TilesData { get => _tilesData; set => _tilesData = value; }
         public Dictionary<string, DoorData> DoorsData { get => _doorsData; set => _doorsData = value; }
         public Dictionary<string, ChestData> ChestsData { get => _chestsData; set => _chestsData = value; }
+        public Dictionary<string, GrassData> GrassesData { get => _grassesData; set => _grassesData = value; }
         public Dictionary<string, CharacterData> CharactersData { get => _charactersData; set => _charactersData = value; }
         public Dictionary<string, Scene> Scenes { get => _scenes; set => _scenes = value; }
 
@@ -82,6 +84,7 @@ namespace HeraclesCreatures
             _chestsData = new();
             _charactersData = new();
             _opponentsData = new();
+            _grassesData = new();
             _scenes = new();
             FillAllDictionnaries();
         }
@@ -570,6 +573,47 @@ namespace HeraclesCreatures
             }
         }
 
+        private void FillGrassDictionnary(List<string[]> grassesLines)
+        {
+            foreach (string[] grassLines in grassesLines)
+            {
+                GrassData grassData = new GrassData();
+                MapObjectData mapData = new MapObjectData();
+                string name = "";
+                for (int i = 0; i < grassLines.Length; i++)
+                {
+
+                    if (grassLines[i] == "Name:")
+                    {
+                        name = grassLines[i + 1];
+                    }
+
+                    else if (grassLines[i] == "Rate:")
+                    {
+                        grassData.EncounterRate = 50;
+                    }
+
+                    else if (grassLines[i] == "Drawing:")
+                    {
+                        mapData.Drawing = GetDrawing(grassLines, i);
+                    }
+
+                    else if (grassLines[i] == "FGColor:")
+                    {
+                        mapData.ForegroundColor = GetColor(grassLines, i);
+                    }
+
+                    else if (grassLines[i] == "BGColor:")
+                    {
+                        mapData.BackgroundColor = GetColor(grassLines, i);
+                    }
+                }
+
+                grassData.MapData = mapData;
+                _grassesData.Add(name, grassData);
+            }
+        }
+
         private void FillCharacterDictionnary(List<string[]> charactersLines)
         {
             foreach (string[] characterLines in charactersLines)
@@ -697,6 +741,7 @@ namespace HeraclesCreatures
                     List<string[]> chestsLines = new List<string[]> { };
                     List<string[]> doorsLines = new List<string[]> { };
                     List<string[]> opponentsLines = new List<string[]> { };
+                    List<string[]> grassesLines = new List<string[]> { };
                     foreach (string[] mapObject in ressourcesLines[key])
                     {
                         switch (mapObject[1])
@@ -713,12 +758,16 @@ namespace HeraclesCreatures
                             case "Opponent":
                                 opponentsLines.Add(mapObject);
                                 break;
+                            case "Grass":
+                                grassesLines.Add(mapObject);
+                                break;
                         }
                     }
                     FillCharacterDictionnary(charactersLines);
                     FillChestDictionnary(chestsLines);
                     FillDoorDictionnary(doorsLines);
                     FillOpponentsDictionnary(opponentsLines);
+                    FillGrassDictionnary(grassesLines);
                 }
             }
         }

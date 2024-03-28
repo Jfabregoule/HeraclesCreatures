@@ -141,8 +141,9 @@ namespace HeraclesCreatures
             _heracles = new Character(4, 11,_currentScene, _fileManager.CharactersData["Heracles"], Hercule);
             _currentScene.AddMapObject(_heracles);
 
-            // Default Door
+            // Default Game Objects
             Door door = new Door();
+            Grass grass = new Grass();
 
            
             // SCENE 0
@@ -171,6 +172,9 @@ namespace HeraclesCreatures
 
             door = new Door(4, 21, _fileManager.DoorsData["Door0-7"]);
             _fileManager.Scenes["Scene0"].AddMapObject(door);
+
+            grass = new Grass(2, 2,new List<Creatures> { }, _fileManager.GrassesData["Grass1"]);
+            _fileManager.Scenes["Scene0"].AddMapObject(grass);
 
 
             // SCENE 1
